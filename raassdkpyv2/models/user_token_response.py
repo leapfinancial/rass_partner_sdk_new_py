@@ -67,8 +67,10 @@ class UserTokenResponse(BaseModel):
 
         _obj = UserTokenResponse.parse_obj({
             "user_id": obj.get("userId"),
+            "userId": obj.get("userId"),
             "status": obj.get("status"),
-            "status_detail": obj.get("statusDetail")
+            "status_detail": obj.get("statusDetail"),
+            "statusDetail": obj.get("statusDetail")
         })
         return _obj
 
