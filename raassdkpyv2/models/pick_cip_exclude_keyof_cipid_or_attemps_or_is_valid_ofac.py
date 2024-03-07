@@ -89,20 +89,31 @@ class PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC(BaseModel):
 
         _obj = PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC.parse_obj({
             "cip_level": obj.get("cipLevel"),
+            "cipLevel": obj.get("cipLevel"),
             "has_personal_info": obj.get("hasPersonalInfo"),
+            "hasPersonalInfo": obj.get("hasPersonalInfo"),
             "has_proof_of_l_ife": obj.get("hasProofOfLIfe"),
+            "hasProofOfLIfe": obj.get("hasProofOfLIfe"),
             "has_scan_ids": obj.get("hasScanIds"),
+            "hasScanIds": obj.get("hasScanIds"),
             "is_perform_level1": obj.get("isPerformLevel1"),
+            "isPerformLevel1": obj.get("isPerformLevel1"),
             "is_perform_level2": obj.get("isPerformLevel2"),
+            "isPerformLevel2": obj.get("isPerformLevel2"),
             "profile_and_ocr_similarity": obj.get("profileAndOCRSimilarity"),
+            "profileAndOCRSimilarity": obj.get("profileAndOCRSimilarity"),
             "errors_process": ErrorsCIPProcess.from_dict(obj.get("errorsProcess")) if obj.get("errorsProcess") is not None else None,
+            "errorsProcess": ErrorsCIPProcess.from_dict(obj.get("errorsProcess")) if obj.get("errorsProcess") is not None else None,
             "level1status": obj.get("level1status"),
             "level1status_detail": obj.get("level1statusDetail"),
             "level2status": obj.get("level2status"),
             "level2status_detail": obj.get("level2statusDetail"),
             "is_document_id_value_validated": obj.get("isDocumentIdValueValidated"),
+            "isDocumentIdValueValidated": obj.get("isDocumentIdValueValidated"),
             "is_alternate_flow": obj.get("isAlternateFlow"),
-            "lola_cip": PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFACLolaCIP.from_dict(obj.get("lolaCIP")) if obj.get("lolaCIP") is not None else None
+            "isAlternateFlow": obj.get("isAlternateFlow"),
+            "lola_cip": PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFACLolaCIP.from_dict(obj.get("lolaCIP")) if obj.get("lolaCIP") is not None else None,
+            "lolaCIP": PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFACLolaCIP.from_dict(obj.get("lolaCIP")) if obj.get("lolaCIP") is not None else None
         })
         return _obj
 
