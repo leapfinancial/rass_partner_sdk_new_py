@@ -79,17 +79,26 @@ class SourceOfFunding(BaseModel):
         _obj = SourceOfFunding.parse_obj({
             "id": obj.get("id"),
             "is_primary": obj.get("isPrimary"),
+            "isPrimary": obj.get("isPrimary"),
             "account_number": obj.get("accountNumber"),
+            "accountNumber": obj.get("accountNumber"),
             "bank_entity_number": obj.get("bankEntityNumber"),
+            "bankEntityNumber": obj.get("bankEntityNumber"),
             "type": obj.get("type"),
             "expiration_date": obj.get("expirationDate"),
+            "expirationDate": obj.get("expirationDate"),
             "expiration_month": obj.get("expirationMonth"),
+            "expirationMonth": obj.get("expirationMonth"),
             "expiration_year": obj.get("expirationYear"),
+            "expirationYear": obj.get("expirationYear"),
             "card_type": obj.get("cardType"),
+            "cardType": obj.get("cardType"),
             "number": obj.get("number"),
             "name": obj.get("name"),
             "token_data": obj.get("tokenData"),
+            "tokenData": obj.get("tokenData"),
             "card_network": obj.get("cardNetwork"),
+            "cardNetwork": obj.get("cardNetwork"),
             "currency": obj.get("currency")
         })
         return _obj
