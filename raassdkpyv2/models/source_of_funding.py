@@ -20,16 +20,19 @@ import json
 
 from typing import Optional
 from pydantic import BaseModel, Field, StrictBool, StrictStr
+from raassdkpyv2.models.available_payment_methods import AvailablePaymentMethods
+from raassdkpyv2.models.payment_method_status import PaymentMethodStatus
 
 class SourceOfFunding(BaseModel):
     """
     simplifies delivered response for sources of funding  # noqa: E501
     """
     id: Optional[StrictStr] = None
+    account_id: Optional[StrictStr] = Field(None, alias="accountId")
     is_primary: Optional[StrictBool] = Field(None, alias="isPrimary", description="Subscriber's main source of funding")
     account_number: StrictStr = Field(..., alias="accountNumber", description="Bank account number")
     bank_entity_number: StrictStr = Field(..., alias="bankEntityNumber")
-    type: StrictStr = Field(..., description="Source of funding type: MobileWallet|BankAccount|DebitCard|CreditCard|CashLoadLocaion|CashPayoutLocation|MTOLoad|None|StorePay\"")
+    type: AvailablePaymentMethods = Field(...)
     expiration_date: StrictStr = Field(..., alias="expirationDate", description="Credit/Debit card expiration date")
     expiration_month: StrictStr = Field(..., alias="expirationMonth", description="Credit/Debit card expiration month")
     expiration_year: StrictStr = Field(..., alias="expirationYear", description="Credit/Debit card expiration year")
@@ -37,13 +40,16 @@ class SourceOfFunding(BaseModel):
     number: StrictStr = Field(..., description="Credit/Debit card number")
     name: Optional[StrictStr] = Field(None, description="Credit/Debit card holder name. Account name.")
     token_data: StrictStr = Field(..., alias="tokenData", description="Tokenized card data.")
+    application: Optional[StrictStr] = None
+    country: Optional[StrictStr] = None
     card_network: Optional[StrictStr] = Field(None, alias="cardNetwork")
     currency: Optional[StrictStr] = None
-    __properties = ["id", "isPrimary", "accountNumber", "bankEntityNumber", "type", "expirationDate", "expirationMonth", "expirationYear", "cardType", "number", "name", "tokenData", "cardNetwork", "currency"]
+    status: Optional[PaymentMethodStatus] = None
+    __properties = ["id", "accountId", "isPrimary", "accountNumber", "bankEntityNumber", "type", "expirationDate", "expirationMonth", "expirationYear", "cardType", "number", "name", "tokenData", "application", "country", "cardNetwork", "currency", "status"]
 
     class Config:
         """Pydantic configuration"""
-        allow_population_by_field_name = False
+        allow_population_by_field_name = True
         validate_assignment = True
 
     def to_str(self) -> str:
@@ -78,6 +84,8 @@ class SourceOfFunding(BaseModel):
 
         _obj = SourceOfFunding.parse_obj({
             "id": obj.get("id"),
+            "account_id": obj.get("accountId"),
+            "accountId": obj.get("accountId"),
             "is_primary": obj.get("isPrimary"),
             "isPrimary": obj.get("isPrimary"),
             "account_number": obj.get("accountNumber"),
@@ -97,9 +105,12 @@ class SourceOfFunding(BaseModel):
             "name": obj.get("name"),
             "token_data": obj.get("tokenData"),
             "tokenData": obj.get("tokenData"),
+            "application": obj.get("application"),
+            "country": obj.get("country"),
             "card_network": obj.get("cardNetwork"),
             "cardNetwork": obj.get("cardNetwork"),
-            "currency": obj.get("currency")
+            "currency": obj.get("currency"),
+            "status": obj.get("status")
         })
         return _obj
 
