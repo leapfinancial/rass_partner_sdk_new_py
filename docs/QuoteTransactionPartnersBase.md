@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.quote_transaction_partners_base import QuoteTransactionPartnersBase
+from raassdkpyv2.models.quote_transaction_partners_base import QuoteTransactionPartnersBase
 
 # TODO update the JSON string below
 json = "{}"

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.register_user_params import RegisterUserParams  # noqa: E501
+from raassdkpyv2.models.register_user_params import RegisterUserParams  # noqa: E501
 
 class TestRegisterUserParams(unittest.TestCase):
     """RegisterUserParams unit test stubs"""

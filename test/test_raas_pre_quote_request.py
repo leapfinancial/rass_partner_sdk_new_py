@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.raas_pre_quote_request import RaasPreQuoteRequest  # noqa: E501
+from raassdkpyv2.models.raas_pre_quote_request import RaasPreQuoteRequest  # noqa: E501
 
 class TestRaasPreQuoteRequest(unittest.TestCase):
     """RaasPreQuoteRequest unit test stubs"""

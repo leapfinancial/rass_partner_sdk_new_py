@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.add_card_partner_params import AddCardPartnerParams
+from raassdkpyv2.models.add_card_partner_params import AddCardPartnerParams
 
 # TODO update the JSON string below
 json = "{}"

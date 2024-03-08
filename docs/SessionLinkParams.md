@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.session_link_params import SessionLinkParams
+from raassdkpyv2.models.session_link_params import SessionLinkParams
 
 # TODO update the JSON string below
 json = "{}"

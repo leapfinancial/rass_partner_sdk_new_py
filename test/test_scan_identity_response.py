@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.scan_identity_response import ScanIdentityResponse  # noqa: E501
+from raassdkpyv2.models.scan_identity_response import ScanIdentityResponse  # noqa: E501
 
 class TestScanIdentityResponse(unittest.TestCase):
     """ScanIdentityResponse unit test stubs"""
@@ -41,7 +41,7 @@ class TestScanIdentityResponse(unittest.TestCase):
                 estimated_time = 1.337,
                 method = '',
                 pull_url = '',
-                data = raassdkpy.models.base_identity.BaseIdentity(
+                data = raassdkpyv2.models.base_identity.BaseIdentity(
                     surname = '', 
                     names = '', 
                     dob = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
@@ -74,7 +74,7 @@ class TestScanIdentityResponse(unittest.TestCase):
                     maiden_name = '', 
                     third_name = '', 
                     subtype = '', ),
-                attachment_responses = raassdkpy.models.attachment_responses.AttachmentResponses(
+                attachment_responses = raassdkpyv2.models.attachment_responses.AttachmentResponses(
                     user_document = null, 
                     selfies = null, 
                     photo_id_file_name = null, )

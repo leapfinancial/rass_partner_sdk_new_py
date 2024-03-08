@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.request_money_response import RequestMoneyResponse  # noqa: E501
+from raassdkpyv2.models.request_money_response import RequestMoneyResponse  # noqa: E501
 
 class TestRequestMoneyResponse(unittest.TestCase):
     """RequestMoneyResponse unit test stubs"""
@@ -36,14 +36,14 @@ class TestRequestMoneyResponse(unittest.TestCase):
         model = RequestMoneyResponse()  # noqa: E501
         if include_optional:
             return RequestMoneyResponse(
-                operation = raassdkpy.models.operation_data.OperationData(
+                operation = raassdkpyv2.models.operation_data.OperationData(
                     id = '', 
                     created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                     status = '', 
                     code = '', 
                     created_by = '', 
                     correlation_id = '', 
-                    sender = raassdkpy.models.operation_contact_data.OperationContactData(
+                    sender = raassdkpyv2.models.operation_contact_data.OperationContactData(
                         id = '', 
                         contact_id = '', 
                         country_code = '', 
@@ -54,7 +54,7 @@ class TestRequestMoneyResponse(unittest.TestCase):
                         last_name2 = '', 
                         email = '', 
                         relationship = '', ), 
-                    recipient = raassdkpy.models.operation_contact_data.OperationContactData(
+                    recipient = raassdkpyv2.models.operation_contact_data.OperationContactData(
                         id = '', 
                         contact_id = '', 
                         country_code = '', 
@@ -79,14 +79,14 @@ class TestRequestMoneyResponse(unittest.TestCase):
             )
         else:
             return RequestMoneyResponse(
-                operation = raassdkpy.models.operation_data.OperationData(
+                operation = raassdkpyv2.models.operation_data.OperationData(
                     id = '', 
                     created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                     status = '', 
                     code = '', 
                     created_by = '', 
                     correlation_id = '', 
-                    sender = raassdkpy.models.operation_contact_data.OperationContactData(
+                    sender = raassdkpyv2.models.operation_contact_data.OperationContactData(
                         id = '', 
                         contact_id = '', 
                         country_code = '', 
@@ -97,7 +97,7 @@ class TestRequestMoneyResponse(unittest.TestCase):
                         last_name2 = '', 
                         email = '', 
                         relationship = '', ), 
-                    recipient = raassdkpy.models.operation_contact_data.OperationContactData(
+                    recipient = raassdkpyv2.models.operation_contact_data.OperationContactData(
                         id = '', 
                         contact_id = '', 
                         country_code = '', 

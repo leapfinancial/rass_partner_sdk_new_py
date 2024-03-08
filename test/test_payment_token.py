@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.payment_token import PaymentToken  # noqa: E501
+from raassdkpyv2.models.payment_token import PaymentToken  # noqa: E501
 
 class TestPaymentToken(unittest.TestCase):
     """PaymentToken unit test stubs"""

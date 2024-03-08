@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.verify_micro_trx_params import VerifyMicroTrxParams
+from raassdkpyv2.models.verify_micro_trx_params import VerifyMicroTrxParams
 
 # TODO update the JSON string below
 json = "{}"

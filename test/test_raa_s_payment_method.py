@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.raa_s_payment_method import RaaSPaymentMethod  # noqa: E501
+from raassdkpyv2.models.raa_s_payment_method import RaaSPaymentMethod  # noqa: E501
 
 class TestRaaSPaymentMethod(unittest.TestCase):
     """RaaSPaymentMethod unit test stubs"""
@@ -36,12 +36,13 @@ class TestRaaSPaymentMethod(unittest.TestCase):
         model = RaaSPaymentMethod()  # noqa: E501
         if include_optional:
             return RaaSPaymentMethod(
-                payment_token = raassdkpy.models.payment_token.PaymentToken(
+                payment_token = raassdkpyv2.models.payment_token.PaymentToken(
                     payment_type = 0, 
                     display_name = '', 
                     transaction_identifier = '', 
                     payment_network = '', 
                     data = '', ),
+                status = 'Created',
                 application = '',
                 account_id = '',
                 longitude = 1.337,

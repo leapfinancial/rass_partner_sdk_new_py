@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.event_system import EventSystem  # noqa: E501
+from raassdkpyv2.models.event_system import EventSystem  # noqa: E501
 
 class TestEventSystem(unittest.TestCase):
     """EventSystem unit test stubs"""

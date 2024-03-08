@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.ignored_operation_reason import IgnoredOperationReason  # noqa: E501
+from raassdkpyv2.models.ignored_operation_reason import IgnoredOperationReason  # noqa: E501
 
 class TestIgnoredOperationReason(unittest.TestCase):
     """IgnoredOperationReason unit test stubs"""

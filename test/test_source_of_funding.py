@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.source_of_funding import SourceOfFunding  # noqa: E501
+from raassdkpyv2.models.source_of_funding import SourceOfFunding  # noqa: E501
 
 class TestSourceOfFunding(unittest.TestCase):
     """SourceOfFunding unit test stubs"""

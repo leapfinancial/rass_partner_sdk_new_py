@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.field_errors_value import FieldErrorsValue
+from raassdkpyv2.models.field_errors_value import FieldErrorsValue
 
 # TODO update the JSON string below
 json = "{}"

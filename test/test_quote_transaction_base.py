@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.quote_transaction_base import QuoteTransactionBase  # noqa: E501
+from raassdkpyv2.models.quote_transaction_base import QuoteTransactionBase  # noqa: E501
 
 class TestQuoteTransactionBase(unittest.TestCase):
     """QuoteTransactionBase unit test stubs"""

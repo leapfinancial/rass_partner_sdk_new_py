@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.add_card_session_params import AddCardSessionParams  # noqa: E501
+from raassdkpyv2.models.add_card_session_params import AddCardSessionParams  # noqa: E501
 
 class TestAddCardSessionParams(unittest.TestCase):
     """AddCardSessionParams unit test stubs"""

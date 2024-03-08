@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.quote_transaction_partners_base import QuoteTransactionPartnersBase  # noqa: E501
+from raassdkpyv2.models.quote_transaction_partners_base import QuoteTransactionPartnersBase  # noqa: E501
 
 class TestQuoteTransactionPartnersBase(unittest.TestCase):
     """QuoteTransactionPartnersBase unit test stubs"""

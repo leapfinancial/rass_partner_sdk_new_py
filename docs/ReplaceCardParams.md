@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.replace_card_params import ReplaceCardParams
+from raassdkpyv2.models.replace_card_params import ReplaceCardParams
 
 # TODO update the JSON string below
 json = "{}"

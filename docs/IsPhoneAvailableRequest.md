@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.is_phone_available_request import IsPhoneAvailableRequest
+from raassdkpyv2.models.is_phone_available_request import IsPhoneAvailableRequest
 
 # TODO update the JSON string below
 json = "{}"

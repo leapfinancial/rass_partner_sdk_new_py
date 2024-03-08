@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.add_bank_account_params_base import AddBankAccountParamsBase  # noqa: E501
+from raassdkpyv2.models.add_bank_account_params_base import AddBankAccountParamsBase  # noqa: E501
 
 class TestAddBankAccountParamsBase(unittest.TestCase):
     """AddBankAccountParamsBase unit test stubs"""

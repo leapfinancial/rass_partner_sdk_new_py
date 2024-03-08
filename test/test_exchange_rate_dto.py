@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.exchange_rate_dto import ExchangeRateDTO  # noqa: E501
+from raassdkpyv2.models.exchange_rate_dto import ExchangeRateDTO  # noqa: E501
 
 class TestExchangeRateDTO(unittest.TestCase):
     """ExchangeRateDTO unit test stubs"""

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.operation_detail_response import OperationDetailResponse  # noqa: E501
+from raassdkpyv2.models.operation_detail_response import OperationDetailResponse  # noqa: E501
 
 class TestOperationDetailResponse(unittest.TestCase):
     """OperationDetailResponse unit test stubs"""
@@ -37,7 +37,7 @@ class TestOperationDetailResponse(unittest.TestCase):
         if include_optional:
             return OperationDetailResponse(
                 tenantfee = 1.337,
-                ignored_data = raassdkpy.models.ignored_operation_data.IgnoredOperationData(
+                ignored_data = raassdkpyv2.models.ignored_operation_data.IgnoredOperationData(
                     description = '', 
                     date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                     notify_support = True, 
@@ -45,7 +45,7 @@ class TestOperationDetailResponse(unittest.TestCase):
                     responsible_user_id = '', ),
                 is_ignored = True,
                 attribution_link = '',
-                to_user = raassdkpy.models.operation_user_detail.OperationUserDetail(
+                to_user = raassdkpyv2.models.operation_user_detail.OperationUserDetail(
                     profile_picture_url = '', 
                     country = '', 
                     image_url = '', 
@@ -53,7 +53,7 @@ class TestOperationDetailResponse(unittest.TestCase):
                     phone_number = '', 
                     last_name = '', 
                     first_name = '', ),
-                from_user = raassdkpy.models.operation_user_detail.OperationUserDetail(
+                from_user = raassdkpyv2.models.operation_user_detail.OperationUserDetail(
                     profile_picture_url = '', 
                     country = '', 
                     image_url = '', 
@@ -66,7 +66,7 @@ class TestOperationDetailResponse(unittest.TestCase):
                 destination_fee = 1.337,
                 transaction_fee = 1.337,
                 source_fee = 1.337,
-                destination_payment_method = raassdkpy.models.payment_method_response.PaymentMethodResponse(
+                destination_payment_method = raassdkpyv2.models.payment_method_response.PaymentMethodResponse(
                     name = '', 
                     type = '', 
                     is_primary = True, 
@@ -75,7 +75,7 @@ class TestOperationDetailResponse(unittest.TestCase):
                     country = '', 
                     number = '', 
                     id = '', ),
-                source_payment_method = raassdkpy.models.payment_method_response.PaymentMethodResponse(
+                source_payment_method = raassdkpyv2.models.payment_method_response.PaymentMethodResponse(
                     name = '', 
                     type = '', 
                     is_primary = True, 
@@ -104,7 +104,7 @@ class TestOperationDetailResponse(unittest.TestCase):
             )
         else:
             return OperationDetailResponse(
-                to_user = raassdkpy.models.operation_user_detail.OperationUserDetail(
+                to_user = raassdkpyv2.models.operation_user_detail.OperationUserDetail(
                     profile_picture_url = '', 
                     country = '', 
                     image_url = '', 
@@ -112,7 +112,7 @@ class TestOperationDetailResponse(unittest.TestCase):
                     phone_number = '', 
                     last_name = '', 
                     first_name = '', ),
-                from_user = raassdkpy.models.operation_user_detail.OperationUserDetail(
+                from_user = raassdkpyv2.models.operation_user_detail.OperationUserDetail(
                     profile_picture_url = '', 
                     country = '', 
                     image_url = '', 

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.verify_micro_trx_params import VerifyMicroTrxParams  # noqa: E501
+from raassdkpyv2.models.verify_micro_trx_params import VerifyMicroTrxParams  # noqa: E501
 
 class TestVerifyMicroTrxParams(unittest.TestCase):
     """VerifyMicroTrxParams unit test stubs"""

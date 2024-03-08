@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.validate_error import ValidateError
+from raassdkpyv2.models.validate_error import ValidateError
 
 # TODO update the JSON string below
 json = "{}"

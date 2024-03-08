@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.request_money_base import RequestMoneyBase  # noqa: E501
+from raassdkpyv2.models.request_money_base import RequestMoneyBase  # noqa: E501
 
 class TestRequestMoneyBase(unittest.TestCase):
     """RequestMoneyBase unit test stubs"""
@@ -37,13 +37,14 @@ class TestRequestMoneyBase(unittest.TestCase):
         if include_optional:
             return RequestMoneyBase(
                 correlation_id = '',
-                destination_payment_method = raassdkpy.models.raa_s_payment_method.RaaSPaymentMethod(
-                    payment_token = raassdkpy.models.payment_token.PaymentToken(
+                destination_payment_method = raassdkpyv2.models.raa_s_payment_method.RaaSPaymentMethod(
+                    payment_token = raassdkpyv2.models.payment_token.PaymentToken(
                         payment_type = 0, 
                         display_name = '', 
                         transaction_identifier = '', 
                         payment_network = '', 
                         data = '', ), 
+                    status = 'Created', 
                     application = '', 
                     account_id = '', 
                     longitude = 1.337, 
@@ -94,13 +95,14 @@ class TestRequestMoneyBase(unittest.TestCase):
         else:
             return RequestMoneyBase(
                 correlation_id = '',
-                destination_payment_method = raassdkpy.models.raa_s_payment_method.RaaSPaymentMethod(
-                    payment_token = raassdkpy.models.payment_token.PaymentToken(
+                destination_payment_method = raassdkpyv2.models.raa_s_payment_method.RaaSPaymentMethod(
+                    payment_token = raassdkpyv2.models.payment_token.PaymentToken(
                         payment_type = 0, 
                         display_name = '', 
                         transaction_identifier = '', 
                         payment_network = '', 
                         data = '', ), 
+                    status = 'Created', 
                     application = '', 
                     account_id = '', 
                     longitude = 1.337, 

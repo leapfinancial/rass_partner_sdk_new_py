@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.set_reference_code_params_base import SetReferenceCodeParamsBase  # noqa: E501
+from raassdkpyv2.models.set_reference_code_params_base import SetReferenceCodeParamsBase  # noqa: E501
 
 class TestSetReferenceCodeParamsBase(unittest.TestCase):
     """SetReferenceCodeParamsBase unit test stubs"""

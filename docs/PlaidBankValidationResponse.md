@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.plaid_bank_validation_response import PlaidBankValidationResponse
+from raassdkpyv2.models.plaid_bank_validation_response import PlaidBankValidationResponse
 
 # TODO update the JSON string below
 json = "{}"

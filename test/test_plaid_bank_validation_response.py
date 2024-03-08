@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.plaid_bank_validation_response import PlaidBankValidationResponse  # noqa: E501
+from raassdkpyv2.models.plaid_bank_validation_response import PlaidBankValidationResponse  # noqa: E501
 
 class TestPlaidBankValidationResponse(unittest.TestCase):
     """PlaidBankValidationResponse unit test stubs"""

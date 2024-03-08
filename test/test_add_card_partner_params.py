@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.add_card_partner_params import AddCardPartnerParams  # noqa: E501
+from raassdkpyv2.models.add_card_partner_params import AddCardPartnerParams  # noqa: E501
 
 class TestAddCardPartnerParams(unittest.TestCase):
     """AddCardPartnerParams unit test stubs"""
@@ -38,24 +38,25 @@ class TestAddCardPartnerParams(unittest.TestCase):
             return AddCardPartnerParams(
                 name = '',
                 cardtype = 'DebitCard',
-                number = '',
+                number = '0',
                 is_primary = True,
                 name_on_card = '',
-                expiration_date = '',
-                security_code = '',
+                expiration_date = '0',
+                security_code = '0',
                 currency = '',
-                country = '',
+                country = '0',
+                operation_id = '',
                 card_network = 'NotApplicable'
             )
         else:
             return AddCardPartnerParams(
                 name = '',
                 cardtype = 'DebitCard',
-                number = '',
+                number = '0',
                 is_primary = True,
                 name_on_card = '',
-                expiration_date = '',
-                country = '',
+                expiration_date = '0',
+                country = '0',
                 card_network = 'NotApplicable',
         )
         """

@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.cip_document import CIPDocument
+from raassdkpyv2.models.cip_document import CIPDocument
 
 # TODO update the JSON string below
 json = "{}"

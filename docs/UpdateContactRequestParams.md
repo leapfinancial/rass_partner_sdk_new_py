@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.update_contact_request_params import UpdateContactRequestParams
+from raassdkpyv2.models.update_contact_request_params import UpdateContactRequestParams
 
 # TODO update the JSON string below
 json = "{}"

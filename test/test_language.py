@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.language import Language  # noqa: E501
+from raassdkpyv2.models.language import Language  # noqa: E501
 
 class TestLanguage(unittest.TestCase):
     """Language unit test stubs"""

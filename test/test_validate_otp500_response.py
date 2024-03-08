@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.validate_otp500_response import ValidateOTP500Response  # noqa: E501
+from raassdkpyv2.models.validate_otp500_response import ValidateOTP500Response  # noqa: E501
 
 class TestValidateOTP500Response(unittest.TestCase):
     """ValidateOTP500Response unit test stubs"""

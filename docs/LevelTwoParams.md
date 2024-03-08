@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.level_two_params import LevelTwoParams
+from raassdkpyv2.models.level_two_params import LevelTwoParams
 
 # TODO update the JSON string below
 json = "{}"

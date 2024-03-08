@@ -44,7 +44,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.raa_s_payment_method import RaaSPaymentMethod
+from raassdkpyv2.models.raa_s_payment_method import RaaSPaymentMethod
 
 # TODO update the JSON string below
 json = "{}"

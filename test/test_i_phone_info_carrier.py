@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.i_phone_info_carrier import IPhoneInfoCarrier  # noqa: E501
+from raassdkpyv2.models.i_phone_info_carrier import IPhoneInfoCarrier  # noqa: E501
 
 class TestIPhoneInfoCarrier(unittest.TestCase):
     """IPhoneInfoCarrier unit test stubs"""

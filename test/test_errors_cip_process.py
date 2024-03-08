@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.errors_cip_process import ErrorsCIPProcess  # noqa: E501
+from raassdkpyv2.models.errors_cip_process import ErrorsCIPProcess  # noqa: E501
 
 class TestErrorsCIPProcess(unittest.TestCase):
     """ErrorsCIPProcess unit test stubs"""

@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.create_contact_request_params_partner import CreateContactRequestParamsPartner
+from raassdkpyv2.models.create_contact_request_params_partner import CreateContactRequestParamsPartner
 
 # TODO update the JSON string below
 json = "{}"

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.receive_money_params import ReceiveMoneyParams  # noqa: E501
+from raassdkpyv2.models.receive_money_params import ReceiveMoneyParams  # noqa: E501
 
 class TestReceiveMoneyParams(unittest.TestCase):
     """ReceiveMoneyParams unit test stubs"""

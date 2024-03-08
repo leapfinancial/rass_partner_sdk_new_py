@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.event_system import EventSystem
+from raassdkpyv2.models.event_system import EventSystem
 
 # TODO update the JSON string below
 json = "{}"

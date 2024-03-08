@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.country_alpha2_code import CountryAlpha2Code  # noqa: E501
+from raassdkpyv2.models.country_alpha2_code import CountryAlpha2Code  # noqa: E501
 
 class TestCountryAlpha2Code(unittest.TestCase):
     """CountryAlpha2Code unit test stubs"""

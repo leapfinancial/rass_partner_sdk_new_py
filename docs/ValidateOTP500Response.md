@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.validate_otp500_response import ValidateOTP500Response
+from raassdkpyv2.models.validate_otp500_response import ValidateOTP500Response
 
 # TODO update the JSON string below
 json = "{}"

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.i_phone_info import IPhoneInfo  # noqa: E501
+from raassdkpyv2.models.i_phone_info import IPhoneInfo  # noqa: E501
 
 class TestIPhoneInfo(unittest.TestCase):
     """IPhoneInfo unit test stubs"""
@@ -40,7 +40,7 @@ class TestIPhoneInfo(unittest.TestCase):
                 caller_name = '',
                 country_code = '',
                 phone_number = '',
-                carrier = raassdkpy.models.i_phone_info_carrier.IPhoneInfo_carrier(
+                carrier = raassdkpyv2.models.i_phone_info_carrier.IPhoneInfo_carrier(
                     type = '', 
                     name = '', )
             )

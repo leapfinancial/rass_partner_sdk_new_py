@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.request_money_params import RequestMoneyParams
+from raassdkpyv2.models.request_money_params import RequestMoneyParams
 
 # TODO update the JSON string below
 json = "{}"

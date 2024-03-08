@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.available_payment_methods import AvailablePaymentMethods  # noqa: E501
+from raassdkpyv2.models.available_payment_methods import AvailablePaymentMethods  # noqa: E501
 
 class TestAvailablePaymentMethods(unittest.TestCase):
     """AvailablePaymentMethods unit test stubs"""

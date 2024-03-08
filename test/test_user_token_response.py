@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.user_token_response import UserTokenResponse  # noqa: E501
+from raassdkpyv2.models.user_token_response import UserTokenResponse  # noqa: E501
 
 class TestUserTokenResponse(unittest.TestCase):
     """UserTokenResponse unit test stubs"""

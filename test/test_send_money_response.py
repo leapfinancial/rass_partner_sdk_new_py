@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.send_money_response import SendMoneyResponse  # noqa: E501
+from raassdkpyv2.models.send_money_response import SendMoneyResponse  # noqa: E501
 
 class TestSendMoneyResponse(unittest.TestCase):
     """SendMoneyResponse unit test stubs"""
@@ -36,6 +36,45 @@ class TestSendMoneyResponse(unittest.TestCase):
         model = SendMoneyResponse()  # noqa: E501
         if include_optional:
             return SendMoneyResponse(
+                operation = raassdkpyv2.models.operation_data.OperationData(
+                    id = '', 
+                    created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    status = '', 
+                    code = '', 
+                    created_by = '', 
+                    correlation_id = '', 
+                    sender = raassdkpyv2.models.operation_contact_data.OperationContactData(
+                        id = '', 
+                        contact_id = '', 
+                        country_code = '', 
+                        mobile_phone = '', 
+                        first_name = '', 
+                        middle_name = '', 
+                        last_name = '', 
+                        last_name2 = '', 
+                        email = '', 
+                        relationship = '', ), 
+                    recipient = raassdkpyv2.models.operation_contact_data.OperationContactData(
+                        id = '', 
+                        contact_id = '', 
+                        country_code = '', 
+                        mobile_phone = '', 
+                        first_name = '', 
+                        middle_name = '', 
+                        last_name = '', 
+                        last_name2 = '', 
+                        email = '', 
+                        relationship = '', ), 
+                    source_payment_method = null, 
+                    destination_payment_method = null, 
+                    amount = 1.337, 
+                    currency = '', 
+                    sender_amount = 1.337, 
+                    sender_currency = '', 
+                    recipient_amount = 1.337, 
+                    recipient_currency = '', 
+                    exchange_rate = 1.337, 
+                    fee_payer = '', ),
                 id = '',
                 link = ''
             )

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.plaid_url_response_payload import PlaidURLResponsePayload  # noqa: E501
+from raassdkpyv2.models.plaid_url_response_payload import PlaidURLResponsePayload  # noqa: E501
 
 class TestPlaidURLResponsePayload(unittest.TestCase):
     """PlaidURLResponsePayload unit test stubs"""

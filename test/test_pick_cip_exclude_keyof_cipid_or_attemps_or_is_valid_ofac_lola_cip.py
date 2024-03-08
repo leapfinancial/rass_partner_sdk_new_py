@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.pick_cip_exclude_keyof_cipid_or_attemps_or_is_valid_ofac_lola_cip import PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFACLolaCIP  # noqa: E501
+from raassdkpyv2.models.pick_cip_exclude_keyof_cipid_or_attemps_or_is_valid_ofac_lola_cip import PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFACLolaCIP  # noqa: E501
 
 class TestPickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFACLolaCIP(unittest.TestCase):
     """PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFACLolaCIP unit test stubs"""

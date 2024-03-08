@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.cash_operators_params_base import CashOperatorsParamsBase  # noqa: E501
+from raassdkpyv2.models.cash_operators_params_base import CashOperatorsParamsBase  # noqa: E501
 
 class TestCashOperatorsParamsBase(unittest.TestCase):
     """CashOperatorsParamsBase unit test stubs"""

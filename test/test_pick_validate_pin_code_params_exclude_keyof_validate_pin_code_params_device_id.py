@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.pick_validate_pin_code_params_exclude_keyof_validate_pin_code_params_device_id import PickValidatePINCodeParamsExcludeKeyofValidatePINCodeParamsDeviceId  # noqa: E501
+from raassdkpyv2.models.pick_validate_pin_code_params_exclude_keyof_validate_pin_code_params_device_id import PickValidatePINCodeParamsExcludeKeyofValidatePINCodeParamsDeviceId  # noqa: E501
 
 class TestPickValidatePINCodeParamsExcludeKeyofValidatePINCodeParamsDeviceId(unittest.TestCase):
     """PickValidatePINCodeParamsExcludeKeyofValidatePINCodeParamsDeviceId unit test stubs"""

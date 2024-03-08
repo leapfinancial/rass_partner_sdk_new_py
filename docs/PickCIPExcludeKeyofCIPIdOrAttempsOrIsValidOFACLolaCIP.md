@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.pick_cip_exclude_keyof_cipid_or_attemps_or_is_valid_ofac_lola_cip import PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFACLolaCIP
+from raassdkpyv2.models.pick_cip_exclude_keyof_cipid_or_attemps_or_is_valid_ofac_lola_cip import PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFACLolaCIP
 
 # TODO update the JSON string below
 json = "{}"

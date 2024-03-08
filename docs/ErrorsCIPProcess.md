@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.errors_cip_process import ErrorsCIPProcess
+from raassdkpyv2.models.errors_cip_process import ErrorsCIPProcess
 
 # TODO update the JSON string below
 json = "{}"

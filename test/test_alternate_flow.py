@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.alternate_flow import AlternateFlow  # noqa: E501
+from raassdkpyv2.models.alternate_flow import AlternateFlow  # noqa: E501
 
 class TestAlternateFlow(unittest.TestCase):
     """AlternateFlow unit test stubs"""

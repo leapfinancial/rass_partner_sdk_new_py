@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.set_pincode_params import SetPincodeParams
+from raassdkpyv2.models.set_pincode_params import SetPincodeParams
 
 # TODO update the JSON string below
 json = "{}"

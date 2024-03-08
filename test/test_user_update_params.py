@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.user_update_params import UserUpdateParams  # noqa: E501
+from raassdkpyv2.models.user_update_params import UserUpdateParams  # noqa: E501
 
 class TestUserUpdateParams(unittest.TestCase):
     """UserUpdateParams unit test stubs"""

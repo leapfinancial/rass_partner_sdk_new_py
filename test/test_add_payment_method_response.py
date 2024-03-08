@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.add_payment_method_response import AddPaymentMethodResponse  # noqa: E501
+from raassdkpyv2.models.add_payment_method_response import AddPaymentMethodResponse  # noqa: E501
 
 class TestAddPaymentMethodResponse(unittest.TestCase):
     """AddPaymentMethodResponse unit test stubs"""
@@ -36,11 +36,14 @@ class TestAddPaymentMethodResponse(unittest.TestCase):
         model = AddPaymentMethodResponse()  # noqa: E501
         if include_optional:
             return AddPaymentMethodResponse(
-                id = ''
+                id = '',
+                status = 'Created',
+                error_validation = ''
             )
         else:
             return AddPaymentMethodResponse(
                 id = '',
+                status = 'Created',
         )
         """
 

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.is_phone_available_request import IsPhoneAvailableRequest  # noqa: E501
+from raassdkpyv2.models.is_phone_available_request import IsPhoneAvailableRequest  # noqa: E501
 
 class TestIsPhoneAvailableRequest(unittest.TestCase):
     """IsPhoneAvailableRequest unit test stubs"""

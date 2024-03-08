@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.request_otp_params import RequestOTPParams
+from raassdkpyv2.models.request_otp_params import RequestOTPParams
 
 # TODO update the JSON string below
 json = "{}"

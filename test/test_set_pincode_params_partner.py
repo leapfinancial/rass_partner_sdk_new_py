@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.set_pincode_params_partner import SetPincodeParamsPartner  # noqa: E501
+from raassdkpyv2.models.set_pincode_params_partner import SetPincodeParamsPartner  # noqa: E501
 
 class TestSetPincodeParamsPartner(unittest.TestCase):
     """SetPincodeParamsPartner unit test stubs"""

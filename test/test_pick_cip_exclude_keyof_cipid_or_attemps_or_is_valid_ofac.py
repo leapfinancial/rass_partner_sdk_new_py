@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.pick_cip_exclude_keyof_cipid_or_attemps_or_is_valid_ofac import PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC  # noqa: E501
+from raassdkpyv2.models.pick_cip_exclude_keyof_cipid_or_attemps_or_is_valid_ofac import PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC  # noqa: E501
 
 class TestPickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC(unittest.TestCase):
     """PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC unit test stubs"""
@@ -43,7 +43,7 @@ class TestPickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC(unittest.TestCase):
                 is_perform_level1 = True,
                 is_perform_level2 = True,
                 profile_and_ocr_similarity = 1.337,
-                errors_process = raassdkpy.models.errors_cip_process.ErrorsCIPProcess(
+                errors_process = raassdkpyv2.models.errors_cip_process.ErrorsCIPProcess(
                     error_id_scan_date_expired = '', 
                     error_ofac_not_valid = '', 
                     error_face_match_not_valid = '', 
@@ -55,7 +55,7 @@ class TestPickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC(unittest.TestCase):
                 level2status_detail = 'None',
                 is_document_id_value_validated = True,
                 is_alternate_flow = True,
-                lola_cip = raassdkpy.models.pick_cip_exclude_keyof_cip_id_or_attemps_or_is_valid_ofac___lola_cip.Pick_CIP_Exclude_keyofCIP_id_or_attemps_or_isValidOFAC___lolaCIP(
+                lola_cip = raassdkpyv2.models.pick_cip_exclude_keyof_cip_id_or_attemps_or_is_valid_ofac___lola_cip.Pick_CIP_Exclude_keyofCIP_id_or_attemps_or_isValidOFAC___lolaCIP(
                     update_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                     in_progress = True, )
             )
@@ -67,7 +67,7 @@ class TestPickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC(unittest.TestCase):
                 has_scan_ids = True,
                 is_perform_level1 = True,
                 is_perform_level2 = True,
-                errors_process = raassdkpy.models.errors_cip_process.ErrorsCIPProcess(
+                errors_process = raassdkpyv2.models.errors_cip_process.ErrorsCIPProcess(
                     error_id_scan_date_expired = '', 
                     error_ofac_not_valid = '', 
                     error_face_match_not_valid = '', 

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.get_user_token_params import GetUserTokenParams  # noqa: E501
+from raassdkpyv2.models.get_user_token_params import GetUserTokenParams  # noqa: E501
 
 class TestGetUserTokenParams(unittest.TestCase):
     """GetUserTokenParams unit test stubs"""

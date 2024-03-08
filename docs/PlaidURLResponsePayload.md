@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.plaid_url_response_payload import PlaidURLResponsePayload
+from raassdkpyv2.models.plaid_url_response_payload import PlaidURLResponsePayload
 
 # TODO update the JSON string below
 json = "{}"

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.cip import CIP  # noqa: E501
+from raassdkpyv2.models.cip import CIP  # noqa: E501
 
 class TestCIP(unittest.TestCase):
     """CIP unit test stubs"""
@@ -42,11 +42,11 @@ class TestCIP(unittest.TestCase):
                 manual_required = True,
                 message = '',
                 documents = [
-                    raassdkpy.models.cip_document.CIPDocument(
+                    raassdkpyv2.models.cip_document.CIPDocument(
                         type = '', 
                         sides = 1.337, 
                         has_mrz = True, 
-                        data = raassdkpy.models.cip_data.CIPData(
+                        data = raassdkpyv2.models.cip_data.CIPData(
                             address = '', 
                             city = '', 
                             country = '', 

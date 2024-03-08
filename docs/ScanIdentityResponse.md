@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.scan_identity_response import ScanIdentityResponse
+from raassdkpyv2.models.scan_identity_response import ScanIdentityResponse
 
 # TODO update the JSON string below
 json = "{}"

@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.get_reference_code_response import GetReferenceCodeResponse
+from raassdkpyv2.models.get_reference_code_response import GetReferenceCodeResponse
 
 # TODO update the JSON string below
 json = "{}"

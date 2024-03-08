@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.i_phone_info import IPhoneInfo
+from raassdkpyv2.models.i_phone_info import IPhoneInfo
 
 # TODO update the JSON string below
 json = "{}"

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.operation_data import OperationData  # noqa: E501
+from raassdkpyv2.models.operation_data import OperationData  # noqa: E501
 
 class TestOperationData(unittest.TestCase):
     """OperationData unit test stubs"""
@@ -42,7 +42,7 @@ class TestOperationData(unittest.TestCase):
                 code = '',
                 created_by = '',
                 correlation_id = '',
-                sender = raassdkpy.models.operation_contact_data.OperationContactData(
+                sender = raassdkpyv2.models.operation_contact_data.OperationContactData(
                     id = '', 
                     contact_id = '', 
                     country_code = '', 
@@ -53,7 +53,7 @@ class TestOperationData(unittest.TestCase):
                     last_name2 = '', 
                     email = '', 
                     relationship = '', ),
-                recipient = raassdkpy.models.operation_contact_data.OperationContactData(
+                recipient = raassdkpyv2.models.operation_contact_data.OperationContactData(
                     id = '', 
                     contact_id = '', 
                     country_code = '', 
@@ -82,7 +82,7 @@ class TestOperationData(unittest.TestCase):
                 code = '',
                 created_by = '',
                 correlation_id = '',
-                sender = raassdkpy.models.operation_contact_data.OperationContactData(
+                sender = raassdkpyv2.models.operation_contact_data.OperationContactData(
                     id = '', 
                     contact_id = '', 
                     country_code = '', 
@@ -93,7 +93,7 @@ class TestOperationData(unittest.TestCase):
                     last_name2 = '', 
                     email = '', 
                     relationship = '', ),
-                recipient = raassdkpy.models.operation_contact_data.OperationContactData(
+                recipient = raassdkpyv2.models.operation_contact_data.OperationContactData(
                     id = '', 
                     contact_id = '', 
                     country_code = '', 

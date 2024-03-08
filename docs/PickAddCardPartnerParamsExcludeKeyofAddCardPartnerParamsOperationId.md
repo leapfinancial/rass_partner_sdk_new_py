@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.pick_add_card_partner_params_exclude_keyof_add_card_partner_params_operation_id import PickAddCardPartnerParamsExcludeKeyofAddCardPartnerParamsOperationId
+from raassdkpyv2.models.pick_add_card_partner_params_exclude_keyof_add_card_partner_params_operation_id import PickAddCardPartnerParamsExcludeKeyofAddCardPartnerParamsOperationId
 
 # TODO update the JSON string below
 json = "{}"

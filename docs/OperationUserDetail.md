@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.operation_user_detail import OperationUserDetail
+from raassdkpyv2.models.operation_user_detail import OperationUserDetail
 
 # TODO update the JSON string below
 json = "{}"

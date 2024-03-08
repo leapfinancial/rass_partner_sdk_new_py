@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.i_phone_info_carrier import IPhoneInfoCarrier
+from raassdkpyv2.models.i_phone_info_carrier import IPhoneInfoCarrier
 
 # TODO update the JSON string below
 json = "{}"

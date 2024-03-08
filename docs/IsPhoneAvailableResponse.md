@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.is_phone_available_response import IsPhoneAvailableResponse
+from raassdkpyv2.models.is_phone_available_response import IsPhoneAvailableResponse
 
 # TODO update the JSON string below
 json = "{}"

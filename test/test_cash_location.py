@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.cash_location import CashLocation  # noqa: E501
+from raassdkpyv2.models.cash_location import CashLocation  # noqa: E501
 
 class TestCashLocation(unittest.TestCase):
     """CashLocation unit test stubs"""

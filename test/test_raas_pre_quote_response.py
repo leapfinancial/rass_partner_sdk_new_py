@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.raas_pre_quote_response import RaasPreQuoteResponse  # noqa: E501
+from raassdkpyv2.models.raas_pre_quote_response import RaasPreQuoteResponse  # noqa: E501
 
 class TestRaasPreQuoteResponse(unittest.TestCase):
     """RaasPreQuoteResponse unit test stubs"""
@@ -37,7 +37,7 @@ class TestRaasPreQuoteResponse(unittest.TestCase):
         if include_optional:
             return RaasPreQuoteResponse(
                 quotes = [
-                    raassdkpy.models.raas_pre_quote_values.RaasPreQuoteValues(
+                    raassdkpyv2.models.raas_pre_quote_values.RaasPreQuoteValues(
                         exchange_rate = 1.337, 
                         source_fee = 1.337, 
                         transaction_fee = 1.337, 
@@ -49,7 +49,7 @@ class TestRaasPreQuoteResponse(unittest.TestCase):
         else:
             return RaasPreQuoteResponse(
                 quotes = [
-                    raassdkpy.models.raas_pre_quote_values.RaasPreQuoteValues(
+                    raassdkpyv2.models.raas_pre_quote_values.RaasPreQuoteValues(
                         exchange_rate = 1.337, 
                         source_fee = 1.337, 
                         transaction_fee = 1.337, 

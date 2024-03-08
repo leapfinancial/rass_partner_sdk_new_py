@@ -30,7 +30,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.send_money_base import SendMoneyBase
+from raassdkpyv2.models.send_money_base import SendMoneyBase
 
 # TODO update the JSON string below
 json = "{}"

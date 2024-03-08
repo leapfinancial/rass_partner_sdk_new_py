@@ -31,7 +31,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.perform_resubmit_upgrade_level_params import PerformResubmitUpgradeLevelParams
+from raassdkpyv2.models.perform_resubmit_upgrade_level_params import PerformResubmitUpgradeLevelParams
 
 # TODO update the JSON string below
 json = "{}"

@@ -40,7 +40,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.base_identity import BaseIdentity
+from raassdkpyv2.models.base_identity import BaseIdentity
 
 # TODO update the JSON string below
 json = "{}"

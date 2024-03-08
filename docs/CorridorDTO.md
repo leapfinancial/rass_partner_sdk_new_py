@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.corridor_dto import CorridorDTO
+from raassdkpyv2.models.corridor_dto import CorridorDTO
 
 # TODO update the JSON string below
 json = "{}"

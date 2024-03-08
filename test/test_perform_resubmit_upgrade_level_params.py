@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.perform_resubmit_upgrade_level_params import PerformResubmitUpgradeLevelParams  # noqa: E501
+from raassdkpyv2.models.perform_resubmit_upgrade_level_params import PerformResubmitUpgradeLevelParams  # noqa: E501
 
 class TestPerformResubmitUpgradeLevelParams(unittest.TestCase):
     """PerformResubmitUpgradeLevelParams unit test stubs"""
@@ -55,9 +55,9 @@ class TestPerformResubmitUpgradeLevelParams(unittest.TestCase):
                 birth_state = '',
                 gender = '',
                 documents = [
-                    raassdkpy.models.user_document.UserDocument(
+                    raassdkpyv2.models.user_document.UserDocument(
                         id = '', 
-                        type = raassdkpy.models.type.type(), 
+                        type = raassdkpyv2.models.type.type(), 
                         sub_type = 1.337, 
                         number = '', 
                         expiration_date = '', 

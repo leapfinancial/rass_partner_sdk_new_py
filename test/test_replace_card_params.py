@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.replace_card_params import ReplaceCardParams  # noqa: E501
+from raassdkpyv2.models.replace_card_params import ReplaceCardParams  # noqa: E501
 
 class TestReplaceCardParams(unittest.TestCase):
     """ReplaceCardParams unit test stubs"""

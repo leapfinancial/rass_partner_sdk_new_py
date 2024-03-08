@@ -30,7 +30,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.cip_data import CIPData
+from raassdkpyv2.models.cip_data import CIPData
 
 # TODO update the JSON string below
 json = "{}"

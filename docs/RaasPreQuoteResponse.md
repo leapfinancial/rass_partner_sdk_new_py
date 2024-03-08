@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.raas_pre_quote_response import RaasPreQuoteResponse
+from raassdkpyv2.models.raas_pre_quote_response import RaasPreQuoteResponse
 
 # TODO update the JSON string below
 json = "{}"

@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.raas_pre_quote_values import RaasPreQuoteValues
+from raassdkpyv2.models.raas_pre_quote_values import RaasPreQuoteValues
 
 # TODO update the JSON string below
 json = "{}"

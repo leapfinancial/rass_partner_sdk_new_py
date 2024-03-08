@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.cash_operators_params_base import CashOperatorsParamsBase
+from raassdkpyv2.models.cash_operators_params_base import CashOperatorsParamsBase
 
 # TODO update the JSON string below
 json = "{}"

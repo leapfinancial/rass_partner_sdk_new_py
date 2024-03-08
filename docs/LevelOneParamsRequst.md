@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.level_one_params_requst import LevelOneParamsRequst
+from raassdkpyv2.models.level_one_params_requst import LevelOneParamsRequst
 
 # TODO update the JSON string below
 json = "{}"

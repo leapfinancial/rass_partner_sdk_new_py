@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.pick_validate_otp_params_exclude_keyof_validate_otp_params_device_id import PickValidateOTPParamsExcludeKeyofValidateOTPParamsDeviceId  # noqa: E501
+from raassdkpyv2.models.pick_validate_otp_params_exclude_keyof_validate_otp_params_device_id import PickValidateOTPParamsExcludeKeyofValidateOTPParamsDeviceId  # noqa: E501
 
 class TestPickValidateOTPParamsExcludeKeyofValidateOTPParamsDeviceId(unittest.TestCase):
     """PickValidateOTPParamsExcludeKeyofValidateOTPParamsDeviceId unit test stubs"""

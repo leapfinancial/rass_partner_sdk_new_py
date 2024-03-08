@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.user import User  # noqa: E501
+from raassdkpyv2.models.user import User  # noqa: E501
 
 class TestUser(unittest.TestCase):
     """User unit test stubs"""
@@ -53,18 +53,18 @@ class TestUser(unittest.TestCase):
                 status = 'new',
                 phone_number = '',
                 phone_verified = True,
-                cip = raassdkpy.models.cip.CIP(
+                cip = raassdkpyv2.models.cip.CIP(
                     sent = True, 
                     touched = True, 
                     rejected = True, 
                     manual_required = True, 
                     message = '', 
                     documents = [
-                        raassdkpy.models.cip_document.CIPDocument(
+                        raassdkpyv2.models.cip_document.CIPDocument(
                             type = '', 
                             sides = 1.337, 
                             has_mrz = True, 
-                            data = raassdkpy.models.cip_data.CIPData(
+                            data = raassdkpyv2.models.cip_data.CIPData(
                                 address = '', 
                                 city = '', 
                                 country = '', 
@@ -103,12 +103,12 @@ class TestUser(unittest.TestCase):
                 pincode = '',
                 has_pincode = True,
                 password = '',
-                phone_info = raassdkpy.models.i_phone_info.IPhoneInfo(
+                phone_info = raassdkpyv2.models.i_phone_info.IPhoneInfo(
                     is_valid = True, 
                     caller_name = '', 
                     country_code = '', 
                     phone_number = '', 
-                    carrier = raassdkpy.models.i_phone_info_carrier.IPhoneInfo_carrier(
+                    carrier = raassdkpyv2.models.i_phone_info_carrier.IPhoneInfo_carrier(
                         type = '', 
                         name = '', ), ),
                 tenant_id = '',

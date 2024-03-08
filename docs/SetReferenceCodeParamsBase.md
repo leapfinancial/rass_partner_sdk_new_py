@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.set_reference_code_params_base import SetReferenceCodeParamsBase
+from raassdkpyv2.models.set_reference_code_params_base import SetReferenceCodeParamsBase
 
 # TODO update the JSON string below
 json = "{}"

@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.ignored_operation_data import IgnoredOperationData
+from raassdkpyv2.models.ignored_operation_data import IgnoredOperationData
 
 # TODO update the JSON string below
 json = "{}"

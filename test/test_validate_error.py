@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.validate_error import ValidateError  # noqa: E501
+from raassdkpyv2.models.validate_error import ValidateError  # noqa: E501
 
 class TestValidateError(unittest.TestCase):
     """ValidateError unit test stubs"""
@@ -41,7 +41,7 @@ class TestValidateError(unittest.TestCase):
                 stack = '',
                 status = 1.337,
                 fields = {
-                    'key' : raassdkpy.models.field_errors_value.FieldErrors_value(
+                    'key' : raassdkpyv2.models.field_errors_value.FieldErrors_value(
                         value = null, 
                         message = '', )
                     }
@@ -52,7 +52,7 @@ class TestValidateError(unittest.TestCase):
                 message = '',
                 status = 1.337,
                 fields = {
-                    'key' : raassdkpy.models.field_errors_value.FieldErrors_value(
+                    'key' : raassdkpyv2.models.field_errors_value.FieldErrors_value(
                         value = null, 
                         message = '', )
                     },

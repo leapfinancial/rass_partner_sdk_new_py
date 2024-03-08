@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.add_card_session_params import AddCardSessionParams
+from raassdkpyv2.models.add_card_session_params import AddCardSessionParams
 
 # TODO update the JSON string below
 json = "{}"

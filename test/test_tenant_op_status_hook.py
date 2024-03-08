@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.tenant_op_status_hook import TenantOpStatusHook  # noqa: E501
+from raassdkpyv2.models.tenant_op_status_hook import TenantOpStatusHook  # noqa: E501
 
 class TestTenantOpStatusHook(unittest.TestCase):
     """TenantOpStatusHook unit test stubs"""

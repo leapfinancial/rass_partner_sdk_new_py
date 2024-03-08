@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.session_link_params import SessionLinkParams  # noqa: E501
+from raassdkpyv2.models.session_link_params import SessionLinkParams  # noqa: E501
 
 class TestSessionLinkParams(unittest.TestCase):
     """SessionLinkParams unit test stubs"""
@@ -51,7 +51,7 @@ class TestSessionLinkParams(unittest.TestCase):
                 zip_code = '',
                 state = '',
                 birth_state = '',
-                add_card_params = raassdkpy.models.add_card_session_params.AddCardSessionParams(
+                add_card_params = raassdkpyv2.models.add_card_session_params.AddCardSessionParams(
                     name = '', 
                     cardtype = 'DebitCard', 
                     number = '', 

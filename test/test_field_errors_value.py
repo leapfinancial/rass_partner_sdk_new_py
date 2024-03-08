@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.field_errors_value import FieldErrorsValue  # noqa: E501
+from raassdkpyv2.models.field_errors_value import FieldErrorsValue  # noqa: E501
 
 class TestFieldErrorsValue(unittest.TestCase):
     """FieldErrorsValue unit test stubs"""

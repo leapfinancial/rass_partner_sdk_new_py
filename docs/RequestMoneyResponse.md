@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.request_money_response import RequestMoneyResponse
+from raassdkpyv2.models.request_money_response import RequestMoneyResponse
 
 # TODO update the JSON string below
 json = "{}"

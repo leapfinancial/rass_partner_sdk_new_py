@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.update_contact_request_params import UpdateContactRequestParams  # noqa: E501
+from raassdkpyv2.models.update_contact_request_params import UpdateContactRequestParams  # noqa: E501
 
 class TestUpdateContactRequestParams(unittest.TestCase):
     """UpdateContactRequestParams unit test stubs"""

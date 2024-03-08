@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.raa_s_partner_payment_method import RaaSPartnerPaymentMethod  # noqa: E501
+from raassdkpyv2.models.raa_s_partner_payment_method import RaaSPartnerPaymentMethod  # noqa: E501
 
 class TestRaaSPartnerPaymentMethod(unittest.TestCase):
     """RaaSPartnerPaymentMethod unit test stubs"""

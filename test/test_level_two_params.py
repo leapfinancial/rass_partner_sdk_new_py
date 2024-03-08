@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.level_two_params import LevelTwoParams  # noqa: E501
+from raassdkpyv2.models.level_two_params import LevelTwoParams  # noqa: E501
 
 class TestLevelTwoParams(unittest.TestCase):
     """LevelTwoParams unit test stubs"""

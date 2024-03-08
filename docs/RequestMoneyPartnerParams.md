@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.request_money_partner_params import RequestMoneyPartnerParams
+from raassdkpyv2.models.request_money_partner_params import RequestMoneyPartnerParams
 
 # TODO update the JSON string below
 json = "{}"

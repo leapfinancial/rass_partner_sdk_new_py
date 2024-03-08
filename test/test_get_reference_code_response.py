@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.get_reference_code_response import GetReferenceCodeResponse  # noqa: E501
+from raassdkpyv2.models.get_reference_code_response import GetReferenceCodeResponse  # noqa: E501
 
 class TestGetReferenceCodeResponse(unittest.TestCase):
     """GetReferenceCodeResponse unit test stubs"""

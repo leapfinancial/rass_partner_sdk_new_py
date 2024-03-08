@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.set_pincode_params import SetPincodeParams  # noqa: E501
+from raassdkpyv2.models.set_pincode_params import SetPincodeParams  # noqa: E501
 
 class TestSetPincodeParams(unittest.TestCase):
     """SetPincodeParams unit test stubs"""

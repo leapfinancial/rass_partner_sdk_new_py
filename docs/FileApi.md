@@ -1,4 +1,4 @@
-# raassdkpy.FileApi
+# raassdkpyv2.FileApi
 
 All URIs are relative to */v1*
 
@@ -19,14 +19,14 @@ Method | HTTP request | Description
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.scan_identity_response import ScanIdentityResponse
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.scan_identity_response import ScanIdentityResponse
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -42,9 +42,9 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.FileApi(api_client)
+    api_instance = raassdkpyv2.FileApi(api_client)
     phone_number = 'phone_number_example' # str | 
 
     try:
@@ -96,13 +96,13 @@ Name | Type | Description  | Notes
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -118,9 +118,9 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.FileApi(api_client)
+    api_instance = raassdkpyv2.FileApi(api_client)
     phone_number = 'phone_number_example' # str | 
 
     try:

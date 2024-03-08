@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.cash_operators import CashOperators  # noqa: E501
+from raassdkpyv2.models.cash_operators import CashOperators  # noqa: E501
 
 class TestCashOperators(unittest.TestCase):
     """CashOperators unit test stubs"""
@@ -39,17 +39,17 @@ class TestCashOperators(unittest.TestCase):
                 id = '',
                 external_id = '',
                 network = [
-                    raassdkpy.models.cash_network.CashNetwork(
+                    raassdkpyv2.models.cash_network.CashNetwork(
                         id = '', 
                         name = '', 
-                        cash_provider = raassdkpy.models.cash_provider.cashProvider(), 
+                        cash_provider = raassdkpyv2.models.cash_provider.cashProvider(), 
                         image_url = '', )
                     ],
                 country = '',
                 name = '',
                 image_url = '',
                 location = [
-                    raassdkpy.models.cash_location.CashLocation(
+                    raassdkpyv2.models.cash_location.CashLocation(
                         id = '', 
                         enable = '', 
                         cash_operator_id = '', 
@@ -71,17 +71,17 @@ class TestCashOperators(unittest.TestCase):
                 id = '',
                 external_id = '',
                 network = [
-                    raassdkpy.models.cash_network.CashNetwork(
+                    raassdkpyv2.models.cash_network.CashNetwork(
                         id = '', 
                         name = '', 
-                        cash_provider = raassdkpy.models.cash_provider.cashProvider(), 
+                        cash_provider = raassdkpyv2.models.cash_provider.cashProvider(), 
                         image_url = '', )
                     ],
                 country = '',
                 name = '',
                 image_url = '',
                 location = [
-                    raassdkpy.models.cash_location.CashLocation(
+                    raassdkpyv2.models.cash_location.CashLocation(
                         id = '', 
                         enable = '', 
                         cash_operator_id = '', 

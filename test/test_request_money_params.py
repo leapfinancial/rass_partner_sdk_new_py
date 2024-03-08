@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.request_money_params import RequestMoneyParams  # noqa: E501
+from raassdkpyv2.models.request_money_params import RequestMoneyParams  # noqa: E501
 
 class TestRequestMoneyParams(unittest.TestCase):
     """RequestMoneyParams unit test stubs"""
@@ -37,13 +37,14 @@ class TestRequestMoneyParams(unittest.TestCase):
         if include_optional:
             return RequestMoneyParams(
                 correlation_id = '',
-                destination_payment_method = raassdkpy.models.raa_s_payment_method.RaaSPaymentMethod(
-                    payment_token = raassdkpy.models.payment_token.PaymentToken(
+                destination_payment_method = raassdkpyv2.models.raa_s_payment_method.RaaSPaymentMethod(
+                    payment_token = raassdkpyv2.models.payment_token.PaymentToken(
                         payment_type = 0, 
                         display_name = '', 
                         transaction_identifier = '', 
                         payment_network = '', 
                         data = '', ), 
+                    status = 'Created', 
                     application = '', 
                     account_id = '', 
                     longitude = 1.337, 
@@ -95,13 +96,14 @@ class TestRequestMoneyParams(unittest.TestCase):
         else:
             return RequestMoneyParams(
                 correlation_id = '',
-                destination_payment_method = raassdkpy.models.raa_s_payment_method.RaaSPaymentMethod(
-                    payment_token = raassdkpy.models.payment_token.PaymentToken(
+                destination_payment_method = raassdkpyv2.models.raa_s_payment_method.RaaSPaymentMethod(
+                    payment_token = raassdkpyv2.models.payment_token.PaymentToken(
                         payment_type = 0, 
                         display_name = '', 
                         transaction_identifier = '', 
                         payment_network = '', 
                         data = '', ), 
+                    status = 'Created', 
                     application = '', 
                     account_id = '', 
                     longitude = 1.337, 

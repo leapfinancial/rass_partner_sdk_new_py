@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.request_otp_params import RequestOTPParams  # noqa: E501
+from raassdkpyv2.models.request_otp_params import RequestOTPParams  # noqa: E501
 
 class TestRequestOTPParams(unittest.TestCase):
     """RequestOTPParams unit test stubs"""

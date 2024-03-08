@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.raas_quote_transaction_response import RaasQuoteTransactionResponse  # noqa: E501
+from raassdkpyv2.models.raas_quote_transaction_response import RaasQuoteTransactionResponse  # noqa: E501
 
 class TestRaasQuoteTransactionResponse(unittest.TestCase):
     """RaasQuoteTransactionResponse unit test stubs"""
@@ -53,7 +53,8 @@ class TestRaasQuoteTransactionResponse(unittest.TestCase):
                 recipient_charge_back = 1.337,
                 is_executable = True,
                 valid_time_in_minutes = 1.337,
-                tenant_fee = 1.337
+                tenant_fee = 1.337,
+                sender_user_id = ''
             )
         else:
             return RaasQuoteTransactionResponse(

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.request_otp404_response import RequestOtp404Response  # noqa: E501
+from raassdkpyv2.models.request_otp404_response import RequestOtp404Response  # noqa: E501
 
 class TestRequestOtp404Response(unittest.TestCase):
     """RequestOtp404Response unit test stubs"""

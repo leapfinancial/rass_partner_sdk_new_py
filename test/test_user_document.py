@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.user_document import UserDocument  # noqa: E501
+from raassdkpyv2.models.user_document import UserDocument  # noqa: E501
 
 class TestUserDocument(unittest.TestCase):
     """UserDocument unit test stubs"""

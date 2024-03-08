@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.raas_quote_transaction_response import RaasQuoteTransactionResponse
+from raassdkpyv2.models.raas_quote_transaction_response import RaasQuoteTransactionResponse
 
 # TODO update the JSON string below
 json = "{}"

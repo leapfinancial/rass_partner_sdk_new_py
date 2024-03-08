@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.perform_level_one_params import PerformLevelOneParams
+from raassdkpyv2.models.perform_level_one_params import PerformLevelOneParams
 
 # TODO update the JSON string below
 json = "{}"

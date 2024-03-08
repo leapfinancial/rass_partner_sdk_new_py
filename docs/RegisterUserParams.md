@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.register_user_params import RegisterUserParams
+from raassdkpyv2.models.register_user_params import RegisterUserParams
 
 # TODO update the JSON string below
 json = "{}"

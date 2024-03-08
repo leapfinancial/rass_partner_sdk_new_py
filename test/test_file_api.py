@@ -14,7 +14,7 @@
 
 import unittest
 
-from raassdkpy.api.file_api import FileApi  # noqa: E501
+from raassdkpyv2.api.file_api import FileApi  # noqa: E501
 
 
 class TestFileApi(unittest.TestCase):

@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.corridor_dto import CorridorDTO  # noqa: E501
+from raassdkpyv2.models.corridor_dto import CorridorDTO  # noqa: E501
 
 class TestCorridorDTO(unittest.TestCase):
     """CorridorDTO unit test stubs"""

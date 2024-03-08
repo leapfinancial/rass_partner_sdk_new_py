@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.pick_operation_detail_response_exclude_keyof_operation_detail_response_id_or_type_or_show_warning_screen import PickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrTypeOrShowWarningScreen  # noqa: E501
+from raassdkpyv2.models.pick_operation_detail_response_exclude_keyof_operation_detail_response_id_or_type_or_show_warning_screen import PickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrTypeOrShowWarningScreen  # noqa: E501
 
 class TestPickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrTypeOrShowWarningScreen(unittest.TestCase):
     """PickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrTypeOrShowWarningScreen unit test stubs"""
@@ -36,6 +36,7 @@ class TestPickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrType
         model = PickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrTypeOrShowWarningScreen()  # noqa: E501
         if include_optional:
             return PickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrTypeOrShowWarningScreen(
+                currency = '',
                 plat_id = '',
                 correlation_id = '',
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
@@ -47,10 +48,9 @@ class TestPickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrType
                 code = '',
                 recipient_amout = 1.337,
                 sender_amount = 1.337,
-                currency = '',
                 sender_currency = '',
                 recipient_currency = '',
-                source_payment_method = raassdkpy.models.payment_method_response.PaymentMethodResponse(
+                source_payment_method = raassdkpyv2.models.payment_method_response.PaymentMethodResponse(
                     name = '', 
                     type = '', 
                     is_primary = True, 
@@ -59,7 +59,7 @@ class TestPickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrType
                     country = '', 
                     number = '', 
                     id = '', ),
-                destination_payment_method = raassdkpy.models.payment_method_response.PaymentMethodResponse(
+                destination_payment_method = raassdkpyv2.models.payment_method_response.PaymentMethodResponse(
                     name = '', 
                     type = '', 
                     is_primary = True, 
@@ -73,7 +73,7 @@ class TestPickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrType
                 destination_fee = 1.337,
                 exchange_rate = 1.337,
                 has_reference_code = True,
-                from_user = raassdkpy.models.operation_user_detail.OperationUserDetail(
+                from_user = raassdkpyv2.models.operation_user_detail.OperationUserDetail(
                     profile_picture_url = '', 
                     country = '', 
                     image_url = '', 
@@ -81,7 +81,7 @@ class TestPickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrType
                     phone_number = '', 
                     last_name = '', 
                     first_name = '', ),
-                to_user = raassdkpy.models.operation_user_detail.OperationUserDetail(
+                to_user = raassdkpyv2.models.operation_user_detail.OperationUserDetail(
                     profile_picture_url = '', 
                     country = '', 
                     image_url = '', 
@@ -91,7 +91,7 @@ class TestPickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrType
                     first_name = '', ),
                 attribution_link = '',
                 is_ignored = True,
-                ignored_data = raassdkpy.models.ignored_operation_data.IgnoredOperationData(
+                ignored_data = raassdkpyv2.models.ignored_operation_data.IgnoredOperationData(
                     description = '', 
                     date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                     notify_support = True, 
@@ -107,7 +107,7 @@ class TestPickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrType
                 status = '',
                 code = '',
                 recipient_amout = 1.337,
-                from_user = raassdkpy.models.operation_user_detail.OperationUserDetail(
+                from_user = raassdkpyv2.models.operation_user_detail.OperationUserDetail(
                     profile_picture_url = '', 
                     country = '', 
                     image_url = '', 
@@ -115,7 +115,7 @@ class TestPickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrType
                     phone_number = '', 
                     last_name = '', 
                     first_name = '', ),
-                to_user = raassdkpy.models.operation_user_detail.OperationUserDetail(
+                to_user = raassdkpyv2.models.operation_user_detail.OperationUserDetail(
                     profile_picture_url = '', 
                     country = '', 
                     image_url = '', 

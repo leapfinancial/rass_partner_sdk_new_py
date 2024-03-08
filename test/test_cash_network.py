@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.cash_network import CashNetwork  # noqa: E501
+from raassdkpyv2.models.cash_network import CashNetwork  # noqa: E501
 
 class TestCashNetwork(unittest.TestCase):
     """CashNetwork unit test stubs"""

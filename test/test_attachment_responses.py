@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.attachment_responses import AttachmentResponses  # noqa: E501
+from raassdkpyv2.models.attachment_responses import AttachmentResponses  # noqa: E501
 
 class TestAttachmentResponses(unittest.TestCase):
     """AttachmentResponses unit test stubs"""

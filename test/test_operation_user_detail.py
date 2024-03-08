@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.operation_user_detail import OperationUserDetail  # noqa: E501
+from raassdkpyv2.models.operation_user_detail import OperationUserDetail  # noqa: E501
 
 class TestOperationUserDetail(unittest.TestCase):
     """OperationUserDetail unit test stubs"""

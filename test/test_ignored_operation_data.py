@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.ignored_operation_data import IgnoredOperationData  # noqa: E501
+from raassdkpyv2.models.ignored_operation_data import IgnoredOperationData  # noqa: E501
 
 class TestIgnoredOperationData(unittest.TestCase):
     """IgnoredOperationData unit test stubs"""

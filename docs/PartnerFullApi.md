@@ -1,4 +1,4 @@
-# raassdkpy.PartnerFullApi
+# raassdkpyv2.PartnerFullApi
 
 All URIs are relative to */v1*
 
@@ -43,14 +43,14 @@ Creates a pincode for the user.  The pincode must be 6 digits long and only nume
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.set_pincode_params_partner import SetPincodeParamsPartner
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.set_pincode_params_partner import SetPincodeParamsPartner
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -66,10 +66,10 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
-    set_pincode_params_partner = raassdkpy.SetPincodeParamsPartner() # SetPincodeParamsPartner | 
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
+    set_pincode_params_partner = raassdkpyv2.SetPincodeParamsPartner() # SetPincodeParamsPartner | 
 
     try:
         api_instance.create_pin(set_pincode_params_partner)
@@ -121,13 +121,13 @@ Gets available operation types by user country (as source country) and destinati
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -143,9 +143,9 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     user_token = 'user_token_example' # str | 
     destination_country = 'destination_country_example' # str | ISO 3166 2-alpha (optional)
 
@@ -200,13 +200,13 @@ Gets available payment method types by source country, destination country and o
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -222,9 +222,9 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     user_token = 'user_token_example' # str | 
     destination_country = 'destination_country_example' # str | ISO 3166 2-alpha (optional)
     operation_type = 'SendFunds' # str | SendFunds | RequestFunds (optional) (default to 'SendFunds')
@@ -279,14 +279,14 @@ Name | Type | Description  | Notes
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.pick_cip_exclude_keyof_cipid_or_attemps_or_is_valid_ofac import PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.pick_cip_exclude_keyof_cipid_or_attemps_or_is_valid_ofac import PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -302,9 +302,9 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     phone_number = 'phone_number_example' # str | 
 
     try:
@@ -358,14 +358,14 @@ Gets corridors by source country, destination country and operation type. A corr
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.corridor_dto import CorridorDTO
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.corridor_dto import CorridorDTO
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -381,9 +381,9 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     source_country = 'source_country_example' # str | ISO 3166 2-alpha (optional)
     destination_country = 'destination_country_example' # str | ISO 3166 2-alpha (optional)
     operation_type = 'SendFunds' # str | SendFunds | RequestFunds (optional) (default to 'SendFunds')
@@ -440,14 +440,14 @@ Gets exchange rates between currencies
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.exchange_rate_dto import ExchangeRateDTO
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.exchange_rate_dto import ExchangeRateDTO
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -463,9 +463,9 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     currency_code_src = 'currency_code_src_example' # str | ISO 4217 3-alpha (optional)
     currency_code_dest = 'currency_code_dest_example' # str | ISO 4217 3-alpha (optional)
 
@@ -520,14 +520,14 @@ Return all the in and outs operations for an user given his userId
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.operation_detail_response import OperationDetailResponse
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.operation_detail_response import OperationDetailResponse
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -543,9 +543,9 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     user_token = 'user_token_example' # str | 
     to_phone_number = 'to_phone_number_example' # str |  (optional)
 
@@ -601,15 +601,15 @@ Name | Type | Description  | Notes
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.quote_transaction_base import QuoteTransactionBase
-from raassdkpy.models.raas_quote_transaction_response import RaasQuoteTransactionResponse
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.quote_transaction_base import QuoteTransactionBase
+from raassdkpyv2.models.raas_quote_transaction_response import RaasQuoteTransactionResponse
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -625,11 +625,11 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     user_token = 'user_token_example' # str | 
-    quote_transaction_base = raassdkpy.QuoteTransactionBase() # QuoteTransactionBase | {@link QuoteTransactionBase}
+    quote_transaction_base = raassdkpyv2.QuoteTransactionBase() # QuoteTransactionBase | {@link QuoteTransactionBase}
 
     try:
         api_response = api_instance.get_operation_quote(user_token, quote_transaction_base)
@@ -680,14 +680,14 @@ Name | Type | Description  | Notes
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.user import User
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.user import User
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -703,9 +703,9 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     phone = 'phone_example' # str | 
 
     try:
@@ -757,14 +757,14 @@ Name | Type | Description  | Notes
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.perform_level_one_params import PerformLevelOneParams
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.perform_level_one_params import PerformLevelOneParams
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -780,11 +780,11 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     phone_number = 'phone_number_example' # str | 
-    perform_level_one_params = raassdkpy.PerformLevelOneParams() # PerformLevelOneParams | 
+    perform_level_one_params = raassdkpyv2.PerformLevelOneParams() # PerformLevelOneParams | 
 
     try:
         api_instance.perform_level_one(phone_number, perform_level_one_params)
@@ -834,14 +834,14 @@ void (empty response body)
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.perform_resubmit_upgrade_level_params import PerformResubmitUpgradeLevelParams
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.perform_resubmit_upgrade_level_params import PerformResubmitUpgradeLevelParams
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -857,10 +857,10 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
-    perform_resubmit_upgrade_level_params = raassdkpy.PerformResubmitUpgradeLevelParams() # PerformResubmitUpgradeLevelParams | 
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
+    perform_resubmit_upgrade_level_params = raassdkpyv2.PerformResubmitUpgradeLevelParams() # PerformResubmitUpgradeLevelParams | 
 
     try:
         api_instance.perform_resubmit_upgrade_level(perform_resubmit_upgrade_level_params)
@@ -909,15 +909,15 @@ void (empty response body)
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.raas_pre_quote_request import RaasPreQuoteRequest
-from raassdkpy.models.raas_pre_quote_response import RaasPreQuoteResponse
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.raas_pre_quote_request import RaasPreQuoteRequest
+from raassdkpyv2.models.raas_pre_quote_response import RaasPreQuoteResponse
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -933,11 +933,11 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     user_token = 'user_token_example' # str | 
-    raas_pre_quote_request = raassdkpy.RaasPreQuoteRequest() # RaasPreQuoteRequest | 
+    raas_pre_quote_request = raassdkpyv2.RaasPreQuoteRequest() # RaasPreQuoteRequest | 
 
     try:
         api_response = api_instance.pre_quote(user_token, raas_pre_quote_request)
@@ -990,14 +990,14 @@ Receive funds
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.receive_money_params import ReceiveMoneyParams
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.receive_money_params import ReceiveMoneyParams
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -1013,11 +1013,11 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     user_token = 'user_token_example' # str | 
-    receive_money_params = raassdkpy.ReceiveMoneyParams() # ReceiveMoneyParams | {@link ReceiveMoneyParams}
+    receive_money_params = raassdkpyv2.ReceiveMoneyParams() # ReceiveMoneyParams | {@link ReceiveMoneyParams}
 
     try:
         api_instance.receive(user_token, receive_money_params)
@@ -1068,14 +1068,14 @@ void (empty response body)
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.replace_card_params import ReplaceCardParams
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.replace_card_params import ReplaceCardParams
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -1091,11 +1091,11 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     user_id = 'user_id_example' # str | 
-    replace_card_params = raassdkpy.ReplaceCardParams() # ReplaceCardParams | 
+    replace_card_params = raassdkpyv2.ReplaceCardParams() # ReplaceCardParams | 
 
     try:
         api_instance.replace_payment_method(user_id, replace_card_params)
@@ -1148,14 +1148,14 @@ Request OTP for phone number. The phone number must be registered. Using /regist
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.request_otp_params import RequestOTPParams
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.request_otp_params import RequestOTPParams
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -1171,10 +1171,10 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
-    request_otp_params = raassdkpy.RequestOTPParams() # RequestOTPParams | 
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
+    request_otp_params = raassdkpyv2.RequestOTPParams() # RequestOTPParams | 
 
     try:
         api_instance.request_otp(request_otp_params)
@@ -1225,15 +1225,15 @@ Send funds to a requester
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.send_money_params import SendMoneyParams
-from raassdkpy.models.send_money_response import SendMoneyResponse
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.send_money_params import SendMoneyParams
+from raassdkpyv2.models.send_money_response import SendMoneyResponse
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -1249,11 +1249,11 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     user_token = 'user_token_example' # str | 
-    send_money_params = raassdkpy.SendMoneyParams() # SendMoneyParams | {@link SendMoneyParams}
+    send_money_params = raassdkpyv2.SendMoneyParams() # SendMoneyParams | {@link SendMoneyParams}
 
     try:
         api_response = api_instance.send(user_token, send_money_params)
@@ -1305,14 +1305,14 @@ Name | Type | Description  | Notes
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.alternate_flow import AlternateFlow
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.alternate_flow import AlternateFlow
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -1328,10 +1328,10 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
-    type = raassdkpy.AlternateFlow() # AlternateFlow | 
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
+    type = raassdkpyv2.AlternateFlow() # AlternateFlow | 
     phone_number = 'phone_number_example' # str | 
 
     try:
@@ -1382,14 +1382,14 @@ void (empty response body)
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.level_two_params import LevelTwoParams
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.level_two_params import LevelTwoParams
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -1405,11 +1405,11 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     phone_number = 'phone_number_example' # str | 
-    level_two_params = raassdkpy.LevelTwoParams() # LevelTwoParams | 
+    level_two_params = raassdkpyv2.LevelTwoParams() # LevelTwoParams | 
 
     try:
         api_instance.set_level_two(phone_number, level_two_params)
@@ -1459,13 +1459,13 @@ void (empty response body)
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -1481,9 +1481,9 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     phone_number = 'phone_number_example' # str | 
 
     try:
@@ -1535,14 +1535,14 @@ Updates user profile
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.user_update_params import UserUpdateParams
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.user_update_params import UserUpdateParams
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -1558,11 +1558,11 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     phone = 'phone_example' # str | 
-    user_update_params = raassdkpy.UserUpdateParams() # UserUpdateParams | 
+    user_update_params = raassdkpyv2.UserUpdateParams() # UserUpdateParams | 
 
     try:
         api_instance.update_profile(phone, user_update_params)
@@ -1612,14 +1612,14 @@ void (empty response body)
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.scan_identity_response import ScanIdentityResponse
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.scan_identity_response import ScanIdentityResponse
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -1635,9 +1635,9 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     phone_number = 'phone_number_example' # str | 
 
     try:
@@ -1689,13 +1689,13 @@ Name | Type | Description  | Notes
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -1711,9 +1711,9 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
     phone_number = 'phone_number_example' # str | 
 
     try:
@@ -1763,14 +1763,14 @@ void (empty response body)
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.pick_validate_otp_params_exclude_keyof_validate_otp_params_device_id import PickValidateOTPParamsExcludeKeyofValidateOTPParamsDeviceId
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.pick_validate_otp_params_exclude_keyof_validate_otp_params_device_id import PickValidateOTPParamsExcludeKeyofValidateOTPParamsDeviceId
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -1786,10 +1786,10 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
-    body = raassdkpy.PickValidateOTPParamsExcludeKeyofValidateOTPParamsDeviceId() # PickValidateOTPParamsExcludeKeyofValidateOTPParamsDeviceId | 
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
+    body = raassdkpyv2.PickValidateOTPParamsExcludeKeyofValidateOTPParamsDeviceId() # PickValidateOTPParamsExcludeKeyofValidateOTPParamsDeviceId | 
 
     try:
         api_instance.validate_otp(body)
@@ -1841,14 +1841,14 @@ void (empty response body)
 ```python
 import time
 import os
-import raassdkpy
-from raassdkpy.models.pick_validate_pin_code_params_exclude_keyof_validate_pin_code_params_device_id import PickValidatePINCodeParamsExcludeKeyofValidatePINCodeParamsDeviceId
-from raassdkpy.rest import ApiException
+import raassdkpyv2
+from raassdkpyv2.models.pick_validate_pin_code_params_exclude_keyof_validate_pin_code_params_device_id import PickValidatePINCodeParamsExcludeKeyofValidatePINCodeParamsDeviceId
+from raassdkpyv2.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to /v1
 # See configuration.py for a list of all supported configuration parameters.
-configuration = raassdkpy.Configuration(
+configuration = raassdkpyv2.Configuration(
     host = "/v1"
 )
 
@@ -1864,10 +1864,10 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # Enter a context with an instance of the API client
-with raassdkpy.ApiClient(configuration) as api_client:
+with raassdkpyv2.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = raassdkpy.PartnerFullApi(api_client)
-    body = raassdkpy.PickValidatePINCodeParamsExcludeKeyofValidatePINCodeParamsDeviceId() # PickValidatePINCodeParamsExcludeKeyofValidatePINCodeParamsDeviceId | 
+    api_instance = raassdkpyv2.PartnerFullApi(api_client)
+    body = raassdkpyv2.PickValidatePINCodeParamsExcludeKeyofValidatePINCodeParamsDeviceId() # PickValidatePINCodeParamsExcludeKeyofValidatePINCodeParamsDeviceId | 
 
     try:
         api_instance.validate_pin_code(body)

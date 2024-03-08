@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.validate_otp403_response import ValidateOTP403Response  # noqa: E501
+from raassdkpyv2.models.validate_otp403_response import ValidateOTP403Response  # noqa: E501
 
 class TestValidateOTP403Response(unittest.TestCase):
     """ValidateOTP403Response unit test stubs"""

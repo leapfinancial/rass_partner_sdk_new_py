@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from raassdkpy.models.tenant_op_status_hook import TenantOpStatusHook
+from raassdkpyv2.models.tenant_op_status_hook import TenantOpStatusHook
 
 # TODO update the JSON string below
 json = "{}"

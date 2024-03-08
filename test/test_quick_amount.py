@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.quick_amount import QuickAmount  # noqa: E501
+from raassdkpyv2.models.quick_amount import QuickAmount  # noqa: E501
 
 class TestQuickAmount(unittest.TestCase):
     """QuickAmount unit test stubs"""

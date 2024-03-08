@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.operation_detail import OperationDetail  # noqa: E501
+from raassdkpyv2.models.operation_detail import OperationDetail  # noqa: E501
 
 class TestOperationDetail(unittest.TestCase):
     """OperationDetail unit test stubs"""
@@ -49,7 +49,7 @@ class TestOperationDetail(unittest.TestCase):
                 sender_currency = '',
                 recipient_currency = '',
                 exchange_rate = 1.337,
-                from_user = raassdkpy.models.operation_user_detail.OperationUserDetail(
+                from_user = raassdkpyv2.models.operation_user_detail.OperationUserDetail(
                     profile_picture_url = '', 
                     country = '', 
                     image_url = '', 
@@ -57,7 +57,7 @@ class TestOperationDetail(unittest.TestCase):
                     phone_number = '', 
                     last_name = '', 
                     first_name = '', ),
-                to_user = raassdkpy.models.operation_user_detail.OperationUserDetail(
+                to_user = raassdkpyv2.models.operation_user_detail.OperationUserDetail(
                     profile_picture_url = '', 
                     country = '', 
                     image_url = '', 
@@ -79,7 +79,7 @@ class TestOperationDetail(unittest.TestCase):
                 amount = 1.337,
                 sender_amount = 1.337,
                 recipient_amout = 1.337,
-                from_user = raassdkpy.models.operation_user_detail.OperationUserDetail(
+                from_user = raassdkpyv2.models.operation_user_detail.OperationUserDetail(
                     profile_picture_url = '', 
                     country = '', 
                     image_url = '', 
@@ -87,7 +87,7 @@ class TestOperationDetail(unittest.TestCase):
                     phone_number = '', 
                     last_name = '', 
                     first_name = '', ),
-                to_user = raassdkpy.models.operation_user_detail.OperationUserDetail(
+                to_user = raassdkpyv2.models.operation_user_detail.OperationUserDetail(
                     profile_picture_url = '', 
                     country = '', 
                     image_url = '', 

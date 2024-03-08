@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.session_link_response import SessionLinkResponse  # noqa: E501
+from raassdkpyv2.models.session_link_response import SessionLinkResponse  # noqa: E501
 
 class TestSessionLinkResponse(unittest.TestCase):
     """SessionLinkResponse unit test stubs"""

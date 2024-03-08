@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.base_identity import BaseIdentity  # noqa: E501
+from raassdkpyv2.models.base_identity import BaseIdentity  # noqa: E501
 
 class TestBaseIdentity(unittest.TestCase):
     """BaseIdentity unit test stubs"""

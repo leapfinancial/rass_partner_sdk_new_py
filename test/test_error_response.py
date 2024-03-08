@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.error_response import ErrorResponse  # noqa: E501
+from raassdkpyv2.models.error_response import ErrorResponse  # noqa: E501
 
 class TestErrorResponse(unittest.TestCase):
     """ErrorResponse unit test stubs"""

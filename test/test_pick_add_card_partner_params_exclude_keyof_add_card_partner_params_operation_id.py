@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.pick_add_card_partner_params_exclude_keyof_add_card_partner_params_operation_id import PickAddCardPartnerParamsExcludeKeyofAddCardPartnerParamsOperationId  # noqa: E501
+from raassdkpyv2.models.pick_add_card_partner_params_exclude_keyof_add_card_partner_params_operation_id import PickAddCardPartnerParamsExcludeKeyofAddCardPartnerParamsOperationId  # noqa: E501
 
 class TestPickAddCardPartnerParamsExcludeKeyofAddCardPartnerParamsOperationId(unittest.TestCase):
     """PickAddCardPartnerParamsExcludeKeyofAddCardPartnerParamsOperationId unit test stubs"""

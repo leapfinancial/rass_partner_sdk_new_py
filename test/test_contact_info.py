@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.contact_info import ContactInfo  # noqa: E501
+from raassdkpyv2.models.contact_info import ContactInfo  # noqa: E501
 
 class TestContactInfo(unittest.TestCase):
     """ContactInfo unit test stubs"""

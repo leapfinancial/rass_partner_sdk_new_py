@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.send_money_params import SendMoneyParams  # noqa: E501
+from raassdkpyv2.models.send_money_params import SendMoneyParams  # noqa: E501
 
 class TestSendMoneyParams(unittest.TestCase):
     """SendMoneyParams unit test stubs"""
@@ -37,13 +37,14 @@ class TestSendMoneyParams(unittest.TestCase):
         if include_optional:
             return SendMoneyParams(
                 correlation_id = '',
-                source_payment_method = raassdkpy.models.raa_s_payment_method.RaaSPaymentMethod(
-                    payment_token = raassdkpy.models.payment_token.PaymentToken(
+                source_payment_method = raassdkpyv2.models.raa_s_payment_method.RaaSPaymentMethod(
+                    payment_token = raassdkpyv2.models.payment_token.PaymentToken(
                         payment_type = 0, 
                         display_name = '', 
                         transaction_identifier = '', 
                         payment_network = '', 
                         data = '', ), 
+                    status = 'Created', 
                     application = '', 
                     account_id = '', 
                     longitude = 1.337, 
@@ -78,13 +79,14 @@ class TestSendMoneyParams(unittest.TestCase):
                     type = 'MobileWallet', 
                     name = '', 
                     id = '', ),
-                destination_payment_method = raassdkpy.models.raa_s_payment_method.RaaSPaymentMethod(
-                    payment_token = raassdkpy.models.payment_token.PaymentToken(
+                destination_payment_method = raassdkpyv2.models.raa_s_payment_method.RaaSPaymentMethod(
+                    payment_token = raassdkpyv2.models.payment_token.PaymentToken(
                         payment_type = 0, 
                         display_name = '', 
                         transaction_identifier = '', 
                         payment_network = '', 
                         data = '', ), 
+                    status = 'Created', 
                     application = '', 
                     account_id = '', 
                     longitude = 1.337, 
@@ -143,13 +145,14 @@ class TestSendMoneyParams(unittest.TestCase):
         else:
             return SendMoneyParams(
                 correlation_id = '',
-                source_payment_method = raassdkpy.models.raa_s_payment_method.RaaSPaymentMethod(
-                    payment_token = raassdkpy.models.payment_token.PaymentToken(
+                source_payment_method = raassdkpyv2.models.raa_s_payment_method.RaaSPaymentMethod(
+                    payment_token = raassdkpyv2.models.payment_token.PaymentToken(
                         payment_type = 0, 
                         display_name = '', 
                         transaction_identifier = '', 
                         payment_network = '', 
                         data = '', ), 
+                    status = 'Created', 
                     application = '', 
                     account_id = '', 
                     longitude = 1.337, 

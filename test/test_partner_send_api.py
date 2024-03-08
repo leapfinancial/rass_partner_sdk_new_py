@@ -14,7 +14,7 @@
 
 import unittest
 
-from raassdkpy.api.partner_send_api import PartnerSendApi  # noqa: E501
+from raassdkpyv2.api.partner_send_api import PartnerSendApi  # noqa: E501
 
 
 class TestPartnerSendApi(unittest.TestCase):

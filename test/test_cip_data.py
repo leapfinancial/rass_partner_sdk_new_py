@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.cip_data import CIPData  # noqa: E501
+from raassdkpyv2.models.cip_data import CIPData  # noqa: E501
 
 class TestCIPData(unittest.TestCase):
     """CIPData unit test stubs"""

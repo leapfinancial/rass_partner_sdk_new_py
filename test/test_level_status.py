@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.level_status import LevelStatus  # noqa: E501
+from raassdkpyv2.models.level_status import LevelStatus  # noqa: E501
 
 class TestLevelStatus(unittest.TestCase):
     """LevelStatus unit test stubs"""

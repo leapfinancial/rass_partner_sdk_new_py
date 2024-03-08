@@ -15,7 +15,7 @@
 import unittest
 import datetime
 
-from raassdkpy.models.create_contact_request_params_partner import CreateContactRequestParamsPartner  # noqa: E501
+from raassdkpyv2.models.create_contact_request_params_partner import CreateContactRequestParamsPartner  # noqa: E501
 
 class TestCreateContactRequestParamsPartner(unittest.TestCase):
     """CreateContactRequestParamsPartner unit test stubs"""
@@ -38,17 +38,17 @@ class TestCreateContactRequestParamsPartner(unittest.TestCase):
             return CreateContactRequestParamsPartner(
                 alias = '',
                 country_code = 'AF',
-                phone = '',
-                last_name = '',
-                first_name = '',
+                phone = '0',
+                last_name = '0',
+                first_name = '0',
                 email = ''
             )
         else:
             return CreateContactRequestParamsPartner(
                 country_code = 'AF',
-                phone = '',
-                last_name = '',
-                first_name = '',
+                phone = '0',
+                last_name = '0',
+                first_name = '0',
         )
         """
 
