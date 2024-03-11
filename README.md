@@ -289,5 +289,20 @@ Authentication schemes defined for the API:
 ## Author
 
 
+# importante
+
+Para el modelo User toco darle soporte extra a Datetime, en especial en la funcion .to_json
+
+class DateTimeEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, datetime):
+            return o.isoformat()
+
+        return super().default(o)  
+
+
+ return json.dumps(self.to_dict(),cls=DateTimeEncoder)
+
+
 
 

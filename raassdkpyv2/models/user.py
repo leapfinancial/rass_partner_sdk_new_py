@@ -23,6 +23,11 @@ from pydantic import BaseModel, Field, StrictBool, StrictFloat, StrictInt, Stric
 from raassdkpyv2.models.cip import CIP
 from raassdkpyv2.models.i_phone_info import IPhoneInfo
 
+class DateTimeEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, datetime):
+            return o.isoformat()
+        
 class User(BaseModel):
     """
     User
@@ -67,6 +72,7 @@ class User(BaseModel):
     account_code: Optional[StrictStr] = Field(None, alias="accountCode")
     __properties = ["id", "email", "firstName", "lastName", "middleName", "secondLastName", "address1", "address2", "placeId", "country", "addressDescription", "gender", "dob", "country_id", "status", "phoneNumber", "phoneVerified", "cip", "firstTime", "countryCode", "city", "zipcode", "state", "birthState", "placeDetail", "pincode", "hasPincode", "password", "phoneInfo", "tenantId", "tenantCode", "latitude", "longitude", "profilePictureUrl", "customCountryCode", "facebookPublicUserName", "instagramPublicUserName", "accountCode"]
 
+    
     @validator('status')
     def status_validate_enum(cls, value):
         """Validates the enum"""
@@ -81,6 +87,7 @@ class User(BaseModel):
         """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
+   
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -88,7 +95,7 @@ class User(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(self.to_dict())
+        return json.dumps(self.to_dict(),cls=DateTimeEncoder)
 
     @classmethod
     def from_json(cls, json_str: str) -> User:
