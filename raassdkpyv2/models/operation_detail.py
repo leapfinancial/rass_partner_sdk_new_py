@@ -96,21 +96,32 @@ class OperationDetail(BaseModel):
             "id": obj.get("id"),
             "type": obj.get("type"),
             "created_at": obj.get("createdAt"),
+            "createdAt": obj.get("createdAt"),
             "status": obj.get("status"),
             "reason": obj.get("reason"),
             "code": obj.get("code"),
             "amount": obj.get("amount"),
             "sender_amount": obj.get("senderAmount"),
+            "senderAmount": obj.get("senderAmount"),
             "recipient_amout": obj.get("recipientAmout"),
+            "recipientAmout": obj.get("recipientAmout"),
             "currency": obj.get("currency"),
             "sender_currency": obj.get("senderCurrency"),
+            "senderCurrency": obj.get("senderCurrency"),
             "recipient_currency": obj.get("recipientCurrency"),
+            "recipientCurrency": obj.get("recipientCurrency"),
             "exchange_rate": obj.get("exchangeRate"),
+            "exchangeRate": obj.get("exchangeRate"),
             "from_user": OperationUserDetail.from_dict(obj.get("fromUser")) if obj.get("fromUser") is not None else None,
+            "fromUser": OperationUserDetail.from_dict(obj.get("fromUser")) if obj.get("fromUser") is not None else None,
             "to_user": OperationUserDetail.from_dict(obj.get("toUser")) if obj.get("toUser") is not None else None,
+            "toUser": OperationUserDetail.from_dict(obj.get("toUser")) if obj.get("toUser") is not None else None,
             "attribution_link": obj.get("attributionLink"),
+            "attributionLink": obj.get("attributionLink"),
             "is_ignored": obj.get("isIgnored"),
-            "ignored_data": obj.get("ignoredData")
+            "isIgnored": obj.get("isIgnored"),
+            "ignored_data": obj.get("ignoredData"),
+            "ignoredData": obj.get("ignoredData")
         })
         return _obj
 
