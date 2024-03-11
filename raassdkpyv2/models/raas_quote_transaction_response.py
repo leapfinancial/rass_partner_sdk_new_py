@@ -26,14 +26,14 @@ class RaasQuoteTransactionResponse(BaseModel):
     RaasQuoteTransactionResponse
     """
     id: Optional[StrictStr] = None
-    source_currency: StrictStr = Field(..., alias="sourceCurrency")
-    destination_currency: StrictStr = Field(..., alias="destinationCurrency")
+    source_currency: Optional[StrictStr] = Field(..., alias="sourceCurrency")
+    destination_currency: Optional[StrictStr] = Field(..., alias="destinationCurrency")
     reason: StrictStr = Field(...)
-    reason_detail: Dict[str, Any] = Field(..., alias="reasonDetail")
+    reason_detail: Optional[StrictStr] = Field(..., alias="reasonDetail")
     source_amount: Union[StrictFloat, StrictInt] = Field(..., alias="sourceAmount")
     amount: Union[StrictFloat, StrictInt] = Field(...)
     destination_amount: Union[StrictFloat, StrictInt] = Field(..., alias="destinationAmount")
-    exchange_rate: Union[StrictFloat, StrictInt] = Field(..., alias="exchangeRate")
+    exchange_rate: Optional[Union[StrictFloat, StrictInt]] = Field(None, alias="exchangeRate")
     tax: Union[StrictFloat, StrictInt] = Field(...)
     source_fee: Union[StrictFloat, StrictInt] = Field(..., alias="sourceFee")
     destination_fee: Union[StrictFloat, StrictInt] = Field(..., alias="destinationFee")
