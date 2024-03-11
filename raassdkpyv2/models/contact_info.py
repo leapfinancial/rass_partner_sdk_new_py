@@ -71,9 +71,12 @@ class ContactInfo(BaseModel):
         _obj = ContactInfo.parse_obj({
             "phone": obj.get("phone"),
             "first_name": obj.get("firstName"),
+            "firstName": obj.get("firstName"),
             "last_name": obj.get("lastName"),
+            "lastName": obj.get("lastName"),
             "email": obj.get("email"),
             "country_code": obj.get("countryCode"),
+            "countryCode": obj.get("countryCode"),
             "alias": obj.get("alias")
         })
         return _obj
