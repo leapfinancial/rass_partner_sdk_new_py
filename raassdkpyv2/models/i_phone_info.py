@@ -73,9 +73,13 @@ class IPhoneInfo(BaseModel):
 
         _obj = IPhoneInfo.parse_obj({
             "is_valid": obj.get("isValid"),
+            "isValid": obj.get("isValid"),
             "caller_name": obj.get("callerName"),
+            "callerName": obj.get("callerName"),
             "country_code": obj.get("countryCode"),
+            "countryCode": obj.get("countryCode"),
             "phone_number": obj.get("phoneNumber"),
+            "phoneNumber": obj.get("phoneNumber"),
             "carrier": IPhoneInfoCarrier.from_dict(obj.get("carrier")) if obj.get("carrier") is not None else None
         })
         return _obj
