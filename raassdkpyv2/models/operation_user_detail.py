@@ -71,12 +71,17 @@ class OperationUserDetail(BaseModel):
 
         _obj = OperationUserDetail.parse_obj({
             "profile_picture_url": obj.get("profilePictureUrl"),
+            "profilePictureUrl": obj.get("profilePictureUrl"),
             "country": obj.get("country"),
             "image_url": obj.get("imageUrl"),
+            "imageUrl": obj.get("imageUrl"),
             "email": obj.get("email"),
             "phone_number": obj.get("phoneNumber"),
+            "phoneNumber": obj.get("phoneNumber"),
             "last_name": obj.get("lastName"),
-            "first_name": obj.get("firstName")
+            "lastName": obj.get("lastName"),
+            "first_name": obj.get("firstName"),
+            "firstName": obj.get("firstName")
         })
         return _obj
 
