@@ -303,6 +303,22 @@ class DateTimeEncoder(json.JSONEncoder):
 
  return json.dumps(self.to_dict(),cls=DateTimeEncoder)
 
+for the ExchangeRateDTO model is modified to implement the model_validate
+instead of parse_obj 
+parse_obj is deprecated and will be removed in the future, use model_validate instead
+
+    #before:
+    _obj = ExchangeRateDTO.parse_obj({
+        "id": obj.get("id"),
+        "currency_code_dest": obj.get("currencyCodeDest"),
+        "currency_code_src": obj.get("currencyCodeSrc"),
+        "exchange_rate": obj.get("exchangeRate"),
+        "exchange_rate_updated_at": obj.get("exchangeRateUpdatedAt")
+    })
+    #after:
+    _obj = ExchangeRateDTO.model_validate(obj)
+            
+
 
 
 

@@ -39,7 +39,7 @@ class ExchangeRateDTO(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -52,7 +52,7 @@ class ExchangeRateDTO(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -65,15 +65,9 @@ class ExchangeRateDTO(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return ExchangeRateDTO.parse_obj(obj)
+            return ExchangeRateDTO.model_validate(obj)
 
-        _obj = ExchangeRateDTO.parse_obj({
-            "id": obj.get("id"),
-            "currency_code_dest": obj.get("currencyCodeDest"),
-            "currency_code_src": obj.get("currencyCodeSrc"),
-            "exchange_rate": obj.get("exchangeRate"),
-            "exchange_rate_updated_at": obj.get("exchangeRateUpdatedAt")
-        })
+        _obj = ExchangeRateDTO.model_validate(obj)
         return _obj
 
 
