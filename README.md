@@ -303,7 +303,11 @@ class DateTimeEncoder(json.JSONEncoder):
 
  return json.dumps(self.to_dict(),cls=DateTimeEncoder)
 
--for the ExchangeRateDTO and RaasPreQuoteRequest model is modified to implement the model_validate
+-for the 
+    ExchangeRateDTO, 
+    RaasPreQuoteRequest 
+    RaasPreQuoteResponse 
+models is modified to implement the model_validate
 instead of parse_obj 
 parse_obj is deprecated and will be removed in the future, use model_validate instead
 

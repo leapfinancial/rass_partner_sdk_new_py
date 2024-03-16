@@ -36,7 +36,7 @@ class RaasPreQuoteResponse(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -49,7 +49,7 @@ class RaasPreQuoteResponse(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -69,9 +69,9 @@ class RaasPreQuoteResponse(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return RaasPreQuoteResponse.parse_obj(obj)
+            return RaasPreQuoteResponse.model_validate(obj)
 
-        _obj = RaasPreQuoteResponse.parse_obj({
+        _obj = RaasPreQuoteResponse.model_validate({
             "quotes": [RaasPreQuoteValues.from_dict(_item) for _item in obj.get("Quotes")] if obj.get("Quotes") is not None else None
         })
         return _obj
