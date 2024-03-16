@@ -291,7 +291,7 @@ Authentication schemes defined for the API:
 
 # importante
 
-Para el modelo User toco darle soporte extra a Datetime, en especial en la funcion .to_json
+-Para el modelo User toco darle soporte extra a Datetime, en especial en la funcion .to_json
 
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, o):
@@ -303,7 +303,7 @@ class DateTimeEncoder(json.JSONEncoder):
 
  return json.dumps(self.to_dict(),cls=DateTimeEncoder)
 
-for the ExchangeRateDTO model is modified to implement the model_validate
+-for the ExchangeRateDTO and RaasPreQuoteRequest model is modified to implement the model_validate
 instead of parse_obj 
 parse_obj is deprecated and will be removed in the future, use model_validate instead
 
