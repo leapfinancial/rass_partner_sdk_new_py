@@ -72,7 +72,7 @@ class RaasPreQuoteResponse(BaseModel):
             return RaasPreQuoteResponse.model_validate(obj)
 
         _obj = RaasPreQuoteResponse.model_validate({
-            "quotes": [RaasPreQuoteValues.from_dict(_item) for _item in obj.get("Quotes")] if obj.get("Quotes") is not None else None
+            "Quotes": [RaasPreQuoteValues.from_dict(_item) for _item in obj.get("Quotes")] if obj.get("Quotes") is not None else None
         })
         return _obj
 
