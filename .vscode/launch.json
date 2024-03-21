@@ -3,19 +3,20 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [
+    "configurations": [              
         {
-            "name": "Depurador de Python: Archivo actual",
+            "name": "Current File",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/partner_send_api_test.py",            
-            "console": "integratedTerminal"
-        },
+            "program": "${workspaceFolder}/tests_api_call/partner_send_api_test.py",  // Ejecuta el archivo actual  
+            "console": "integratedTerminal"          
+        },    
         {
-            "name": "Excecute Test",
+            "name": "Test APIs call",
             "type": "debugpy",
             "request": "launch",
-            "preLaunchTask": "run pytest",
+            "program": "${workspaceFolder}/tests_api_call/empty.py",
+            "postDebugTask": "run pytest"
         }
     ]
 }
