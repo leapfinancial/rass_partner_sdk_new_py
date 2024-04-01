@@ -1,3 +1,4 @@
+from typing import List
 import pytest
 import raassdkpyv2
 from raassdkpyv2.api.partner_send_api import PartnerSendApi
@@ -16,6 +17,9 @@ from raassdkpyv2.models.user_token_response import UserTokenResponse
 # models pre_quote
 from raassdkpyv2.models.raas_pre_quote_response import RaasPreQuoteResponse
 from raassdkpyv2.models.raas_pre_quote_request import RaasPreQuoteRequest
+#models get operation quote
+from raassdkpyv2.models.quote_transaction_base import QuoteTransactionBase
+from raassdkpyv2.models.raas_quote_transaction_response import RaasQuoteTransactionResponse
 #models register Send
 from raassdkpyv2.models.register_user_params import RegisterUserParams
 from raassdkpyv2.models.country_alpha2_code import CountryAlpha2Code
@@ -41,9 +45,26 @@ from raassdkpyv2.models.contact_info import ContactInfo
 from raassdkpyv2.models.create_contact_request_params_partner import CreateContactRequestParamsPartner
 # models level two
 from raassdkpyv2.models.level_two_params import LevelTwoParams
-
+# models send money
+from raassdkpyv2.models.send_money_partner_params import SendMoneyPartnerParams
+from raassdkpyv2.models.pick_operation_detail_response_exclude_keyof_operation_detail_response_id_or_type_or_show_warning_screen import PickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrTypeOrShowWarningScreen
+# models get_destination_sof_for_requet_money_operation
+from raassdkpyv2.models.source_of_funding import SourceOfFunding
 #Exceptions
 from raassdkpyv2.exceptions import ApiException
+#models send
+from raassdkpyv2.models.send_money_params import SendMoneyParams
+from raassdkpyv2.models.send_money_response import SendMoneyResponse
+#models get_cash_operators
+from raassdkpyv2.models.cash_operators_params_base import CashOperatorsParamsBase
+from raassdkpyv2.models.cash_operators import CashOperators
+#models set_reference_code
+from raassdkpyv2.models.set_reference_code_params_base import SetReferenceCodeParamsBase
+from raassdkpyv2.models.get_reference_code_response import GetReferenceCodeResponse
+#models get_in_and_out_operations
+from raassdkpyv2.models.operation_detail_response import OperationDetailResponse
+#models receive
+from raassdkpyv2.models.receive_money_params import ReceiveMoneyParams
 
 
 """Initial config for the test module. 
@@ -69,12 +90,12 @@ def teardown_module():
     
     
 def test_is_phone_available():
-    partner_send_api : PartnerSendApi = PartnerSendApi(api_client=api_client)    
+    send_api : PartnerSendApi = PartnerSendApi(api_client=api_client)    
 
     try:
         request = IsPhoneAvailableRequest(phone=phone)
         
-        response:IsPhoneAvailableResponse = partner_send_api.is_phone_available(request)
+        response:IsPhoneAvailableResponse = send_api.is_phone_available(request)
         if isinstance(response, IsPhoneAvailableResponse):
             assert isinstance(response.to_dict(), dict)
             assert isinstance(response.to_json(), str)
@@ -133,7 +154,7 @@ def test_set_level_two():
         assert False
 
 def test_register_sender():
-    partner_send_api : PartnerSendApi = PartnerSendApi(api_client)        
+    send_api : PartnerSendApi = PartnerSendApi(api_client)        
     
     request = RegisterUserParams(
         phoneNumber=phone,
@@ -154,7 +175,7 @@ def test_register_sender():
     )
     
     try:
-        response : UserTokenResponse = partner_send_api.register_sender(register_user_params=request)
+        response : UserTokenResponse = send_api.register_sender(register_user_params=request)
 
         if isinstance(response, UserTokenResponse):
             assert isinstance(response.to_dict(), dict)
@@ -169,12 +190,12 @@ def test_register_sender():
     print('resp registerUser: '+str(response))      
         
 def test_exchange_rate():  
-    partner_full_api : PartnerFullApi = PartnerFullApi(api_client)    
+    full_api : PartnerFullApi = PartnerFullApi(api_client)    
     current_code_src = "USD"
     current_code_dest = "MXN"
     
     try:
-        response:ExchangeRateDTO = partner_full_api.get_exchange_rates(currency_code_src = current_code_src, currency_code_dest = current_code_dest)[0]            
+        response:ExchangeRateDTO = full_api.get_exchange_rates(currency_code_src = current_code_src, currency_code_dest = current_code_dest)[0]            
         if isinstance(response, ExchangeRateDTO):
             assert isinstance(response.to_dict(), dict)
             assert isinstance(response.to_json(), str)
@@ -187,7 +208,7 @@ def test_exchange_rate():
   
 
 def test_get_user_token()->str:
-    api_instance = PartnerApi(api_client)
+    partner_api = PartnerApi(api_client)
     phoneNumber = phone
                     
     user_token_params : GetUserTokenParams = {
@@ -195,7 +216,7 @@ def test_get_user_token()->str:
     }
     
     try:
-        token: UserTokenResponse = api_instance.get_user_token( user_token_params )        
+        token: UserTokenResponse = partner_api.get_user_token( user_token_params )        
         if isinstance(token, UserTokenResponse):
             assert isinstance(token.to_dict(), dict)
             assert isinstance(token.to_json(), str)
@@ -209,7 +230,7 @@ def test_get_user_token()->str:
     return token['userId']
 
 def test_get_prequote_transaction():
-    partner_full_api : PartnerFullApi = PartnerFullApi(api_client)    
+    full_api : PartnerFullApi = PartnerFullApi(api_client)    
     request : RaasPreQuoteRequest = RaasPreQuoteRequest(        
         
         DestinationPaymentMethod={
@@ -226,17 +247,47 @@ def test_get_prequote_transaction():
     token = test_get_user_token()
     
     try:
-        response:RaasPreQuoteResponse = partner_full_api.pre_quote(token, raas_pre_quote_request=request)
+        response:RaasPreQuoteResponse = full_api.pre_quote(token, raas_pre_quote_request=request)
         for quote in response.quotes:
             quote : RaasPreQuoteResponse
             quote = quote.to_dict()
             print(quote['type'])
     except ApiException as e:
         print(f"Exception when calling PartnerFullApi->pre_quote: {e}\n")
-        assert False  
+        assert False
+        
+def test_operation_quote():
+    full_api : PartnerFullApi = PartnerFullApi(api_client)    
+    
+    request = QuoteTransactionBase(
+        senderUserId="",
+        senderCountryCode="US",
+        recipientUserId="",
+        recipientCountryCode="MX",
+        recipientAmount=10,
+        isSenderAmount=True,
+        amountCurrency="USD",
+        amount=10,
+        operationType="SendFunds",
+        sourcePaymentMethod="DebitCard",
+        destinationPaymentMethod="DebitCard",
+        destinationCountryCode="MX",
+    )
+    token = test_get_user_token()
+    try:
+        response:RaasQuoteTransactionResponse = full_api.get_operation_quote(user_token=token, quote_transaction_base=request)
+        if isinstance(response, RaasQuoteTransactionResponse):
+            assert isinstance(response.to_dict(), dict)
+            assert isinstance(response.to_json(), str)
+            assert isinstance(response.to_str(), str)
+            assert isinstance(response, RaasQuoteTransactionResponse)
+            print(response.to_dict())
+    except ApiException as e:
+        print(f"Exception when calling PartnerFullApi -> get_operation_quote: {e}\n")
+        assert False
             
 def test_update_profile():
-    partner_full_api : PartnerFullApi = PartnerFullApi(api_client) 
+    full_api : PartnerFullApi = PartnerFullApi(api_client) 
     
     request = UserUpdateParams(
         email="updated@leap.com",
@@ -247,7 +298,7 @@ def test_update_profile():
         firstTime=True
     )
     try:
-        response = partner_full_api.update_profile(phone=phone, user_update_params=request)        
+        response = full_api.update_profile(phone=phone, user_update_params=request)        
         if response.status_code == 200:
             print("test update profile successfull")
         assert response.status_code == 200
@@ -256,9 +307,9 @@ def test_update_profile():
         assert False
 
 def test_update_profile():
-    partner_full_api : PartnerFullApi = PartnerFullApi(api_client)    
+    full_api : PartnerFullApi = PartnerFullApi(api_client)    
     try:
-        response:User = partner_full_api.get_profile(phone="+526621057900")
+        response:User = full_api.get_profile(phone="+526621057900")
         if isinstance(response, User):
             assert isinstance(response.to_dict(), dict)
             assert isinstance(response.to_json(), str)
@@ -298,7 +349,7 @@ def test_set_alternate_cip():
         assert False
         
 def test_add_card():
-    partner_send_api : PartnerSendApi = PartnerSendApi(api_client)    
+    send_api : PartnerSendApi = PartnerSendApi(api_client)    
     
     card:AddCardPartnerParams = AddCardPartnerParams(
         name="visa-1111",
@@ -315,7 +366,7 @@ def test_add_card():
     token = test_get_user_token()
     
     try:
-        response:AddPaymentMethodResponse = partner_send_api.add_card(user_token=token, add_card_partner_params=card)
+        response:AddPaymentMethodResponse = send_api.add_card(user_token=token, add_card_partner_params=card)
         if isinstance(response, AddPaymentMethodResponse):
             assert isinstance(response.to_dict(), dict)
             assert isinstance(response.to_json(), str)
@@ -328,7 +379,7 @@ def test_add_card():
         assert False
         
 def test_verify_card(amount:str):
-    partner_send_api : PartnerSendApi = PartnerSendApi(api_client)
+    send_api : PartnerSendApi = PartnerSendApi(api_client)
     token = test_get_user_token()
     
     micro = VerifyMicroTrxParams(
@@ -336,7 +387,7 @@ def test_verify_card(amount:str):
         amount=amount,
     )
     try:
-        response = partner_send_api.verify_card(user_token=token, verify_micro_trx_params=micro)
+        response = send_api.verify_card(user_token=token, verify_micro_trx_params=micro)
         if isinstance(response, AddPaymentMethodResponse):
             assert isinstance(response.to_dict(), dict)
             assert isinstance(response.to_json(), str)
@@ -418,8 +469,264 @@ def test_list_contacts():
         print(f"Exception when calling PartnerSendApi-> list_contacts: {e}\n")
         assert False
         
+        
+def test_send_funds():
+    send_api : PartnerSendApi = PartnerSendApi(api_client)
+    request = SendMoneyPartnerParams(
+        quotationId="",
+        currency="USD",
+        amount=10,
+        reason="reason",
+        destinationPaymentMethodId="",
+        sourcePaymentMethodId="",
+        correlationId="",
+        sendTo="",
+    )
+    token = test_get_user_token()
+    try:
+        response:PickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrTypeOrShowWarningScreen = send_api.send_funds(user_token=token, send_money_partner_params=request)
+        if isinstance(response, PickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrTypeOrShowWarningScreen):
+            assert isinstance(response.to_dict(), dict)
+            assert isinstance(response.to_json(), str)
+            assert isinstance(response.to_str(), str)
+            assert isinstance(response, PickOperationDetailResponseExcludeKeyofOperationDetailResponseIdOrTypeOrShowWarningScreen)
+            print(response.to_dict())
+    except ApiException as e:
+        print(f"Exception when calling Send api -> send_funds: {e}\n")
+        assert False
 
-  
+def test_get_destination_sof_for_requet_money_operation():
+    default_api : DefaultApi = DefaultApi(api_client)
+    
+    user_token = test_get_user_token()
+    
+    try :
+        response: List[SourceOfFunding] = default_api.get_destination_sof_for_requet_money_operation(user_token=user_token, source_country=source_conutrty, destination_country=destination_country)
+        if isinstance(response, List[SourceOfFunding]):
+            for sof in response:
+                sof: SourceOfFunding
+                assert isinstance(sof.to_dict(), dict)
+                assert isinstance(sof.to_json(), str)
+                assert isinstance(sof.to_str(), str)
+                assert isinstance(sof, SourceOfFunding)
+                print(sof.to_dict())
+        else :
+            assert False
+    except ApiException as e:
+        print(f"Exception when calling PartnerFullApi -> get_destination_sof_for_requet_money_operation: {e}\n")
+        assert False
+        
+def test_get_operation_quote():
+    full_api : PartnerFullApi = PartnerFullApi(api_client)
+    
+    request = QuoteTransactionBase(
+        senderUserId="",
+        senderCountryCode="US",
+        recipientUserId="",
+        recipientCountryCode="MX",
+        recipientCurrency="MXN",
+        recipientAmount=10,
+        isSenderAmount=True,
+        amountCurrency="USD",
+        amount=10,
+        operationType="SendFunds",
+        sourcePaymentMethod="DebitCard",
+        destinationPaymentMethod="DebitCard",
+        tennantFee=0,
+    )
+    
+    user_token = test_get_user_token()    
+    try:
+        response:RaasQuoteTransactionResponse = full_api.get_operation_quote(user_token=user_token, quote_transaction_base=request)
+        if isinstance(response, RaasQuoteTransactionResponse):
+            assert isinstance(response.to_dict(), dict)
+            assert isinstance(response.to_json(), str)
+            assert isinstance(response.to_str(), str)
+            assert isinstance(response, RaasQuoteTransactionResponse)
+            print(response.to_dict())
+    except ApiException as e:
+        print(f"Exception when calling PartnerFullApi -> get_operation_quote: {e}\n")
+        assert False
+        
+def test_send():
+    full_api : PartnerFullApi = PartnerFullApi(api_client)
+    
+    request = SendMoneyParams(
+        correlationId= "",
+        sourcePaymentMethod= "DebitCard",
+        destinationPaymentMethod= "DebitCard",
+        amount= 10,
+        currency= "USD",
+        code= "USD",
+        status= "Completed",
+        senderAmount= 10,
+        senderCurrency= "USD",
+        recipientAmount= 10,
+        recipientCurrency= "USD",
+        feeType= "Fixed",
+        sourceFee= 0,
+        transactionFee= 0,
+        destinationFee= 0,
+        exchangeRate= 0,
+        callLocationLongitude= 0.0,
+        callLocationLatitude= 0.0,
+        reason= "reason",
+        tenantId= "",
+        userTenantId= "",
+        tenantFee= 0,
+        sendTo= "",
+    )
+    
+    user_token = test_get_user_token()
+    try:
+        response:SendMoneyResponse = full_api.send(user_token=user_token, send_money_params=request)
+        if isinstance(response, SendMoneyResponse):
+            assert isinstance(response.to_dict(), dict)
+            assert isinstance(response.to_json(), str)
+            assert isinstance(response.to_str(), str)
+            assert isinstance(response, SendMoneyResponse)
+            print(response.to_dict())
+    except ApiException as e:
+        print(f"Exception when calling PartnerFullApi -> send: {e}\n")
+        assert False
+
+def test_get_cash_operators():
+    send_api : PartnerSendApi = PartnerSendApi(api_client)
+    
+    request = CashOperatorsParamsBase(
+        operationAmmount=10,
+    )
+        
+    user_token = test_get_user_token()
+    
+    try:
+        response: List[CashOperators] = send_api.get_cash_operators(user_token=user_token, cash_operators_params_base=request)
+        if isinstance(response, List[CashOperators]):
+            for operator in response:
+                operator: CashOperators
+                assert isinstance(operator.to_dict(), dict)
+                assert isinstance(operator.to_json(), str)
+                assert isinstance(operator.to_str(), str)
+                assert isinstance(operator, CashOperators)
+                print(operator.to_dict())
+        else:
+            assert False
+    except ApiException as e:
+        print(f"Exception when calling DefaultApi -> get_cash_operators: {e}\n")
+        assert False
+        
+def test_set_reference_code():
+    send_api : PartnerSendApi = PartnerSendApi(api_client)
+    
+    request = SetReferenceCodeParamsBase(
+        operationId="",
+        operationCode="",
+        amount=10,
+        currency="USD",
+        senderName="",
+        receiverName="",
+        networkId="",
+        operationType="SendFunds",
+        cashProvider="",
+    )
+    
+    token = test_get_user_token()
+    try:
+        response: GetReferenceCodeResponse = send_api.set_reference_code(user_token=token, set_reference_code_params_base=request)
+        if isinstance(response, GetReferenceCodeResponse):
+            assert isinstance(response.to_dict(), dict)
+            assert isinstance(response.to_json(), str)
+            assert isinstance(response.to_str(), str)
+            assert isinstance(response, GetReferenceCodeResponse)
+            print(response.to_dict())
+    except ApiException as e:
+        print(f"Exception when calling PartnerSendApi -> set_reference_code: {e}\n")
+        assert False
+        
+def test_get_in_and_out_operations():
+    full_api : PartnerFullApi = PartnerFullApi(api_client)
+    
+    user_token = test_get_user_token()
+    
+    try:
+        response : List[OperationDetailResponse] = full_api.get_in_and_out_operations(user_token=user_token, to_phone_number=phone)
+        if isinstance(response, list):
+            for operation in response:
+                operation: OperationDetailResponse
+                assert isinstance(operation.to_dict(), dict)
+                assert isinstance(operation.to_json(), str)
+                assert isinstance(operation.to_str(), str)
+                assert isinstance(operation, OperationDetailResponse)
+                print(operation.to_dict())
+        else:
+            assert False
+    except ApiException as e:
+        print(f"Exception when calling PartnerFullApi -> get_in_and_out_operations: {e}\n")
+        assert False
+
+def test_get_destination_sof_for_requet_money_operation():
+    default_api : DefaultApi = DefaultApi(api_client)
+    
+    user_token = test_get_user_token()
+    
+    try :
+        response: List[SourceOfFunding] = default_api.get_destination_sof_for_requet_money_operation(user_token=user_token, source_country=source_conutrty, destination_country=destination_country)
+        if isinstance(response, List[SourceOfFunding]):
+            for sof in response:
+                sof: SourceOfFunding
+                assert isinstance(sof.to_dict(), dict)
+                assert isinstance(sof.to_json(), str)
+                assert isinstance(sof.to_str(), str)
+                assert isinstance(sof, SourceOfFunding)
+                print(sof.to_dict())
+        else :
+            assert False
+    except ApiException as e:
+        print(f"Exception when calling PartnerFullApi -> get_destination_sof_for_requet_money_operation: {e}\n")
+        assert False
+        
+def test_get_sof_for_send_money_operation():
+    send_api : PartnerSendApi = PartnerSendApi(api_client)
+    
+    user_token = test_get_user_token()
+    
+    try :
+        response: List[SourceOfFunding] = send_api.get_sof_for_send_money_operation(user_token=user_token, source_country=source_conutrty, destination_country=destination_country)
+        if isinstance(response, List[SourceOfFunding]):
+            for sof in response:
+                sof: SourceOfFunding
+                assert isinstance(sof, SourceOfFunding)
+                assert isinstance(sof.to_dict(), dict)
+                assert isinstance(sof.to_json(), str)
+                assert isinstance(sof.to_str(), str)                
+                print(sof.to_dict())
+        else :
+            assert False
+    except ApiException as e:
+        print(f"Exception when calling PartnerFullApi -> get_sof_for_send_money_operation: {e}\n")
+        assert False
+
+def test_receive():
+    full_api : PartnerFullApi = PartnerFullApi(api_client)
+    
+    request = ReceiveMoneyParams(
+        destinationPaymentMethod="DebitCard",
+        correlationId="",
+    )
+    
+    user_token = test_get_user_token()
+    try:
+        response:SendMoneyResponse = full_api.receive(user_token=user_token, receive_money_params=request)
+        if response.status_code == 200:
+            print("receive successfull")
+            assert response.status_code == 200
+        if response.status_code == 400:
+            print("receive failed")
+            assert False
+    except ApiException as e:
+        print(f"Exception when calling PartnerFullApi -> receive: {e}\n")
+        assert False
+                
 ##For debugging purposes, uncomment the following lines
 ############################################################################################################
         
@@ -438,6 +745,11 @@ if __name__ == '__main__':
     #phone = "+12146930301"
     global cardId
     cardId = "ac31fb3d-043e-47e8-9f6f-9234d804a5ec"
+    
+    global source_conutrty
+    source_conutrty = "US"
+    global destination_country
+    destination_country = "MX"
     
     #test_registerlevel2()
     
