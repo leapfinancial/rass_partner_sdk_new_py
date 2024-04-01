@@ -65,7 +65,8 @@ from raassdkpyv2.models.get_reference_code_response import GetReferenceCodeRespo
 from raassdkpyv2.models.operation_detail_response import OperationDetailResponse
 #models receive
 from raassdkpyv2.models.receive_money_params import ReceiveMoneyParams
-
+#models set_alternate_cip
+from raassdkpyv2.models.alternate_flow import AlternateFlow
 
 """Initial config for the test module. 
     this method is called before any test is executed
@@ -726,7 +727,20 @@ def test_receive():
     except ApiException as e:
         print(f"Exception when calling PartnerFullApi -> receive: {e}\n")
         assert False
-                
+
+def test_set_alternate_cip():
+    full_api : PartnerFullApi = PartnerFullApi(api_client)
+    try:
+        response = full_api.set_alternate_cip(phone_number=phone, type=AlternateFlow.SSN)
+        if response.status_code == 200:
+            print("set alternate cip successfull")
+            assert response.status_code == 200
+        if response.status_code == 400:
+            print("set alternate cip failed")
+            assert False
+    except ApiException as e:
+        print(f"Exception when calling PartnerFullApi -> set_alternate_cip: {e}\n")
+        assert False
 ##For debugging purposes, uncomment the following lines
 ############################################################################################################
         
