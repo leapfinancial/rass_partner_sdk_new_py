@@ -5,14 +5,14 @@
     "version": "0.2.0",
     "configurations": [              
         {
-            "name": "Run Api test",
+            "name": "Run Api test Debug",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/tests_api_call/api_test.py",  // Ejecuta el archivo actual  
             "console": "integratedTerminal"          
         },    
         {
-            "name": "Test APIs call",
+            "name": "Test all APIs",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/tests_api_call/empty.py",
