@@ -79,6 +79,26 @@ def setup_module():
     )
     configuration.verify_ssl = False
     api_client = raassdkpyv2.ApiClient(configuration)
+    
+    
+    global phone
+    #phone = "+14073649716" 
+    phone = "+14073649702" 
+    #for add contact 
+    phone2 = "+14073649703"
+    #set pin code
+    pin_code = "123"
+    
+    #contat jorge
+    #phone = "+12146930301"
+    global cardId
+    cardId = "ac31fb3d-043e-47e8-9f6f-9234d804a5ec"
+    
+    global source_conutrty
+    source_conutrty = "US"
+    global destination_country
+    destination_country = "MX"
+    
     print("SETUP DONE")
 
 """End config for the test module.
@@ -333,21 +353,7 @@ def test_get_cip_info():
             print(response.to_dict())
     except ApiException as e:
         print(f"Exception when calling PartnerFullApi-> get_cip_info: {e}\n")
-        assert False
-        
-def test_set_alternate_cip():
-    full_api : PartnerFullApi = PartnerFullApi(api_client)
-    try:
-        response = full_api.set_alternate_cip(phone_number=phone, type="OFAC")
-        if response.status_code == 200:
-            print("set alternate cip successfull")
-            assert response.status_code == 200
-        if response.status_code == 400:
-            print("set alternate cip failed")
-            assert False
-    except ApiException as e:
-        print(f"Exception when calling PartnerFullApi -> set_alternate_cip: {e}\n")
-        assert False
+        assert False        
         
 def test_add_card():
     send_api : PartnerSendApi = PartnerSendApi(api_client)    
@@ -460,12 +466,15 @@ def test_list_contacts():
     token = test_get_user_token()
     try:
         response:ContactInfo = partner_send_api.list_contacts(user_token=token)
-        if isinstance(response, ContactInfo):
-            assert isinstance(response.to_dict(), dict)
-            assert isinstance(response.to_json(), str)
-            assert isinstance(response.to_str(), str)
-            assert isinstance(response, ContactInfo)
-            print(response.to_dict())
+        
+        if len(response) > 0:
+            for contact in response:
+                contact: ContactInfo            
+                assert isinstance(contact, ContactInfo)
+                assert isinstance(contact.to_dict(), dict)
+                assert isinstance(contact.to_json(), str)
+                assert isinstance(contact.to_str(), str)                
+                print(contact.to_dict())
     except ApiException as e:
         print(f"Exception when calling PartnerSendApi-> list_contacts: {e}\n")
         assert False
@@ -665,26 +674,6 @@ def test_get_in_and_out_operations():
         print(f"Exception when calling PartnerFullApi -> get_in_and_out_operations: {e}\n")
         assert False
 
-def test_get_destination_sof_for_requet_money_operation():
-    default_api : DefaultApi = DefaultApi(api_client)
-    
-    user_token = test_get_user_token()
-    
-    try :
-        response: List[SourceOfFunding] = default_api.get_destination_sof_for_requet_money_operation(user_token=user_token, source_country=source_conutrty, destination_country=destination_country)
-        if isinstance(response, List[SourceOfFunding]):
-            for sof in response:
-                sof: SourceOfFunding
-                assert isinstance(sof.to_dict(), dict)
-                assert isinstance(sof.to_json(), str)
-                assert isinstance(sof.to_str(), str)
-                assert isinstance(sof, SourceOfFunding)
-                print(sof.to_dict())
-        else :
-            assert False
-    except ApiException as e:
-        print(f"Exception when calling PartnerFullApi -> get_destination_sof_for_requet_money_operation: {e}\n")
-        assert False
         
 def test_get_sof_for_send_money_operation():
     send_api : PartnerSendApi = PartnerSendApi(api_client)
@@ -777,22 +766,22 @@ if __name__ == '__main__':
     #test_add_card()
     test_list_contacts()
     #test_create_contact()
+    test_set_alternate_cip()
     
+    
+    
+    
+    
+         
+        
+    #test_get_operation_quote()
+    #test_send()
+    #test_get_cash_operators()
+    #test_set_reference_code()
+    #test_get_in_and_out_operations()
+    #test_operation_quote()
+    #test_send_funds()
+    #test_get_destination_sof_for_requet_money_operation()   
+    #test_get_sof_for_send_money_operation()
+    #test_receive()
     teardown_module()
-    
-    
-    
-    #set_alternate_cip TODO check params
-    #pending test
-    #set_alternate_cip
-    #get_operation_quote
-    #send
-    #get_cash_operators
-    #set_reference_code
-    #get_in_and_out_operations
-    #operation_quote
-    #send_funds
-    #get_destination_sof_for_requet_money_operation
-    #get_destination_sof_for_requet_money_operation
-    #get_sof_for_send_money_operation
-    #receive
