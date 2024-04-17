@@ -100,22 +100,33 @@ class OperationData(BaseModel):
         _obj = OperationData.parse_obj({
             "id": obj.get("id"),
             "created_at": obj.get("createdAt"),
+            "createdAt": obj.get("createdAt"),
             "status": obj.get("status"),
             "code": obj.get("code"),
             "created_by": obj.get("createdBy"),
+            "createdBy": obj.get("createdBy"),
             "correlation_id": obj.get("correlationId"),
+            "correlationId": obj.get("correlationId"),
             "sender": OperationContactData.from_dict(obj.get("sender")) if obj.get("sender") is not None else None,
             "recipient": OperationContactData.from_dict(obj.get("recipient")) if obj.get("recipient") is not None else None,
             "source_payment_method": obj.get("sourcePaymentMethod"),
+            "sourcePaymentMethod": obj.get("sourcePaymentMethod"),
             "destination_payment_method": obj.get("destinationPaymentMethod"),
+            "destinationPaymentMethod": obj.get("destinationPaymentMethod"),
             "amount": obj.get("amount"),
             "currency": obj.get("currency"),
             "sender_amount": obj.get("senderAmount"),
+            "senderAmount": obj.get("senderAmount"),
             "sender_currency": obj.get("senderCurrency"),
+            "senderCurrency": obj.get("senderCurrency"),
             "recipient_amount": obj.get("recipientAmount"),
+            "recipientAmount": obj.get("recipientAmount"),
             "recipient_currency": obj.get("recipientCurrency"),
+            "recipientCurrency": obj.get("recipientCurrency"),
             "exchange_rate": obj.get("exchangeRate"),
-            "fee_payer": obj.get("feePayer")
+            "exchangeRate": obj.get("exchangeRate"),
+            "fee_payer": obj.get("feePayer"),
+            "feePayer": obj.get("feePayer")
         })
         return _obj
 
