@@ -75,12 +75,19 @@ class OperationContactData(BaseModel):
         _obj = OperationContactData.parse_obj({
             "id": obj.get("id"),
             "contact_id": obj.get("contactId"),
+            "contactId": obj.get("contactId"),
             "country_code": obj.get("countryCode"),
+            "countryCode": obj.get("countryCode"),
             "mobile_phone": obj.get("mobilePhone"),
+            "mobilePhone": obj.get("mobilePhone"),
             "first_name": obj.get("firstName"),
+            "firstName": obj.get("firstName"),
             "middle_name": obj.get("middleName"),
+            "middleName": obj.get("middleName"),
             "last_name": obj.get("lastName"),
+            "lastName": obj.get("lastName"),
             "last_name2": obj.get("lastName2"),
+            "lastName2": obj.get("lastName2"),
             "email": obj.get("email"),
             "relationship": obj.get("relationship")
         })
