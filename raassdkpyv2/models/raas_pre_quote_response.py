@@ -26,7 +26,7 @@ class RaasPreQuoteResponse(BaseModel):
     """
     RaasPreQuoteResponse
     """
-    quotes: conlist(RaasPreQuoteValues) = Field(..., alias="Quotes")
+    quotes: List[RaasPreQuoteValues] = Field(..., alias="Quotes")
     __properties = ["Quotes"]
 
     class Config:
