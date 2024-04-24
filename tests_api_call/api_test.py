@@ -10,6 +10,7 @@ from raassdkpyv2.api.default_api import DefaultApi
 # models is_phone_available
 from raassdkpyv2.models.is_phone_available_request import IsPhoneAvailableRequest
 from raassdkpyv2.models.is_phone_available_response import IsPhoneAvailableResponse
+# models exchange_rate
 from raassdkpyv2.models.exchange_rate_dto import ExchangeRateDTO
 # models get_user_token
 from raassdkpyv2.models.get_user_token_params import GetUserTokenParams
@@ -28,7 +29,7 @@ from datetime import datetime
 from raassdkpyv2.models.user import User
 # models update_profile
 from raassdkpyv2.models.user_update_params import UserUpdateParams
-#models get_cip_info PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC
+#models get_cip_info 
 from raassdkpyv2.models.pick_cip_exclude_keyof_cipid_or_attemps_or_is_valid_ofac import PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC
 #models add_card
 from raassdkpyv2.models.add_card_partner_params import AddCardPartnerParams
@@ -131,13 +132,13 @@ def test_registerlevel2():
     default_api:DefaultApi = DefaultApi(api_client)
     request = RegisterUserParams(
         phoneNumber=phone,
-        lastName='felix01',
-        firstName='Harry01',        
+        lastName='Ruben',
+        firstName='Gonzalez',        
         countryCode=CountryAlpha2Code('US'),
         city='Lakeland',
         state='FL',        
         gender='Male',
-        dob = datetime.strptime('1996-03-27T00:00:00.00Z', "%Y-%m-%dT%H:%M:%S.%fZ"),
+        dob = datetime.strptime('1996-04-03T00:00:00.00Z', "%Y-%m-%dT%H:%M:%S.%fZ"),
         email='ruben01@leap.com',
         middleName='middleName',
         address1='6860 Shadowcast Ln',
@@ -161,7 +162,8 @@ def test_registerlevel2():
 def test_set_level_two():
     full_api:PartnerFullApi = PartnerFullApi(api_client)
     request = LevelTwoParams(
-        ssn="123456789",
+        ssn='ssn',
+        alternateFlow=AlternateFlow.SSN,
         callLocationLatitude=0.0,
         callLocationLongitude=0.0,
     )
@@ -222,10 +224,11 @@ def test_exchange_rate():
             assert isinstance(response.to_json(), str)
             assert isinstance(response.to_str(), str)
             assert isinstance(response, ExchangeRateDTO)
+            print(response.to_dict())
                 
     except ApiException as e:
         print(f"Exception when calling PartnerFullApi->get_exchange_rates: {e}\n")
-        assert False, ""
+        assert False
   
 
 def test_get_user_token()->str:
@@ -327,10 +330,10 @@ def test_update_profile():
         print(f"Exception when calling PartnerFullApi -> update_profile: {e}\n")
         assert False
 
-def test_update_profile():
+def test_get_profile():
     full_api : PartnerFullApi = PartnerFullApi(api_client)    
     try:
-        response:User = full_api.get_profile(phone="+526621057900")
+        response:User = full_api.get_profile(phone=phone)
         if isinstance(response, User):
             assert isinstance(response.to_dict(), dict)
             assert isinstance(response.to_json(), str)
@@ -738,7 +741,8 @@ if __name__ == '__main__':
         
     global phone
     #phone = "+14073649716" 
-    phone = "+14073649702" 
+    #phone = "+14073649702" 
+    phone = "14073651401" 
     #for add contact 
     phone2 = "+14073649703"
     #set pin code
@@ -753,23 +757,37 @@ if __name__ == '__main__':
     source_conutrty = "US"
     global destination_country
     destination_country = "MX"
+    #como obtengo una imagen en base 64
+    import base64
     
-    #test_registerlevel2()
-    
+    with open("tests_api_call/documents/passport_front.png", "rb") as image_file:
+       global passport_front
+       passport = base64.b64encode(image_file.read())       
+       print(passport)
+    with open("tests_api_call/documents/passport_back.png", "rb") as image_file:
+       global passport_back
+       passport = base64.b64encode(image_file.read())       
+       print(passport)       
+    with open("tests_api_call/documents/selfie.png", "rb") as image_file:
+        global selfie
+        selfie = base64.b64encode(image_file.read())
+        print(selfie)
+               
     #test_exchange_rate()
     #test_is_phone_available(phone)
     #test_register_sender()
     #test_get_user_token()
     #test_get_prequote_transaction()
     #test_get_profile()
-    #test_get_cip_info()
+    test_get_cip_info()
     #test_add_card()
-    test_list_contacts()
+    #test_list_contacts()
     #test_create_contact()
-    test_set_alternate_cip()
+    #test_set_alternate_cip()
     
-    
-    
+    ######## Procedimiento para elevar a nivel 2
+    #test_registerlevel2()
+    test_set_level_two()
     
     
          
