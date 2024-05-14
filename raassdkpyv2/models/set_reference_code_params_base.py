@@ -73,14 +73,21 @@ class SetReferenceCodeParamsBase(BaseModel):
 
         _obj = SetReferenceCodeParamsBase.parse_obj({
             "operation_id": obj.get("operationId"),
+            "operationId": obj.get("operationId"),
             "operation_code": obj.get("operationCode"),
+            "operationCode": obj.get("operationCode"),
             "amount": obj.get("amount"),
             "currency": obj.get("currency"),
             "sender_name": obj.get("senderName"),
+            "senderName": obj.get("senderName"),
             "receiver_name": obj.get("receiverName"),
+            "receiverName": obj.get("receiverName"),
             "network_id": obj.get("networkId"),
+            "networkId": obj.get("networkId"),
             "operation_type": obj.get("operationType"),
-            "cash_provider": obj.get("cashProvider")
+            "operationType": obj.get("operationType"),
+            "cash_provider": obj.get("cashProvider"),
+            "cashProvider": obj.get("cashProvider")
         })
         return _obj
 
