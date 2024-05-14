@@ -20,11 +20,13 @@ import json
 from datetime import datetime
 from typing import Optional, Union
 from pydantic import BaseModel, Field, StrictFloat, StrictInt, StrictStr, validator
+from raassdkpyv2.models.language import Language
 
 class PerformLevelOneParams(BaseModel):
     """
     PerformLevelOneParams
     """
+    lang: Optional[Language] = None
     address_description: Optional[StrictStr] = Field(None, alias="addressDescription")
     country_code: Optional[StrictStr] = Field(None, alias="countryCode")
     call_location_longitude: Union[StrictFloat, StrictInt] = Field(..., alias="callLocationLongitude")
@@ -43,7 +45,7 @@ class PerformLevelOneParams(BaseModel):
     middle_name: Optional[StrictStr] = Field(None, alias="middleName")
     last_name: StrictStr = Field(..., alias="lastName")
     first_name: StrictStr = Field(..., alias="firstName")
-    __properties = ["addressDescription", "countryCode", "callLocationLongitude", "callLocationLatitude", "city", "birthState", "state", "zipCode", "gender", "placeDetail", "address2", "address1", "dateOfBirth", "email", "secondLastName", "middleName", "lastName", "firstName"]
+    __properties = ["lang", "addressDescription", "countryCode", "callLocationLongitude", "callLocationLatitude", "city", "birthState", "state", "zipCode", "gender", "placeDetail", "address2", "address1", "dateOfBirth", "email", "secondLastName", "middleName", "lastName", "firstName"]
 
     @validator('gender')
     def gender_validate_enum(cls, value):
@@ -91,6 +93,7 @@ class PerformLevelOneParams(BaseModel):
             return PerformLevelOneParams.parse_obj(obj)
 
         _obj = PerformLevelOneParams.parse_obj({
+            "lang": obj.get("lang"),
             "address_description": obj.get("addressDescription"),
             "country_code": obj.get("countryCode"),
             "call_location_longitude": obj.get("callLocationLongitude"),

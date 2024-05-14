@@ -22,6 +22,7 @@ from typing import Optional
 from pydantic import BaseModel, Field, StrictStr, validator
 from raassdkpyv2.models.add_card_session_params import AddCardSessionParams
 from raassdkpyv2.models.country_alpha2_code import CountryAlpha2Code
+from raassdkpyv2.models.language import Language
 
 class SessionLinkParams(BaseModel):
     """
@@ -42,8 +43,9 @@ class SessionLinkParams(BaseModel):
     zip_code: Optional[StrictStr] = Field(None, alias="zipCode")
     state: StrictStr = Field(...)
     birth_state: Optional[StrictStr] = Field(None, alias="birthState")
+    lang: Optional[Language] = None
     add_card_params: Optional[AddCardSessionParams] = Field(None, alias="addCardParams")
-    __properties = ["phoneNumber", "lastName", "lastName2", "gender", "dob", "email", "firstName", "middleName", "address1", "address2", "countryCode", "city", "zipCode", "state", "birthState", "addCardParams"]
+    __properties = ["phoneNumber", "lastName", "lastName2", "gender", "dob", "email", "firstName", "middleName", "address1", "address2", "countryCode", "city", "zipCode", "state", "birthState", "lang", "addCardParams"]
 
     @validator('gender')
     def gender_validate_enum(cls, value):
@@ -109,6 +111,7 @@ class SessionLinkParams(BaseModel):
             "zip_code": obj.get("zipCode"),
             "state": obj.get("state"),
             "birth_state": obj.get("birthState"),
+            "lang": obj.get("lang"),
             "add_card_params": AddCardSessionParams.from_dict(obj.get("addCardParams")) if obj.get("addCardParams") is not None else None
         })
         return _obj

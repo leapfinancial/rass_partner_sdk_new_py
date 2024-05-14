@@ -40,11 +40,11 @@ class RaasPreQuoteValues(BaseModel):
         validate_assignment = True
 
     def to_str(self) -> str:
-        """Returns the string representation of the model"""
-        return pprint.pformat(self.model_dump(by_alias=False))
+        """Returns the string representation of the model using alias"""
+        return pprint.pformat(self.dict(by_alias=True))
 
     def to_json(self) -> str:
-        """Returns the JSON representation of the model"""
+        """Returns the JSON representation of the model using alias"""
         return json.dumps(self.to_dict())
 
     @classmethod
@@ -53,8 +53,8 @@ class RaasPreQuoteValues(BaseModel):
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self):
-        """Returns the dictionary representation of the model"""
-        _dict = self.model_dump(by_alias=False,
+        """Returns the dictionary representation of the model using alias"""
+        _dict = self.dict(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -67,9 +67,16 @@ class RaasPreQuoteValues(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return RaasPreQuoteValues.model_validate(obj)
+            return RaasPreQuoteValues.parse_obj(obj)
 
-        _obj = RaasPreQuoteValues.model_validate(obj)
+        _obj = RaasPreQuoteValues.parse_obj({
+            "exchange_rate": obj.get("ExchangeRate"),
+            "source_fee": obj.get("SourceFee"),
+            "transaction_fee": obj.get("TransactionFee"),
+            "destination_fee": obj.get("DestinationFee"),
+            "tenant_fee": obj.get("TenantFee"),
+            "type": obj.get("Type")
+        })
         return _obj
 
 

@@ -21,6 +21,7 @@ from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, Field, StrictStr, validator
 from raassdkpyv2.models.country_alpha2_code import CountryAlpha2Code
+from raassdkpyv2.models.language import Language
 
 class RegisterUserParams(BaseModel):
     """
@@ -41,7 +42,8 @@ class RegisterUserParams(BaseModel):
     zip_code: Optional[StrictStr] = Field(None, alias="zipCode")
     state: StrictStr = Field(...)
     birth_state: Optional[StrictStr] = Field(None, alias="birthState")
-    __properties = ["phoneNumber", "lastName", "lastName2", "gender", "dob", "email", "firstName", "middleName", "address1", "address2", "countryCode", "city", "zipCode", "state", "birthState"]
+    lang: Optional[Language] = None
+    __properties = ["phoneNumber", "lastName", "lastName2", "gender", "dob", "email", "firstName", "middleName", "address1", "address2", "countryCode", "city", "zipCode", "state", "birthState", "lang"]
 
     @validator('gender')
     def gender_validate_enum(cls, value):
@@ -103,7 +105,8 @@ class RegisterUserParams(BaseModel):
             "city": obj.get("city"),
             "zip_code": obj.get("zipCode"),
             "state": obj.get("state"),
-            "birth_state": obj.get("birthState")
+            "birth_state": obj.get("birthState"),
+            "lang": obj.get("lang")
         })
         return _obj
 

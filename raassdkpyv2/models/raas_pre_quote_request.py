@@ -34,7 +34,8 @@ class RaasPreQuoteRequest(BaseModel):
     operation_type: StrictStr = Field(..., alias="OperationType")
     product_type: StrictStr = Field(..., alias="ProductType")
     tennant_fee: Optional[Union[StrictFloat, StrictInt]] = Field(None, alias="TennantFee")
-    __properties = ["RecipientId", "SubscriberId", "DestinationPaymentMethod", "SenderCountryCode", "IsSenderAmount", "Amount", "OperationType", "ProductType", "TennantFee"]
+    tenant_code: Optional[StrictStr] = Field(None, alias="TenantCode")
+    __properties = ["RecipientId", "SubscriberId", "DestinationPaymentMethod", "SenderCountryCode", "IsSenderAmount", "Amount", "OperationType", "ProductType", "TennantFee", "TenantCode"]
 
     @validator('operation_type')
     def operation_type_validate_enum(cls, value):
@@ -57,7 +58,7 @@ class RaasPreQuoteRequest(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+        return pprint.pformat(self.dict(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -70,7 +71,7 @@ class RaasPreQuoteRequest(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.model_dump(by_alias=True,
+        _dict = self.dict(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -88,9 +89,20 @@ class RaasPreQuoteRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return RaasPreQuoteRequest.model_validate(obj)
+            return RaasPreQuoteRequest.parse_obj(obj)
 
-        _obj = RaasPreQuoteRequest.model_validate(obj)
+        _obj = RaasPreQuoteRequest.parse_obj({
+            "recipient_id": obj.get("RecipientId"),
+            "subscriber_id": obj.get("SubscriberId"),
+            "destination_payment_method": obj.get("DestinationPaymentMethod"),
+            "sender_country_code": obj.get("SenderCountryCode"),
+            "is_sender_amount": obj.get("IsSenderAmount"),
+            "amount": obj.get("Amount"),
+            "operation_type": obj.get("OperationType"),
+            "product_type": obj.get("ProductType"),
+            "tennant_fee": obj.get("TennantFee"),
+            "tenant_code": obj.get("TenantCode")
+        })
         return _obj
 
 
