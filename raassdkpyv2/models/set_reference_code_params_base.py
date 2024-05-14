@@ -26,9 +26,9 @@ class SetReferenceCodeParamsBase(BaseModel):
     SetReferenceCodeParamsBase
     """
     operation_id: StrictStr = Field(..., alias="operationId", description="internal Id of operation")
-    operation_code: StrictStr = Field(..., alias="operationCode", description="short id of operation")
-    amount: Union[StrictFloat, StrictInt] = Field(...)
-    currency: StrictStr = Field(..., description="Iso 3 for Curency (USD,MXN)")
+    # operation_code: StrictStr = Field(..., alias="operationCode", description="short id of operation")
+    # amount: Union[StrictFloat, StrictInt] = Field(...)
+    # currency: StrictStr = Field(..., description="Iso 3 for Curency (USD,MXN)")
     sender_name: StrictStr = Field(..., alias="senderName", description="sender full name")
     receiver_name: StrictStr = Field(..., alias="receiverName", description="receiver full name")
     network_id: StrictStr = Field(..., alias="networkId", description="ID of cash operator. This can be obtained from Cash Operator")
@@ -73,21 +73,14 @@ class SetReferenceCodeParamsBase(BaseModel):
 
         _obj = SetReferenceCodeParamsBase.parse_obj({
             "operation_id": obj.get("operationId"),
-            "operationId": obj.get("operationId"),
-            "operation_code": obj.get("operationCode"),
-            "operationCode": obj.get("operationCode"),
-            "amount": obj.get("amount"),
-            "currency": obj.get("currency"),
+            # "operation_code": obj.get("operationCode"),
+            # "amount": obj.get("amount"),
+            # "currency": obj.get("currency"),
             "sender_name": obj.get("senderName"),
-            "senderName": obj.get("senderName"),
             "receiver_name": obj.get("receiverName"),
-            "receiverName": obj.get("receiverName"),
             "network_id": obj.get("networkId"),
-            "networkId": obj.get("networkId"),
             "operation_type": obj.get("operationType"),
-            "operationType": obj.get("operationType"),
-            "cash_provider": obj.get("cashProvider"),
-            "cashProvider": obj.get("cashProvider")
+            "cash_provider": obj.get("cashProvider")
         })
         return _obj
 
