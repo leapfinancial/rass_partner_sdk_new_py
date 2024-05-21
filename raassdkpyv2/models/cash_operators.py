@@ -90,13 +90,17 @@ class CashOperators(BaseModel):
         _obj = CashOperators.parse_obj({
             "id": obj.get("id"),
             "external_id": obj.get("externalId"),
+            "externalId": obj.get("externalId"),
             "network": [CashNetwork.from_dict(_item) for _item in obj.get("network")] if obj.get("network") is not None else None,
             "country": obj.get("country"),
             "name": obj.get("name"),
             "image_url": obj.get("imageUrl"),
+            "imageUrl": obj.get("imageUrl"),
             "location": [CashLocation.from_dict(_item) for _item in obj.get("location")] if obj.get("location") is not None else None,
             "cash_account_type": obj.get("cashAccountType"),
-            "image_circle_url": obj.get("imageCircleUrl")
+            "cashAccountType": obj.get("cashAccountType"),
+            "image_circle_url": obj.get("imageCircleUrl"),
+            "imageCircleUrl": obj.get("imageCircleUrl")
         })
         return _obj
 
