@@ -70,9 +70,12 @@ class GetReferenceCodeResponse(BaseModel):
         _obj = GetReferenceCodeResponse.parse_obj({
             "code": obj.get("code"),
             "expiration_date": obj.get("expirationDate"),
+            "expirationDate": obj.get("expirationDate"),
             "code_type": obj.get("codeType"),
+            "codeType": obj.get("codeType"),
             "status": obj.get("status"),
-            "status_message": obj.get("statusMessage")
+            "status_message": obj.get("statusMessage"),
+            "statusMessage": obj.get("statusMessage")
         })
         return _obj
 
