@@ -27,7 +27,7 @@ class CashNetwork(BaseModel):
     """
     id: StrictStr = Field(...)
     name: StrictStr = Field(...)
-    cash_provider: Dict[str, Any] = Field(..., alias="cashProvider")
+    cash_provider: StrictStr = Field(..., alias="cashProvider")
     image_url: StrictStr = Field(..., alias="imageUrl")
     __properties = ["id", "name", "cashProvider", "imageUrl"]
 
