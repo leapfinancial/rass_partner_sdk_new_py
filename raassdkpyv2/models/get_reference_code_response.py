@@ -27,7 +27,7 @@ class GetReferenceCodeResponse(BaseModel):
     """
     code: Optional[StrictStr] = None
     expiration_date: StrictStr = Field(..., alias="expirationDate")
-    code_type: Dict[str, Any] = Field(..., alias="codeType")
+    code_type: StrictStr = Field(..., alias="codeType")
     status: StrictStr = Field(...)
     status_message: Optional[StrictStr] = Field(None, alias="statusMessage")
     __properties = ["code", "expirationDate", "codeType", "status", "statusMessage"]
