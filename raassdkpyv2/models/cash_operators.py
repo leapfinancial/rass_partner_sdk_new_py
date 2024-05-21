@@ -34,7 +34,7 @@ class CashOperators(BaseModel):
     name: StrictStr = Field(...)
     image_url: StrictStr = Field(..., alias="imageUrl")
     location: conlist(CashLocation) = Field(...)
-    cash_account_type: Dict[str, Any] = Field(..., alias="cashAccountType")
+    cash_account_type: StrictStr = Field(..., alias="cashAccountType")
     image_circle_url: StrictStr = Field(..., alias="imageCircleUrl")
     __properties = ["id", "externalId", "network", "country", "name", "imageUrl", "location", "cashAccountType", "imageCircleUrl"]
 
