@@ -70,7 +70,9 @@ class CashNetwork(BaseModel):
             "id": obj.get("id"),
             "name": obj.get("name"),
             "cash_provider": obj.get("cashProvider"),
-            "image_url": obj.get("imageUrl")
+            "cashProvider": obj.get("cashProvider"),
+            "image_url": obj.get("imageUrl"),
+            "imageUrl": obj.get("imageUrl")
         })
         return _obj
 
