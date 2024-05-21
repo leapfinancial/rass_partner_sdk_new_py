@@ -27,7 +27,7 @@ class GetReferenceCodeResponse(BaseModel):
     """
     code: Optional[StrictStr] = None
     expiration_date: StrictStr = Field(..., alias="expirationDate")
-    code_type: Dict[str, Any] = Field(..., alias="codeType")
+    code_type: StrictStr = Field(..., alias="codeType")
     status: StrictStr = Field(...)
     status_message: Optional[StrictStr] = Field(None, alias="statusMessage")
     __properties = ["code", "expirationDate", "codeType", "status", "statusMessage"]
@@ -70,9 +70,12 @@ class GetReferenceCodeResponse(BaseModel):
         _obj = GetReferenceCodeResponse.parse_obj({
             "code": obj.get("code"),
             "expiration_date": obj.get("expirationDate"),
+            "expirationDate": obj.get("expirationDate"),
             "code_type": obj.get("codeType"),
+            "codeType": obj.get("codeType"),
             "status": obj.get("status"),
-            "status_message": obj.get("statusMessage")
+            "status_message": obj.get("statusMessage"),
+            "statusMessage": obj.get("statusMessage")
         })
         return _obj
 

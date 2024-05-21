@@ -18,23 +18,20 @@ import re  # noqa: F401
 import json
 
 
-from typing import Union
-from pydantic import BaseModel, Field, StrictFloat, StrictInt, StrictStr
+
+from pydantic import BaseModel, Field, StrictStr
 
 class SetReferenceCodeParamsBase(BaseModel):
     """
     SetReferenceCodeParamsBase
     """
-    operation_id: StrictStr = Field(..., alias="operationId", description="internal Id of operation")
-    operation_code: StrictStr = Field(..., alias="operationCode", description="short id of operation")
-    amount: Union[StrictFloat, StrictInt] = Field(...)
-    currency: StrictStr = Field(..., description="Iso 3 for Curency (USD,MXN)")
+    operation_id: StrictStr = Field(..., alias="operationId", description="plat Id of operation")
     sender_name: StrictStr = Field(..., alias="senderName", description="sender full name")
     receiver_name: StrictStr = Field(..., alias="receiverName", description="receiver full name")
     network_id: StrictStr = Field(..., alias="networkId", description="ID of cash operator. This can be obtained from Cash Operator")
     operation_type: StrictStr = Field(..., alias="operationType")
     cash_provider: StrictStr = Field(..., alias="cashProvider", description="can be (Numi, Greendot, Inpamex, NumiCashDelivery, Incomm) and it's obtained from Cash Network.")
-    __properties = ["operationId", "operationCode", "amount", "currency", "senderName", "receiverName", "networkId", "operationType", "cashProvider"]
+    __properties = ["operationId", "senderName", "receiverName", "networkId", "operationType", "cashProvider"]
 
     class Config:
         """Pydantic configuration"""
@@ -73,9 +70,6 @@ class SetReferenceCodeParamsBase(BaseModel):
 
         _obj = SetReferenceCodeParamsBase.parse_obj({
             "operation_id": obj.get("operationId"),
-            "operation_code": obj.get("operationCode"),
-            "amount": obj.get("amount"),
-            "currency": obj.get("currency"),
             "sender_name": obj.get("senderName"),
             "receiver_name": obj.get("receiverName"),
             "network_id": obj.get("networkId"),

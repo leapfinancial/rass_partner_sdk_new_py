@@ -27,7 +27,7 @@ class CashNetwork(BaseModel):
     """
     id: StrictStr = Field(...)
     name: StrictStr = Field(...)
-    cash_provider: Dict[str, Any] = Field(..., alias="cashProvider")
+    cash_provider: StrictStr = Field(..., alias="cashProvider")
     image_url: StrictStr = Field(..., alias="imageUrl")
     __properties = ["id", "name", "cashProvider", "imageUrl"]
 
@@ -70,7 +70,9 @@ class CashNetwork(BaseModel):
             "id": obj.get("id"),
             "name": obj.get("name"),
             "cash_provider": obj.get("cashProvider"),
-            "image_url": obj.get("imageUrl")
+            "cashProvider": obj.get("cashProvider"),
+            "image_url": obj.get("imageUrl"),
+            "imageUrl": obj.get("imageUrl")
         })
         return _obj
 
