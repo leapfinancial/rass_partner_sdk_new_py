@@ -69,11 +69,9 @@ class RaasPreQuoteResponse(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return RaasPreQuoteResponse.parse_obj(obj)
+            return RaasPreQuoteResponse.model_validate(obj)
 
-        _obj = RaasPreQuoteResponse.parse_obj({
-            "quotes": [RaasPreQuoteValues.from_dict(_item) for _item in obj.get("Quotes")] if obj.get("Quotes") is not None else None
-        })
+        _obj = RaasPreQuoteResponse.model_validate(obj)
         return _obj
 
 
