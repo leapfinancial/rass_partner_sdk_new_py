@@ -291,7 +291,10 @@ Authentication schemes defined for the API:
 
 # importante
 
--Para el modelo User toco darle soporte extra a Datetime, en especial en la funcion .to_json
+-Para los modelos 
+    User
+    OperationDetailResponse 
+toco darle soporte extra a Datetime, en especial en la funcion .to_json
 
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, o):

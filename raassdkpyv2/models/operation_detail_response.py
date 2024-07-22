@@ -24,6 +24,13 @@ from raassdkpyv2.models.ignored_operation_data import IgnoredOperationData
 from raassdkpyv2.models.operation_user_detail import OperationUserDetail
 from raassdkpyv2.models.payment_method_response import PaymentMethodResponse
 
+class DateTimeEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, datetime):
+            return o.isoformat()
+
+        return super().default(o)
+    
 class OperationDetailResponse(BaseModel):
     """
     OperationDetailResponse
@@ -71,7 +78,7 @@ class OperationDetailResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(self.to_dict())
+        return json.dumps(self.to_dict(), cls=DateTimeEncoder)
 
     @classmethod
     def from_json(cls, json_str: str) -> OperationDetailResponse:
@@ -80,7 +87,7 @@ class OperationDetailResponse(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -108,9 +115,9 @@ class OperationDetailResponse(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return OperationDetailResponse.parse_obj(obj)
+            return OperationDetailResponse.model_validate(obj)
 
-        _obj = OperationDetailResponse.parse_obj({
+        _obj = OperationDetailResponse.model_validate({
             "tenantfee": obj.get("tenantfee"),
             "ignored_data": IgnoredOperationData.from_dict(obj.get("ignoredData")) if obj.get("ignoredData") is not None else None,
             "ignoredData": IgnoredOperationData.from_dict(obj.get("ignoredData")) if obj.get("ignoredData") is not None else None,
