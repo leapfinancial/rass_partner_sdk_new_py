@@ -69,22 +69,43 @@ from raassdkpyv2.models.receive_money_params import ReceiveMoneyParams
 #models set_alternate_cip
 from raassdkpyv2.models.alternate_flow import AlternateFlow
 
+from raassdkpyv2.models.update_contact_request_params import UpdateContactRequestParams
+
 """Initial config for the test module. 
     this method is called before any test is executed
 """
 def setup_module():
     global api_client
+    
+    # configurations FROM CV
+    # configuration = raassdkpyv2.Configuration(
+    #     host="https://raas-partner-cv.nomas.cash/v1",        
+    #     api_key={'api_key': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoibkJ1NkRWc0FnSjdzYUU3aWU5YWgiLCJuYW1lIjoiTnVtaSBTRU5EIiwiY291bnRyeSI6IlVTIiwiY29kZSI6Im51bWlfc2VuZCIsInNjb3BlcyI6WyJwYXJ0bmVyX2Z1bGwiXX0sImlhdCI6MTcxMDg2ODA5NywiZXhwIjoxNzQyNDA0MDk3fQ.RRljlIvcJFf0F8h702WWWlNqvu2ocy28fWPfVxPETh4'}
+    # )
+    
+    # configurations FROM QA
     configuration = raassdkpyv2.Configuration(
         host="https://raas-partner-cv.nomas.cash/v1",        
+        
+        #Api key US
         api_key={'api_key': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoibkJ1NkRWc0FnSjdzYUU3aWU5YWgiLCJuYW1lIjoiTnVtaSBTRU5EIiwiY291bnRyeSI6IlVTIiwiY29kZSI6Im51bWlfc2VuZCIsInNjb3BlcyI6WyJwYXJ0bmVyX2Z1bGwiXX0sImlhdCI6MTcxMDg2ODA5NywiZXhwIjoxNzQyNDA0MDk3fQ.RRljlIvcJFf0F8h702WWWlNqvu2ocy28fWPfVxPETh4'}
+        #Api key MX
+        #api_key={'api_key': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiVTJwdWpRMmZKZ0VPZENhYUh5dDkiLCJuYW1lIjoiTnVtaSBBU0sgTVgiLCJjb3VudHJ5IjoiTVgiLCJjb2RlIjoibnVtaV9hc2tfbXgiLCJzY29wZXMiOlsicGFydG5lcl9mdWxsIl19LCJpYXQiOjE3MTA4Njg3NTgsImV4cCI6MTc0MjQwNDc1OH0.HMMEKvXceQ3Of41pEAH0OA8AWHnebC-v3-1hXnvhY3A'}
     )
+    
+        
+    # RASS_URL=https://raas-partner-cv.nomas.cash/v1
+    # RASS_APY_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoibkJ1NkRWc0FnSjdzYUU3aWU5YWgiLCJuYW1lIjoiTnVtaSBTRU5EIiwiY291bnRyeSI6IlVTIiwiY29kZSI6Im51bWlfc2VuZCIsInNjb3BlcyI6WyJwYXJ0bmVyX2Z1bGwiXX0sImlhdCI6MTcxMDg2ODA5NywiZXhwIjoxNzQyNDA0MDk3fQ.RRljlIvcJFf0F8h702WWWlNqvu2ocy28fWPfVxPETh4
+    # data_api_keys_country = {"MX": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiVTJwdWpRMmZKZ0VPZENhYUh5dDkiLCJuYW1lIjoiTnVtaSBBU0sgTVgiLCJjb3VudHJ5IjoiTVgiLCJjb2RlIjoibnVtaV9hc2tfbXgiLCJzY29wZXMiOlsicGFydG5lcl9mdWxsIl19LCJpYXQiOjE3MTA4Njg3NTgsImV4cCI6MTc0MjQwNDc1OH0.HMMEKvXceQ3Of41pEAH0OA8AWHnebC-v3-1hXnvhY3A","US": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoibkJ1NkRWc0FnSjdzYUU3aWU5YWgiLCJuYW1lIjoiTnVtaSBTRU5EIiwiY291bnRyeSI6IlVTIiwiY29kZSI6Im51bWlfc2VuZCIsInNjb3BlcyI6WyJwYXJ0bmVyX2Z1bGwiXX0sImlhdCI6MTcxMDg2ODA5NywiZXhwIjoxNzQyNDA0MDk3fQ.RRljlIvcJFf0F8h702WWWlNqvu2ocy28fWPfVxPETh4"}
+    # SHARED_COUNTRY_SECRET = {"MX": "FmxVdkaBNgpRncnpXTZqyHWLqJD4xnpi","US": "mYBccTxcSrkh2kRdjEwCJJbhCYQYKpP7"}
+    
     configuration.verify_ssl = False
     api_client = raassdkpyv2.ApiClient(configuration)
     
     
     global phone
     #phone = "+14073649716" 
-    phone = "+14073649702" 
+    phone = "+14073649860" 
     #for add contact 
     phone2 = "+14073649703"
     #set pin code
@@ -271,11 +292,12 @@ def test_get_prequote_transaction():
     token = test_get_user_token()
     
     try:
-        response:RaasPreQuoteResponse = full_api.pre_quote(token, raas_pre_quote_request=request)
-        for quote in response.quotes:
-            quote : RaasPreQuoteResponse
-            quote = quote.to_dict()
-            print(quote['type'])
+        response = full_api.pre_quote(token, raas_pre_quote_request=request)
+        # for quote in response.quotes:
+        #     quote : RaasPreQuoteResponse
+        #     quote = quote.to_dict()
+        #     print(quote['type'])
+        print(response)
     except ApiException as e:
         print(f"Exception when calling PartnerFullApi->pre_quote: {e}\n")
         assert False
@@ -339,6 +361,7 @@ def test_get_profile():
             assert isinstance(response.to_json(), str)
             assert isinstance(response.to_str(), str)
             assert isinstance(response, User)
+            print(response.to_dict())
     except ApiException as e:
         print(f"Exception when calling PartnerFullApi->get_profile: {e}\n")
         assert False
@@ -362,15 +385,15 @@ def test_add_card():
     send_api : PartnerSendApi = PartnerSendApi(api_client)    
     
     card:AddCardPartnerParams = AddCardPartnerParams(
-        name="visa-1111",
-        cardtype="CreditCard",
-        number="tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111",
+        name="VISA-3713",
+        cardtype="DebitCard",
+        number="tok_sandbox_J3pEJRUBwuzBYWdYadcGS_3713",
         isPrimary=True,
         nameOnCard="Andres Pinto",
-        expirationDate="1224",
-        country="US",
+        expirationDate="1227",
+        country="MX",
         cardNetwork="NotApplicable",
-        securityCode="tok_sandbox_7YcvwXKE1jVLeEHofR3GiR"
+        #securityCode="tok_sandbox_7YcvwXKE1jVLeEHofR3GiR"
     
     )
     token = test_get_user_token()
@@ -514,8 +537,8 @@ def test_get_destination_sof_for_requet_money_operation():
     user_token = test_get_user_token()
     
     try :
-        response: List[SourceOfFunding] = default_api.get_destination_sof_for_requet_money_operation(user_token=user_token, source_country=source_conutrty, destination_country=destination_country)
-        if isinstance(response, List[SourceOfFunding]):
+        response: List[SourceOfFunding] = default_api.get_destination_sof_for_requet_money_operation(user_token=user_token, source_country=destination_country, destination_country=source_conutrty)
+        if isinstance(response, list):
             for sof in response:
                 sof: SourceOfFunding
                 assert isinstance(sof.to_dict(), dict)
@@ -528,6 +551,12 @@ def test_get_destination_sof_for_requet_money_operation():
     except ApiException as e:
         print(f"Exception when calling PartnerFullApi -> get_destination_sof_for_requet_money_operation: {e}\n")
         assert False
+
+def get_card_by_id(cardId:str):
+    cards = test_get_destination_sof_for_requet_money_operation()
+    card:SourceOfFunding = next(card for card in cards if card.id == cardId)
+    print(card.to_dict())
+    return card
         
 def test_get_operation_quote():
     full_api : PartnerFullApi = PartnerFullApi(api_client)
@@ -662,7 +691,7 @@ def test_get_in_and_out_operations():
     user_token = test_get_user_token()
     
     try:
-        response : List[OperationDetailResponse] = full_api.get_in_and_out_operations(user_token=user_token, to_phone_number=phone)
+        response : List[OperationDetailResponse] = full_api.get_in_and_out_operations(user_token=user_token, to_phone_number=None)
         if isinstance(response, list):
             for operation in response:
                 operation: OperationDetailResponse
@@ -670,7 +699,8 @@ def test_get_in_and_out_operations():
                 assert isinstance(operation.to_json(), str)
                 assert isinstance(operation.to_str(), str)
                 assert isinstance(operation, OperationDetailResponse)
-                print(operation.to_dict())
+                operation = operation.to_dict()
+                print(operation)
         else:
             assert False
     except ApiException as e:
@@ -733,21 +763,44 @@ def test_set_alternate_cip():
     except ApiException as e:
         print(f"Exception when calling PartnerFullApi -> set_alternate_cip: {e}\n")
         assert False
+
+def test_update_contact():
+    sdk : PartnerSendApi = PartnerSendApi(api_client)
+    try:
+        token = test_get_user_token()
+        request = UpdateContactRequestParams(
+            alias="Hermano",
+            countryCode="US",
+            firstName="Lionel",
+            lastName="Carrasco",
+            email="correo@leap.com",
+            phone=phone
+        )
+        response = sdk.updated_contact(user_token=token, update_contact_request_params=request)
+        if response.status_code == 200:
+            print("set alternate cip successfull")
+            assert response.status_code == 200
+        if response.status_code == 400:
+            print("set alternate cip failed")
+            assert False
+    except ApiException as e:
+        print(f"Exception when calling PartnerSendApi -> test_update_contact: {e}\n")
+        assert False
+        
 ##For debugging purposes, uncomment the following lines
 ############################################################################################################
         
 if __name__ == '__main__':    
     setup_module()
         
-    global phone
-    #phone = "+14073649716" 
-    #phone = "+14073649702" 
-    phone = "14073651401" 
+    global phone    
+    #phone = "+14073649860" 
+    phone = "+14073649887" 
     #for add contact 
     phone2 = "+14073649703"
     #set pin code
     pin_code = "123"
-    
+        
     #contat jorge
     #phone = "+12146930301"
     global cardId
@@ -776,27 +829,27 @@ if __name__ == '__main__':
     #test_exchange_rate()
     #test_is_phone_available(phone)
     #test_register_sender()
-    #test_get_user_token()
-    #test_get_prequote_transaction()
+    # token = test_get_user_token()
+    # print(token)
+    # test_get_prequote_transaction()
     #test_get_profile()
-    test_get_cip_info()
+    # test_get_cip_info()
     #test_add_card()
     #test_list_contacts()
     #test_create_contact()
-    #test_set_alternate_cip()
     
     ######## Procedimiento para elevar a nivel 2
     #test_registerlevel2()
-    test_set_level_two()
+    #test_set_level_two()
     
     
-         
+    #test_update_contact()    
         
     #test_get_operation_quote()
     #test_send()
     #test_get_cash_operators()
     #test_set_reference_code()
-    #test_get_in_and_out_operations()
+    test_get_in_and_out_operations()
     #test_operation_quote()
     #test_send_funds()
     #test_get_destination_sof_for_requet_money_operation()   
