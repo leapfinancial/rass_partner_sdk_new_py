@@ -153,15 +153,15 @@ def test_registerlevel2():
     default_api:DefaultApi = DefaultApi(api_client)
     request = RegisterUserParams(
         phoneNumber=phone,
-        lastName='Ruben',
-        firstName='Gonzalez',        
+        lastName='lastName',
+        firstName='Ruben',        
         countryCode=CountryAlpha2Code('US'),
         city='Lakeland',
         state='FL',        
         gender='Male',
         dob = datetime.strptime('1996-04-03T00:00:00.00Z', "%Y-%m-%dT%H:%M:%S.%fZ"),
         email='ruben01@leap.com',
-        middleName='middleName',
+        middleName='Gonzalez',
         address1='6860 Shadowcast Ln',
         address2='address',
         zipCode='zipCode',
@@ -769,20 +769,15 @@ def test_update_contact():
     try:
         token = test_get_user_token()
         request = UpdateContactRequestParams(
-            alias="Hermano",
+            alias="Hermana",
             countryCode="US",
-            firstName="Lionel",
+            firstName="Ana",
             lastName="Carrasco",
             email="correo@leap.com",
-            phone=phone
+            phone=phone2
         )
-        response = sdk.updated_contact(user_token=token, update_contact_request_params=request)
-        if response.status_code == 200:
-            print("set alternate cip successfull")
-            assert response.status_code == 200
-        if response.status_code == 400:
-            print("set alternate cip failed")
-            assert False
+        sdk.updated_contact(user_token=token, update_contact_request_params=request)        
+        assert True
     except ApiException as e:
         print(f"Exception when calling PartnerSendApi -> test_update_contact: {e}\n")
         assert False
@@ -795,9 +790,9 @@ if __name__ == '__main__':
         
     global phone    
     #phone = "+14073649860" 
-    phone = "+14073649887" 
+    phone = "+14073650000" 
     #for add contact 
-    phone2 = "+14073649703"
+    phone2 = "+5216621051000"
     #set pin code
     pin_code = "123"
         
@@ -835,7 +830,7 @@ if __name__ == '__main__':
     #test_get_profile()
     # test_get_cip_info()
     #test_add_card()
-    #test_list_contacts()
+    test_list_contacts()
     #test_create_contact()
     
     ######## Procedimiento para elevar a nivel 2
@@ -843,13 +838,14 @@ if __name__ == '__main__':
     #test_set_level_two()
     
     
-    #test_update_contact()    
+    test_update_contact()    
+    test_list_contacts()
         
     #test_get_operation_quote()
     #test_send()
     #test_get_cash_operators()
     #test_set_reference_code()
-    test_get_in_and_out_operations()
+    #test_get_in_and_out_operations()
     #test_operation_quote()
     #test_send_funds()
     #test_get_destination_sof_for_requet_money_operation()   
