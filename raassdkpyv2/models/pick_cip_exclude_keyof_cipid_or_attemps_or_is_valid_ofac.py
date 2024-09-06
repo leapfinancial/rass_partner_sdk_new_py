@@ -18,58 +18,90 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional, Union
-from pydantic import BaseModel, Field, StrictBool, StrictFloat, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import Field
 from raassdkpyv2.models.errors_cip_process import ErrorsCIPProcess
 from raassdkpyv2.models.level_status import LevelStatus
 from raassdkpyv2.models.level_status_detail import LevelStatusDetail
 from raassdkpyv2.models.pick_cip_exclude_keyof_cipid_or_attemps_or_is_valid_ofac_lola_cip import PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFACLolaCIP
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 class PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC(BaseModel):
     """
-    From T, pick a set of properties whose keys are in the union K  # noqa: E501
-    """
-    cip_level: Union[StrictFloat, StrictInt] = Field(..., alias="cipLevel", description="this will updated  from event queue")
-    has_personal_info: StrictBool = Field(..., alias="hasPersonalInfo")
-    has_proof_of_l_ife: StrictBool = Field(..., alias="hasProofOfLIfe")
-    has_scan_ids: StrictBool = Field(..., alias="hasScanIds")
-    is_perform_level1: StrictBool = Field(..., alias="isPerformLevel1")
-    is_perform_level2: StrictBool = Field(..., alias="isPerformLevel2")
-    profile_and_ocr_similarity: Optional[Union[StrictFloat, StrictInt]] = Field(None, alias="profileAndOCRSimilarity")
-    errors_process: ErrorsCIPProcess = Field(..., alias="errorsProcess")
-    level1status: LevelStatus = Field(...)
-    level1status_detail: LevelStatusDetail = Field(..., alias="level1statusDetail")
-    level2status: LevelStatus = Field(...)
-    level2status_detail: LevelStatusDetail = Field(..., alias="level2statusDetail")
-    is_document_id_value_validated: Optional[StrictBool] = Field(None, alias="isDocumentIdValueValidated", description="This will be used when the document id value will be validated. For example The Nufi's CURP validation")
-    is_alternate_flow: Optional[StrictBool] = Field(None, alias="isAlternateFlow", description="This is for knowing the specific cip has an alternate flow")
-    lola_cip: Optional[PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFACLolaCIP] = Field(None, alias="lolaCIP")
-    __properties = ["cipLevel", "hasPersonalInfo", "hasProofOfLIfe", "hasScanIds", "isPerformLevel1", "isPerformLevel2", "profileAndOCRSimilarity", "errorsProcess", "level1status", "level1statusDetail", "level2status", "level2statusDetail", "isDocumentIdValueValidated", "isAlternateFlow", "lolaCIP"]
+    From T, pick a set of properties whose keys are in the union K
+    """ # noqa: E501
+    cip_level: Union[StrictFloat, StrictInt] = Field(description="this will updated  from event queue", alias="cipLevel")
+    has_personal_info: StrictBool = Field(alias="hasPersonalInfo")
+    has_human_selfie: Optional[StrictBool] = Field(default=None, alias="hasHumanSelfie")
+    has_proof_of_l_ife: StrictBool = Field(alias="hasProofOfLIfe")
+    has_scan_ids: StrictBool = Field(alias="hasScanIds")
+    is_perform_level1: StrictBool = Field(alias="isPerformLevel1")
+    is_perform_level2: StrictBool = Field(alias="isPerformLevel2")
+    profile_and_ocr_similarity: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="profileAndOCRSimilarity")
+    errors_process: ErrorsCIPProcess = Field(alias="errorsProcess")
+    level1status: LevelStatus
+    level1status_detail: LevelStatusDetail = Field(alias="level1statusDetail")
+    level2status: LevelStatus
+    level2status_detail: LevelStatusDetail = Field(alias="level2statusDetail")
+    is_document_id_value_validated: Optional[StrictBool] = Field(default=None, description="This will be used when the document id value will be validated. For example The Nufi's CURP validation", alias="isDocumentIdValueValidated")
+    is_alternate_flow: Optional[StrictBool] = Field(default=None, description="This is for knowing the specific cip has an alternate flow", alias="isAlternateFlow")
+    lola_cip: Optional[PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFACLolaCIP] = Field(default=None, alias="lolaCIP")
+    pol_attemps_count: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="token number requested in POL flow", alias="polAttempsCount")
+    pol_status: Optional[StrictStr] = Field(default=None, alias="polStatus")
+    pol_img: Optional[StrictStr] = Field(default=None, alias="polImg")
+    __properties: ClassVar[List[str]] = ["cipLevel", "hasPersonalInfo", "hasHumanSelfie", "hasProofOfLIfe", "hasScanIds", "isPerformLevel1", "isPerformLevel2", "profileAndOCRSimilarity", "errorsProcess", "level1status", "level1statusDetail", "level2status", "level2statusDetail", "isDocumentIdValueValidated", "isAlternateFlow", "lolaCIP", "polAttempsCount", "polStatus", "polImg"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    @field_validator('pol_status')
+    def pol_status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in ('PASSED', 'NOT_PASSED', 'RETRY', 'FAILED'):
+            raise ValueError("must be one of enum values ('PASSED', 'NOT_PASSED', 'RETRY', 'FAILED')")
+        return value
+
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "protected_namespaces": (),
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude={
+            },
+            exclude_none=True,
+        )
         # override the default output from pydantic by calling `to_dict()` of errors_process
         if self.errors_process:
             _dict['errorsProcess'] = self.errors_process.to_dict()
@@ -79,43 +111,34 @@ class PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC:
+    def from_dict(cls, obj: Dict) -> Self:
         """Create an instance of PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFAC.parse_obj({
-            "cip_level": obj.get("cipLevel"),
+        _obj = cls.model_validate({
             "cipLevel": obj.get("cipLevel"),
-            "has_personal_info": obj.get("hasPersonalInfo"),
             "hasPersonalInfo": obj.get("hasPersonalInfo"),
-            "has_proof_of_l_ife": obj.get("hasProofOfLIfe"),
+            "hasHumanSelfie": obj.get("hasHumanSelfie"),
             "hasProofOfLIfe": obj.get("hasProofOfLIfe"),
-            "has_scan_ids": obj.get("hasScanIds"),
             "hasScanIds": obj.get("hasScanIds"),
-            "is_perform_level1": obj.get("isPerformLevel1"),
             "isPerformLevel1": obj.get("isPerformLevel1"),
-            "is_perform_level2": obj.get("isPerformLevel2"),
             "isPerformLevel2": obj.get("isPerformLevel2"),
-            "profile_and_ocr_similarity": obj.get("profileAndOCRSimilarity"),
             "profileAndOCRSimilarity": obj.get("profileAndOCRSimilarity"),
-            "errors_process": ErrorsCIPProcess.from_dict(obj.get("errorsProcess")) if obj.get("errorsProcess") is not None else None,
             "errorsProcess": ErrorsCIPProcess.from_dict(obj.get("errorsProcess")) if obj.get("errorsProcess") is not None else None,
             "level1status": obj.get("level1status"),
-            "level1status_detail": obj.get("level1statusDetail"),
             "level1statusDetail": obj.get("level1statusDetail"),
             "level2status": obj.get("level2status"),
-            "level2status_detail": obj.get("level2statusDetail"),
             "level2statusDetail": obj.get("level2statusDetail"),
-            "is_document_id_value_validated": obj.get("isDocumentIdValueValidated"),
             "isDocumentIdValueValidated": obj.get("isDocumentIdValueValidated"),
-            "is_alternate_flow": obj.get("isAlternateFlow"),
             "isAlternateFlow": obj.get("isAlternateFlow"),
-            "lola_cip": PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFACLolaCIP.from_dict(obj.get("lolaCIP")) if obj.get("lolaCIP") is not None else None,
-            "lolaCIP": PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFACLolaCIP.from_dict(obj.get("lolaCIP")) if obj.get("lolaCIP") is not None else None
+            "lolaCIP": PickCIPExcludeKeyofCIPIdOrAttempsOrIsValidOFACLolaCIP.from_dict(obj.get("lolaCIP")) if obj.get("lolaCIP") is not None else None,
+            "polAttempsCount": obj.get("polAttempsCount"),
+            "polStatus": obj.get("polStatus"),
+            "polImg": obj.get("polImg")
         })
         return _obj
 

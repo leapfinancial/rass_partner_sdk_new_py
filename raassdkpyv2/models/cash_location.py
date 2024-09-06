@@ -18,69 +18,87 @@ import re  # noqa: F401
 import json
 
 
-
-from pydantic import BaseModel, Field, StrictStr
+from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, StrictStr
+from pydantic import Field
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 class CashLocation(BaseModel):
     """
-    id: Unique Identifier of CashLocation  enable: Identify if location is enabled  cashOperatorId: Id of operator associated  name: Name of Location  addressLine1: Address  addressLine2: Address  state: State code  city:  City Code  longitude: Expression to include longitude value  latitude: Expression to include latitude value  phone: Telephone number  image: URL of image to identify this Location  # noqa: E501
-    """
-    id: StrictStr = Field(...)
-    enable: StrictStr = Field(...)
-    cash_operator_id: StrictStr = Field(..., alias="cashOperatorId")
-    name: StrictStr = Field(...)
-    address_line1: StrictStr = Field(..., alias="addressLine1")
-    address_line2: StrictStr = Field(..., alias="addressLine2")
-    state: StrictStr = Field(...)
-    city: StrictStr = Field(...)
-    longitude: StrictStr = Field(...)
-    latitude: StrictStr = Field(...)
-    phone: StrictStr = Field(...)
-    image: StrictStr = Field(...)
-    __properties = ["id", "enable", "cashOperatorId", "name", "addressLine1", "addressLine2", "state", "city", "longitude", "latitude", "phone", "image"]
+    id: Unique Identifier of CashLocation  enable: Identify if location is enabled  cashOperatorId: Id of operator associated  name: Name of Location  addressLine1: Address  addressLine2: Address  state: State code  city:  City Code  longitude: Expression to include longitude value  latitude: Expression to include latitude value  phone: Telephone number  image: URL of image to identify this Location
+    """ # noqa: E501
+    id: StrictStr
+    enable: StrictStr
+    cash_operator_id: StrictStr = Field(alias="cashOperatorId")
+    name: StrictStr
+    address_line1: StrictStr = Field(alias="addressLine1")
+    address_line2: StrictStr = Field(alias="addressLine2")
+    state: StrictStr
+    city: StrictStr
+    longitude: StrictStr
+    latitude: StrictStr
+    phone: StrictStr
+    image: StrictStr
+    __properties: ClassVar[List[str]] = ["id", "enable", "cashOperatorId", "name", "addressLine1", "addressLine2", "state", "city", "longitude", "latitude", "phone", "image"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "protected_namespaces": (),
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> CashLocation:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of CashLocation from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude={
+            },
+            exclude_none=True,
+        )
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> CashLocation:
+    def from_dict(cls, obj: Dict) -> Self:
         """Create an instance of CashLocation from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return CashLocation.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = CashLocation.parse_obj({
+        _obj = cls.model_validate({
             "id": obj.get("id"),
             "enable": obj.get("enable"),
-            "cash_operator_id": obj.get("cashOperatorId"),
+            "cashOperatorId": obj.get("cashOperatorId"),
             "name": obj.get("name"),
-            "address_line1": obj.get("addressLine1"),
-            "address_line2": obj.get("addressLine2"),
+            "addressLine1": obj.get("addressLine1"),
+            "addressLine2": obj.get("addressLine2"),
             "state": obj.get("state"),
             "city": obj.get("city"),
             "longitude": obj.get("longitude"),

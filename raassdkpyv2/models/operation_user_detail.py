@@ -18,70 +18,89 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
-from pydantic import BaseModel, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, StrictStr
+from pydantic import Field
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 class OperationUserDetail(BaseModel):
     """
     OperationUserDetail
-    """
-    profile_picture_url: Optional[StrictStr] = Field(None, alias="profilePictureUrl")
+    """ # noqa: E501
+    subscriber_type: Optional[StrictStr] = Field(default=None, alias="subscriberType")
+    profile_picture_url: Optional[StrictStr] = Field(default=None, alias="profilePictureUrl")
     country: Optional[StrictStr] = None
-    image_url: Optional[StrictStr] = Field(None, alias="imageUrl")
+    image_url: Optional[StrictStr] = Field(default=None, alias="imageUrl")
     email: Optional[StrictStr] = None
-    phone_number: StrictStr = Field(..., alias="phoneNumber")
-    last_name: Optional[StrictStr] = Field(None, alias="lastName")
-    first_name: Optional[StrictStr] = Field(None, alias="firstName")
-    __properties = ["profilePictureUrl", "country", "imageUrl", "email", "phoneNumber", "lastName", "firstName"]
+    phone_number: StrictStr = Field(alias="phoneNumber")
+    last_name: Optional[StrictStr] = Field(default=None, alias="lastName")
+    first_name: Optional[StrictStr] = Field(default=None, alias="firstName")
+    org_id: Optional[StrictStr] = Field(default=None, alias="orgId")
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
+    __properties: ClassVar[List[str]] = ["subscriberType", "profilePictureUrl", "country", "imageUrl", "email", "phoneNumber", "lastName", "firstName", "orgId", "userId"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "protected_namespaces": (),
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> OperationUserDetail:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of OperationUserDetail from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude={
+            },
+            exclude_none=True,
+        )
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> OperationUserDetail:
+    def from_dict(cls, obj: Dict) -> Self:
         """Create an instance of OperationUserDetail from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return OperationUserDetail.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = OperationUserDetail.parse_obj({
-            "profile_picture_url": obj.get("profilePictureUrl"),
+        _obj = cls.model_validate({
+            "subscriberType": obj.get("subscriberType"),
             "profilePictureUrl": obj.get("profilePictureUrl"),
             "country": obj.get("country"),
-            "image_url": obj.get("imageUrl"),
             "imageUrl": obj.get("imageUrl"),
             "email": obj.get("email"),
-            "phone_number": obj.get("phoneNumber"),
             "phoneNumber": obj.get("phoneNumber"),
-            "last_name": obj.get("lastName"),
             "lastName": obj.get("lastName"),
-            "first_name": obj.get("firstName"),
-            "firstName": obj.get("firstName")
+            "firstName": obj.get("firstName"),
+            "orgId": obj.get("orgId"),
+            "userId": obj.get("userId")
         })
         return _obj
 

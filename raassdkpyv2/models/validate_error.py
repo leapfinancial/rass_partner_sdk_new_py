@@ -18,45 +18,62 @@ import re  # noqa: F401
 import json
 
 
-from typing import Dict, Optional, Union
-from pydantic import BaseModel, Field, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, StrictFloat, StrictInt, StrictStr
 from raassdkpyv2.models.field_errors_value import FieldErrorsValue
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 class ValidateError(BaseModel):
     """
     ValidateError
-    """
-    name: StrictStr = Field(...)
-    message: StrictStr = Field(...)
+    """ # noqa: E501
+    name: StrictStr
+    message: StrictStr
     stack: Optional[StrictStr] = None
-    status: Union[StrictFloat, StrictInt] = Field(...)
-    fields: Dict[str, FieldErrorsValue] = Field(...)
-    __properties = ["name", "message", "stack", "status", "fields"]
+    status: Union[StrictFloat, StrictInt]
+    fields: Dict[str, FieldErrorsValue]
+    __properties: ClassVar[List[str]] = ["name", "message", "stack", "status", "fields"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "protected_namespaces": (),
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> ValidateError:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of ValidateError from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude={
+            },
+            exclude_none=True,
+        )
         # override the default output from pydantic by calling `to_dict()` of each value in fields (dict)
         _field_dict = {}
         if self.fields:
@@ -67,15 +84,15 @@ class ValidateError(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> ValidateError:
+    def from_dict(cls, obj: Dict) -> Self:
         """Create an instance of ValidateError from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return ValidateError.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = ValidateError.parse_obj({
+        _obj = cls.model_validate({
             "name": obj.get("name"),
             "message": obj.get("message"),
             "stack": obj.get("stack"),

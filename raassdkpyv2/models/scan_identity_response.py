@@ -18,55 +18,73 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional, Union
-from pydantic import BaseModel, Field, StrictFloat, StrictInt, StrictStr, validator
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import Field
 from raassdkpyv2.models.attachment_responses import AttachmentResponses
 from raassdkpyv2.models.base_identity import BaseIdentity
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 class ScanIdentityResponse(BaseModel):
     """
-    After scan using an non sync engine, API will return this object A client has to pull the data from this object's pull_url  until the status is a ScanIdentityResponse or \"error\"  # noqa: E501
-    """
-    id: StrictStr = Field(...)
-    type: StrictStr = Field(..., description="If it's async the client has to pull the data from this url")
-    estimated_time: Optional[Union[StrictFloat, StrictInt]] = Field(None, alias="estimatedTime", description="Estimated time in seconds.")
-    method: Optional[StrictStr] = Field(None, description="What scan engine was used")
-    pull_url: Optional[StrictStr] = Field(None, description="Url to pull the data. If the type=sync you have perform interval pulls to this url in order to monitor the status")
+    After scan using an non sync engine, API will return this object A client has to pull the data from this object's pull_url  until the status is a ScanIdentityResponse or \"error\"
+    """ # noqa: E501
+    id: StrictStr
+    type: StrictStr = Field(description="If it's async the client has to pull the data from this url")
+    estimated_time: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Estimated time in seconds.", alias="estimatedTime")
+    method: Optional[StrictStr] = Field(default=None, description="What scan engine was used")
+    pull_url: Optional[StrictStr] = Field(default=None, description="Url to pull the data. If the type=sync you have perform interval pulls to this url in order to monitor the status")
     data: Optional[BaseIdentity] = None
-    attachment_responses: Optional[AttachmentResponses] = Field(None, alias="attachmentResponses")
-    __properties = ["id", "type", "estimatedTime", "method", "pull_url", "data", "attachmentResponses"]
+    attachment_responses: Optional[AttachmentResponses] = Field(default=None, alias="attachmentResponses")
+    __properties: ClassVar[List[str]] = ["id", "type", "estimatedTime", "method", "pull_url", "data", "attachmentResponses"]
 
-    @validator('type')
+    @field_validator('type')
     def type_validate_enum(cls, value):
         """Validates the enum"""
         if value not in ('sync', 'async'):
             raise ValueError("must be one of enum values ('sync', 'async')")
         return value
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "protected_namespaces": (),
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> ScanIdentityResponse:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of ScanIdentityResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude={
+            },
+            exclude_none=True,
+        )
         # override the default output from pydantic by calling `to_dict()` of data
         if self.data:
             _dict['data'] = self.data.to_dict()
@@ -76,22 +94,22 @@ class ScanIdentityResponse(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> ScanIdentityResponse:
+    def from_dict(cls, obj: Dict) -> Self:
         """Create an instance of ScanIdentityResponse from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return ScanIdentityResponse.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = ScanIdentityResponse.parse_obj({
+        _obj = cls.model_validate({
             "id": obj.get("id"),
             "type": obj.get("type"),
-            "estimated_time": obj.get("estimatedTime"),
+            "estimatedTime": obj.get("estimatedTime"),
             "method": obj.get("method"),
             "pull_url": obj.get("pull_url"),
             "data": BaseIdentity.from_dict(obj.get("data")) if obj.get("data") is not None else None,
-            "attachment_responses": AttachmentResponses.from_dict(obj.get("attachmentResponses")) if obj.get("attachmentResponses") is not None else None
+            "attachmentResponses": AttachmentResponses.from_dict(obj.get("attachmentResponses")) if obj.get("attachmentResponses") is not None else None
         })
         return _obj
 

@@ -18,36 +18,41 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from typing import Optional
-from pydantic import BaseModel, Field, StrictStr, validator
+from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, StrictStr, field_validator
+from pydantic import Field
 from raassdkpyv2.models.add_card_session_params import AddCardSessionParams
 from raassdkpyv2.models.country_alpha2_code import CountryAlpha2Code
 from raassdkpyv2.models.language import Language
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 class SessionLinkParams(BaseModel):
     """
     SessionLinkParams
-    """
-    phone_number: StrictStr = Field(..., alias="phoneNumber")
-    last_name: StrictStr = Field(..., alias="lastName")
-    last_name2: Optional[StrictStr] = Field(None, alias="lastName2")
+    """ # noqa: E501
+    phone_number: StrictStr = Field(alias="phoneNumber")
+    last_name: StrictStr = Field(alias="lastName")
+    last_name2: Optional[StrictStr] = Field(default=None, alias="lastName2")
     gender: Optional[StrictStr] = None
     dob: Optional[datetime] = None
     email: Optional[StrictStr] = None
-    first_name: StrictStr = Field(..., alias="firstName")
-    middle_name: Optional[StrictStr] = Field(None, alias="middleName")
-    address1: StrictStr = Field(...)
+    first_name: StrictStr = Field(alias="firstName")
+    middle_name: Optional[StrictStr] = Field(default=None, alias="middleName")
+    address1: StrictStr
     address2: Optional[StrictStr] = None
-    country_code: CountryAlpha2Code = Field(..., alias="countryCode")
-    city: StrictStr = Field(...)
-    zip_code: Optional[StrictStr] = Field(None, alias="zipCode")
-    state: StrictStr = Field(...)
-    birth_state: Optional[StrictStr] = Field(None, alias="birthState")
+    country_code: CountryAlpha2Code = Field(alias="countryCode")
+    city: StrictStr
+    zip_code: Optional[StrictStr] = Field(default=None, alias="zipCode")
+    state: StrictStr
+    birth_state: Optional[StrictStr] = Field(default=None, alias="birthState")
     lang: Optional[Language] = None
-    add_card_params: Optional[AddCardSessionParams] = Field(None, alias="addCardParams")
-    __properties = ["phoneNumber", "lastName", "lastName2", "gender", "dob", "email", "firstName", "middleName", "address1", "address2", "countryCode", "city", "zipCode", "state", "birthState", "lang", "addCardParams"]
+    add_card_params: Optional[AddCardSessionParams] = Field(default=None, alias="addCardParams")
+    __properties: ClassVar[List[str]] = ["phoneNumber", "lastName", "lastName2", "gender", "dob", "email", "firstName", "middleName", "address1", "address2", "countryCode", "city", "zipCode", "state", "birthState", "lang", "addCardParams"]
 
-    @validator('gender')
+    @field_validator('gender')
     def gender_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
@@ -57,62 +62,75 @@ class SessionLinkParams(BaseModel):
             raise ValueError("must be one of enum values ('Male', 'Female')")
         return value
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "protected_namespaces": (),
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> SessionLinkParams:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of SessionLinkParams from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude={
+            },
+            exclude_none=True,
+        )
         # override the default output from pydantic by calling `to_dict()` of add_card_params
         if self.add_card_params:
             _dict['addCardParams'] = self.add_card_params.to_dict()
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> SessionLinkParams:
+    def from_dict(cls, obj: Dict) -> Self:
         """Create an instance of SessionLinkParams from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return SessionLinkParams.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = SessionLinkParams.parse_obj({
-            "phone_number": obj.get("phoneNumber"),
-            "last_name": obj.get("lastName"),
-            "last_name2": obj.get("lastName2"),
+        _obj = cls.model_validate({
+            "phoneNumber": obj.get("phoneNumber"),
+            "lastName": obj.get("lastName"),
+            "lastName2": obj.get("lastName2"),
             "gender": obj.get("gender"),
             "dob": obj.get("dob"),
             "email": obj.get("email"),
-            "first_name": obj.get("firstName"),
-            "middle_name": obj.get("middleName"),
+            "firstName": obj.get("firstName"),
+            "middleName": obj.get("middleName"),
             "address1": obj.get("address1"),
             "address2": obj.get("address2"),
-            "country_code": obj.get("countryCode"),
+            "countryCode": obj.get("countryCode"),
             "city": obj.get("city"),
-            "zip_code": obj.get("zipCode"),
+            "zipCode": obj.get("zipCode"),
             "state": obj.get("state"),
-            "birth_state": obj.get("birthState"),
+            "birthState": obj.get("birthState"),
             "lang": obj.get("lang"),
-            "add_card_params": AddCardSessionParams.from_dict(obj.get("addCardParams")) if obj.get("addCardParams") is not None else None
+            "addCardParams": AddCardSessionParams.from_dict(obj.get("addCardParams")) if obj.get("addCardParams") is not None else None
         })
         return _obj
 

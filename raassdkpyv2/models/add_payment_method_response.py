@@ -18,58 +18,128 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
-from pydantic import BaseModel, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, StrictBool, StrictFloat, StrictInt, StrictStr
+from pydantic import Field
 from raassdkpyv2.models.payment_method_status import PaymentMethodStatus
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 class AddPaymentMethodResponse(BaseModel):
     """
     AddPaymentMethodResponse
-    """
-    id: StrictStr = Field(...)
-    status: PaymentMethodStatus = Field(...)
-    error_validation: Optional[StrictStr] = Field(None, alias="errorValidation")
-    __properties = ["id", "status", "errorValidation"]
+    """ # noqa: E501
+    id: StrictStr
+    status: PaymentMethodStatus
+    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
+    name: Optional[StrictStr] = None
+    type: Optional[StrictStr] = None
+    is_primary: Optional[StrictBool] = Field(default=None, alias="isPrimary")
+    created_at: Optional[StrictStr] = Field(default=None, alias="createdAt")
+    updated_at: Optional[StrictStr] = Field(default=None, alias="updatedAt")
+    country: Optional[StrictStr] = None
+    latitude: Optional[Union[StrictFloat, StrictInt]] = None
+    longitude: Optional[Union[StrictFloat, StrictInt]] = None
+    card_type: Optional[StrictStr] = Field(default=None, alias="cardType")
+    number: Optional[StrictStr] = None
+    name_on_card: Optional[StrictStr] = Field(default=None, alias="nameOnCard")
+    expiration_date: Optional[StrictStr] = Field(default=None, alias="expirationDate")
+    expiration_year: Optional[StrictStr] = Field(default=None, alias="expirationYear")
+    expiration_month: Optional[StrictStr] = Field(default=None, alias="expirationMonth")
+    security_code: Optional[StrictStr] = Field(default=None, alias="securityCode")
+    token_data: Optional[StrictStr] = Field(default=None, alias="tokenData")
+    card_network: Optional[StrictStr] = Field(default=None, alias="cardNetwork")
+    allow_pull_cross_border: Optional[StrictBool] = Field(default=None, alias="allowPullCrossBorder")
+    allow_pull_domestic: Optional[StrictBool] = Field(default=None, alias="allowPullDomestic")
+    allow_push_cross_border: Optional[StrictBool] = Field(default=None, alias="allowPushCrossBorder")
+    allow_push_domestic: Optional[StrictBool] = Field(default=None, alias="allowPushDomestic")
+    requires_balance_validation: Optional[StrictBool] = Field(default=None, alias="requiresBalanceValidation")
+    account_id: Optional[StrictStr] = Field(default=None, alias="accountId")
+    bank_entity_number: Optional[StrictStr] = Field(default=None, alias="bankEntityNumber")
+    external_id: Optional[StrictStr] = Field(default=None, alias="externalId")
+    error_validation: Optional[StrictStr] = Field(default=None, alias="errorValidation")
+    __properties: ClassVar[List[str]] = ["id", "status", "userId", "name", "type", "isPrimary", "createdAt", "updatedAt", "country", "latitude", "longitude", "cardType", "number", "nameOnCard", "expirationDate", "expirationYear", "expirationMonth", "securityCode", "tokenData", "cardNetwork", "allowPullCrossBorder", "allowPullDomestic", "allowPushCrossBorder", "allowPushDomestic", "requiresBalanceValidation", "accountId", "bankEntityNumber", "externalId", "errorValidation"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "protected_namespaces": (),
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> AddPaymentMethodResponse:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of AddPaymentMethodResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude={
+            },
+            exclude_none=True,
+        )
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> AddPaymentMethodResponse:
+    def from_dict(cls, obj: Dict) -> Self:
         """Create an instance of AddPaymentMethodResponse from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return AddPaymentMethodResponse.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = AddPaymentMethodResponse.parse_obj({
+        _obj = cls.model_validate({
             "id": obj.get("id"),
             "status": obj.get("status"),
-            "error_validation": obj.get("errorValidation")
+            "userId": obj.get("userId"),
+            "name": obj.get("name"),
+            "type": obj.get("type"),
+            "isPrimary": obj.get("isPrimary"),
+            "createdAt": obj.get("createdAt"),
+            "updatedAt": obj.get("updatedAt"),
+            "country": obj.get("country"),
+            "latitude": obj.get("latitude"),
+            "longitude": obj.get("longitude"),
+            "cardType": obj.get("cardType"),
+            "number": obj.get("number"),
+            "nameOnCard": obj.get("nameOnCard"),
+            "expirationDate": obj.get("expirationDate"),
+            "expirationYear": obj.get("expirationYear"),
+            "expirationMonth": obj.get("expirationMonth"),
+            "securityCode": obj.get("securityCode"),
+            "tokenData": obj.get("tokenData"),
+            "cardNetwork": obj.get("cardNetwork"),
+            "allowPullCrossBorder": obj.get("allowPullCrossBorder"),
+            "allowPullDomestic": obj.get("allowPullDomestic"),
+            "allowPushCrossBorder": obj.get("allowPushCrossBorder"),
+            "allowPushDomestic": obj.get("allowPushDomestic"),
+            "requiresBalanceValidation": obj.get("requiresBalanceValidation"),
+            "accountId": obj.get("accountId"),
+            "bankEntityNumber": obj.get("bankEntityNumber"),
+            "externalId": obj.get("externalId"),
+            "errorValidation": obj.get("errorValidation")
         })
         return _obj
 

@@ -18,104 +18,113 @@ import re  # noqa: F401
 import json
 
 
-from typing import Any, Dict, Optional, Union
-from pydantic import BaseModel, Field, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, StrictBool, StrictFloat, StrictInt, StrictStr
+from pydantic import Field
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 class RaasQuoteTransactionResponse(BaseModel):
     """
     RaasQuoteTransactionResponse
-    """
+    """ # noqa: E501
     id: Optional[StrictStr] = None
-    source_currency: Optional[StrictStr] = Field(..., alias="sourceCurrency")
-    destination_currency: Optional[StrictStr] = Field(..., alias="destinationCurrency")
-    reason: StrictStr = Field(...)
-    reason_detail: Optional[StrictStr] = Field(..., alias="reasonDetail")
-    source_amount: Union[StrictFloat, StrictInt] = Field(..., alias="sourceAmount")
-    amount: Union[StrictFloat, StrictInt] = Field(...)
-    destination_amount: Union[StrictFloat, StrictInt] = Field(..., alias="destinationAmount")
-    exchange_rate: Optional[Union[StrictFloat, StrictInt]] = Field(None, alias="exchangeRate")
-    tax: Union[StrictFloat, StrictInt] = Field(...)
-    source_fee: Union[StrictFloat, StrictInt] = Field(..., alias="sourceFee")
-    destination_fee: Union[StrictFloat, StrictInt] = Field(..., alias="destinationFee")
-    transaction_fee: Union[StrictFloat, StrictInt] = Field(..., alias="transactionFee")
-    sender_charge_back: Union[StrictFloat, StrictInt] = Field(..., alias="senderChargeBack")
-    recipient_charge_back: Union[StrictFloat, StrictInt] = Field(..., alias="recipientChargeBack")
-    is_executable: StrictBool = Field(..., alias="isExecutable")
-    valid_time_in_minutes: Union[StrictFloat, StrictInt] = Field(..., alias="validTimeInMinutes")
-    tenant_fee: Union[StrictFloat, StrictInt] = Field(..., alias="tenantFee")
-    sender_user_id: Optional[StrictStr] = Field(None, alias="senderUserId")
-    __properties = ["id", "sourceCurrency", "destinationCurrency", "reason", "reasonDetail", "sourceAmount", "amount", "destinationAmount", "exchangeRate", "tax", "sourceFee", "destinationFee", "transactionFee", "senderChargeBack", "recipientChargeBack", "isExecutable", "validTimeInMinutes", "tenantFee", "senderUserId"]
+    source_currency: StrictStr = Field(alias="sourceCurrency")
+    destination_currency: StrictStr = Field(alias="destinationCurrency")
+    reason: Dict[str, Any]
+    reason_detail: Dict[str, Any] = Field(alias="reasonDetail")
+    source_amount: Union[StrictFloat, StrictInt] = Field(alias="sourceAmount")
+    amount: Union[StrictFloat, StrictInt]
+    destination_amount: Union[StrictFloat, StrictInt] = Field(alias="destinationAmount")
+    exchange_rate: Union[StrictFloat, StrictInt] = Field(alias="exchangeRate")
+    tax: Union[StrictFloat, StrictInt]
+    source_fee: Union[StrictFloat, StrictInt] = Field(alias="sourceFee")
+    destination_fee: Union[StrictFloat, StrictInt] = Field(alias="destinationFee")
+    transaction_fee: Union[StrictFloat, StrictInt] = Field(alias="transactionFee")
+    partner_fee: Union[StrictFloat, StrictInt] = Field(alias="partnerFee")
+    sender_charge_back: Union[StrictFloat, StrictInt] = Field(alias="senderChargeBack")
+    recipient_charge_back: Union[StrictFloat, StrictInt] = Field(alias="recipientChargeBack")
+    is_executable: StrictBool = Field(alias="isExecutable")
+    valid_time_in_minutes: Union[StrictFloat, StrictInt] = Field(alias="validTimeInMinutes")
+    operation_type: Dict[str, Any] = Field(alias="operationType")
+    tenant_fee: Union[StrictFloat, StrictInt] = Field(alias="tenantFee")
+    sender_user_id: Optional[StrictStr] = Field(default=None, alias="senderUserId")
+    total_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="totalAmount")
+    __properties: ClassVar[List[str]] = ["id", "sourceCurrency", "destinationCurrency", "reason", "reasonDetail", "sourceAmount", "amount", "destinationAmount", "exchangeRate", "tax", "sourceFee", "destinationFee", "transactionFee", "partnerFee", "senderChargeBack", "recipientChargeBack", "isExecutable", "validTimeInMinutes", "operationType", "tenantFee", "senderUserId", "totalAmount"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "protected_namespaces": (),
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> RaasQuoteTransactionResponse:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of RaasQuoteTransactionResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude={
+            },
+            exclude_none=True,
+        )
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> RaasQuoteTransactionResponse:
+    def from_dict(cls, obj: Dict) -> Self:
         """Create an instance of RaasQuoteTransactionResponse from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return RaasQuoteTransactionResponse.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = RaasQuoteTransactionResponse.parse_obj({
+        _obj = cls.model_validate({
             "id": obj.get("id"),
-            "source_currency": obj.get("sourceCurrency"),
             "sourceCurrency": obj.get("sourceCurrency"),
-            "destination_currency": obj.get("destinationCurrency"),
             "destinationCurrency": obj.get("destinationCurrency"),
             "reason": obj.get("reason"),
-            "reason_detail": obj.get("reasonDetail"),
             "reasonDetail": obj.get("reasonDetail"),
-            "source_amount": obj.get("sourceAmount"),
             "sourceAmount": obj.get("sourceAmount"),
             "amount": obj.get("amount"),
-            "destination_amount": obj.get("destinationAmount"),
             "destinationAmount": obj.get("destinationAmount"),
-            "exchange_rate": obj.get("exchangeRate"),
             "exchangeRate": obj.get("exchangeRate"),
             "tax": obj.get("tax"),
-            "source_fee": obj.get("sourceFee"),
             "sourceFee": obj.get("sourceFee"),
-            "destination_fee": obj.get("destinationFee"),
             "destinationFee": obj.get("destinationFee"),
-            "transaction_fee": obj.get("transactionFee"),
             "transactionFee": obj.get("transactionFee"),
-            "sender_charge_back": obj.get("senderChargeBack"),
+            "partnerFee": obj.get("partnerFee"),
             "senderChargeBack": obj.get("senderChargeBack"),
-            "recipient_charge_back": obj.get("recipientChargeBack"),
             "recipientChargeBack": obj.get("recipientChargeBack"),
-            "is_executable": obj.get("isExecutable"),
             "isExecutable": obj.get("isExecutable"),
-            "valid_time_in_minutes": obj.get("validTimeInMinutes"),
             "validTimeInMinutes": obj.get("validTimeInMinutes"),
-            "tenant_fee": obj.get("tenantFee"),
+            "operationType": obj.get("operationType"),
             "tenantFee": obj.get("tenantFee"),
-            "sender_user_id": obj.get("senderUserId"),
-            "senderUserId": obj.get("senderUserId")
+            "senderUserId": obj.get("senderUserId"),
+            "totalAmount": obj.get("totalAmount")
         })
         return _obj
 

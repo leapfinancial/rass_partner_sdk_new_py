@@ -18,96 +18,104 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
-from pydantic import BaseModel, Field, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, StrictBool, StrictStr
+from pydantic import Field
 from raassdkpyv2.models.available_payment_methods import AvailablePaymentMethods
 from raassdkpyv2.models.payment_method_status import PaymentMethodStatus
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 class SourceOfFunding(BaseModel):
     """
-    simplifies delivered response for sources of funding  # noqa: E501
-    """
+    simplifies delivered response for sources of funding
+    """ # noqa: E501
     id: Optional[StrictStr] = None
-    account_id: Optional[StrictStr] = Field(None, alias="accountId")
-    is_primary: Optional[StrictBool] = Field(None, alias="isPrimary", description="Subscriber's main source of funding")
-    account_number: StrictStr = Field(..., alias="accountNumber", description="Bank account number")
-    bank_entity_number: StrictStr = Field(..., alias="bankEntityNumber")
-    type: AvailablePaymentMethods = Field(...)
-    expiration_date: StrictStr = Field(..., alias="expirationDate", description="Credit/Debit card expiration date")
-    expiration_month: StrictStr = Field(..., alias="expirationMonth", description="Credit/Debit card expiration month")
-    expiration_year: StrictStr = Field(..., alias="expirationYear", description="Credit/Debit card expiration year")
-    card_type: StrictStr = Field(..., alias="cardType", description="Card type: Credit|Debit")
-    number: StrictStr = Field(..., description="Credit/Debit card number")
-    name: Optional[StrictStr] = Field(None, description="Credit/Debit card holder name. Account name.")
-    token_data: StrictStr = Field(..., alias="tokenData", description="Tokenized card data.")
+    account_id: Optional[StrictStr] = Field(default=None, alias="accountId")
+    is_primary: Optional[StrictBool] = Field(default=None, description="Subscriber's main source of funding", alias="isPrimary")
+    account_number: StrictStr = Field(description="Bank account number", alias="accountNumber")
+    bank_entity_number: StrictStr = Field(alias="bankEntityNumber")
+    type: AvailablePaymentMethods
+    expiration_date: StrictStr = Field(description="Credit/Debit card expiration date", alias="expirationDate")
+    expiration_month: StrictStr = Field(description="Credit/Debit card expiration month", alias="expirationMonth")
+    expiration_year: StrictStr = Field(description="Credit/Debit card expiration year", alias="expirationYear")
+    card_type: StrictStr = Field(description="Card type: Credit|Debit", alias="cardType")
+    number: StrictStr = Field(description="Credit/Debit card number")
+    name: Optional[StrictStr] = Field(default=None, description="Credit/Debit card holder name. Account name.")
+    token_data: StrictStr = Field(description="Tokenized card data.", alias="tokenData")
     application: Optional[StrictStr] = None
     country: Optional[StrictStr] = None
-    card_network: Optional[StrictStr] = Field(None, alias="cardNetwork")
+    card_network: Optional[StrictStr] = Field(default=None, alias="cardNetwork")
     currency: Optional[StrictStr] = None
     status: Optional[PaymentMethodStatus] = None
-    __properties = ["id", "accountId", "isPrimary", "accountNumber", "bankEntityNumber", "type", "expirationDate", "expirationMonth", "expirationYear", "cardType", "number", "name", "tokenData", "application", "country", "cardNetwork", "currency", "status"]
+    __properties: ClassVar[List[str]] = ["id", "accountId", "isPrimary", "accountNumber", "bankEntityNumber", "type", "expirationDate", "expirationMonth", "expirationYear", "cardType", "number", "name", "tokenData", "application", "country", "cardNetwork", "currency", "status"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "protected_namespaces": (),
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> SourceOfFunding:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of SourceOfFunding from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude={
+            },
+            exclude_none=True,
+        )
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> SourceOfFunding:
+    def from_dict(cls, obj: Dict) -> Self:
         """Create an instance of SourceOfFunding from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return SourceOfFunding.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = SourceOfFunding.parse_obj({
+        _obj = cls.model_validate({
             "id": obj.get("id"),
-            "account_id": obj.get("accountId"),
             "accountId": obj.get("accountId"),
-            "is_primary": obj.get("isPrimary"),
             "isPrimary": obj.get("isPrimary"),
-            "account_number": obj.get("accountNumber"),
             "accountNumber": obj.get("accountNumber"),
-            "bank_entity_number": obj.get("bankEntityNumber"),
             "bankEntityNumber": obj.get("bankEntityNumber"),
             "type": obj.get("type"),
-            "expiration_date": obj.get("expirationDate"),
             "expirationDate": obj.get("expirationDate"),
-            "expiration_month": obj.get("expirationMonth"),
             "expirationMonth": obj.get("expirationMonth"),
-            "expiration_year": obj.get("expirationYear"),
             "expirationYear": obj.get("expirationYear"),
-            "card_type": obj.get("cardType"),
             "cardType": obj.get("cardType"),
             "number": obj.get("number"),
             "name": obj.get("name"),
-            "token_data": obj.get("tokenData"),
             "tokenData": obj.get("tokenData"),
             "application": obj.get("application"),
             "country": obj.get("country"),
-            "card_network": obj.get("cardNetwork"),
             "cardNetwork": obj.get("cardNetwork"),
             "currency": obj.get("currency"),
             "status": obj.get("status")

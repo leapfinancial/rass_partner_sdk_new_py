@@ -18,119 +18,137 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from typing import Any, Optional
-from pydantic import BaseModel, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, StrictStr
+from pydantic import Field
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 class BaseIdentity(BaseModel):
     """
     BaseIdentity
-    """
+    """ # noqa: E501
     surname: Optional[StrictStr] = None
     names: Optional[StrictStr] = None
     dob: Optional[datetime] = None
-    dob_raw: Optional[StrictStr] = Field(None, alias="dobRaw")
+    dob_raw: Optional[StrictStr] = Field(default=None, alias="dobRaw")
     address: Optional[StrictStr] = None
     country: Optional[StrictStr] = None
-    id_country: Optional[StrictStr] = Field(None, alias="idCountry")
+    id_country: Optional[StrictStr] = Field(default=None, alias="idCountry")
     state: Optional[StrictStr] = None
     city: Optional[StrictStr] = None
     county: Optional[StrictStr] = None
     district: Optional[StrictStr] = None
     id: Optional[StrictStr] = None
-    exp_date: Optional[datetime] = Field(None, alias="expDate")
-    exp_date_raw: Optional[StrictStr] = Field(None, alias="expDateRaw")
+    exp_date: Optional[datetime] = Field(default=None, alias="expDate")
+    exp_date_raw: Optional[StrictStr] = Field(default=None, alias="expDateRaw")
     gender: Optional[StrictStr] = None
-    doc_type: Optional[StrictStr] = Field(None, alias="docType")
+    doc_type: Optional[StrictStr] = Field(default=None, alias="docType")
     nationality: Optional[StrictStr] = None
-    id_validated: Optional[StrictStr] = Field(None, alias="idValidated")
-    id_name: Optional[StrictStr] = Field(None, alias="idName")
+    id_validated: Optional[StrictStr] = Field(default=None, alias="idValidated")
+    id_name: Optional[StrictStr] = Field(default=None, alias="idName")
     zipcode: Optional[StrictStr] = None
     state_code: Optional[StrictStr] = None
     county_code: Optional[StrictStr] = None
     section_code: Optional[StrictStr] = None
     locality_code: Optional[StrictStr] = None
-    first_name: Optional[StrictStr] = Field(None, alias="firstName")
-    last_name: Optional[StrictStr] = Field(None, alias="lastName")
-    second_lastname: Optional[StrictStr] = Field(None, alias="secondLastname")
-    second_name: Optional[Any] = Field(None, alias="secondName")
-    marital_status: Optional[StrictStr] = Field(None, alias="maritalStatus")
-    maiden_name: Optional[StrictStr] = Field(None, alias="maidenName")
-    third_name: Optional[StrictStr] = Field(None, alias="thirdName")
+    first_name: Optional[StrictStr] = Field(default=None, alias="firstName")
+    last_name: Optional[StrictStr] = Field(default=None, alias="lastName")
+    second_lastname: Optional[StrictStr] = Field(default=None, alias="secondLastname")
+    second_name: Optional[Any] = Field(default=None, alias="secondName")
+    marital_status: Optional[StrictStr] = Field(default=None, alias="maritalStatus")
+    maiden_name: Optional[StrictStr] = Field(default=None, alias="maidenName")
+    third_name: Optional[StrictStr] = Field(default=None, alias="thirdName")
     subtype: Optional[StrictStr] = None
-    __properties = ["surname", "names", "dob", "dobRaw", "address", "country", "idCountry", "state", "city", "county", "district", "id", "expDate", "expDateRaw", "gender", "docType", "nationality", "idValidated", "idName", "zipcode", "state_code", "county_code", "section_code", "locality_code", "firstName", "lastName", "secondLastname", "secondName", "maritalStatus", "maidenName", "thirdName", "subtype"]
+    __properties: ClassVar[List[str]] = ["surname", "names", "dob", "dobRaw", "address", "country", "idCountry", "state", "city", "county", "district", "id", "expDate", "expDateRaw", "gender", "docType", "nationality", "idValidated", "idName", "zipcode", "state_code", "county_code", "section_code", "locality_code", "firstName", "lastName", "secondLastname", "secondName", "maritalStatus", "maidenName", "thirdName", "subtype"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "protected_namespaces": (),
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> BaseIdentity:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of BaseIdentity from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude={
+            },
+            exclude_none=True,
+        )
         # set to None if second_name (nullable) is None
-        # and __fields_set__ contains the field
-        if self.second_name is None and "second_name" in self.__fields_set__:
+        # and model_fields_set contains the field
+        if self.second_name is None and "second_name" in self.model_fields_set:
             _dict['secondName'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> BaseIdentity:
+    def from_dict(cls, obj: Dict) -> Self:
         """Create an instance of BaseIdentity from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return BaseIdentity.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = BaseIdentity.parse_obj({
+        _obj = cls.model_validate({
             "surname": obj.get("surname"),
             "names": obj.get("names"),
             "dob": obj.get("dob"),
-            "dob_raw": obj.get("dobRaw"),
+            "dobRaw": obj.get("dobRaw"),
             "address": obj.get("address"),
             "country": obj.get("country"),
-            "id_country": obj.get("idCountry"),
+            "idCountry": obj.get("idCountry"),
             "state": obj.get("state"),
             "city": obj.get("city"),
             "county": obj.get("county"),
             "district": obj.get("district"),
             "id": obj.get("id"),
-            "exp_date": obj.get("expDate"),
-            "exp_date_raw": obj.get("expDateRaw"),
+            "expDate": obj.get("expDate"),
+            "expDateRaw": obj.get("expDateRaw"),
             "gender": obj.get("gender"),
-            "doc_type": obj.get("docType"),
+            "docType": obj.get("docType"),
             "nationality": obj.get("nationality"),
-            "id_validated": obj.get("idValidated"),
-            "id_name": obj.get("idName"),
+            "idValidated": obj.get("idValidated"),
+            "idName": obj.get("idName"),
             "zipcode": obj.get("zipcode"),
             "state_code": obj.get("state_code"),
             "county_code": obj.get("county_code"),
             "section_code": obj.get("section_code"),
             "locality_code": obj.get("locality_code"),
-            "first_name": obj.get("firstName"),
-            "last_name": obj.get("lastName"),
-            "second_lastname": obj.get("secondLastname"),
-            "second_name": obj.get("secondName"),
-            "marital_status": obj.get("maritalStatus"),
-            "maiden_name": obj.get("maidenName"),
-            "third_name": obj.get("thirdName"),
+            "firstName": obj.get("firstName"),
+            "lastName": obj.get("lastName"),
+            "secondLastname": obj.get("secondLastname"),
+            "secondName": obj.get("secondName"),
+            "maritalStatus": obj.get("maritalStatus"),
+            "maidenName": obj.get("maidenName"),
+            "thirdName": obj.get("thirdName"),
             "subtype": obj.get("subtype")
         })
         return _obj

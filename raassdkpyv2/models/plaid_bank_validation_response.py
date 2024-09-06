@@ -18,69 +18,87 @@ import re  # noqa: F401
 import json
 
 
-
-from pydantic import BaseModel, Field, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, StrictBool, StrictStr
+from pydantic import Field
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 class PlaidBankValidationResponse(BaseModel):
     """
     PlaidBankValidationResponse
-    """
-    success: StrictBool = Field(...)
-    access_token: StrictStr = Field(..., alias="accessToken")
-    item_id: StrictStr = Field(..., alias="itemId")
-    account_type: StrictStr = Field(..., alias="accountType")
-    account_sub_type: StrictStr = Field(..., alias="accountSubType")
-    account_name: StrictStr = Field(..., alias="accountName")
-    account_number: StrictStr = Field(..., alias="accountNumber")
-    account_routing: StrictStr = Field(..., alias="accountRouting")
-    bank_name: StrictStr = Field(..., alias="bankName")
-    __properties = ["success", "accessToken", "itemId", "accountType", "accountSubType", "accountName", "accountNumber", "accountRouting", "bankName"]
+    """ # noqa: E501
+    success: StrictBool
+    access_token: StrictStr = Field(alias="accessToken")
+    item_id: StrictStr = Field(alias="itemId")
+    account_type: StrictStr = Field(alias="accountType")
+    account_sub_type: StrictStr = Field(alias="accountSubType")
+    account_name: StrictStr = Field(alias="accountName")
+    account_number: StrictStr = Field(alias="accountNumber")
+    account_routing: StrictStr = Field(alias="accountRouting")
+    bank_name: StrictStr = Field(alias="bankName")
+    __properties: ClassVar[List[str]] = ["success", "accessToken", "itemId", "accountType", "accountSubType", "accountName", "accountNumber", "accountRouting", "bankName"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "protected_namespaces": (),
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> PlaidBankValidationResponse:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of PlaidBankValidationResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude={
+            },
+            exclude_none=True,
+        )
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> PlaidBankValidationResponse:
+    def from_dict(cls, obj: Dict) -> Self:
         """Create an instance of PlaidBankValidationResponse from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return PlaidBankValidationResponse.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = PlaidBankValidationResponse.parse_obj({
+        _obj = cls.model_validate({
             "success": obj.get("success"),
-            "access_token": obj.get("accessToken"),
-            "item_id": obj.get("itemId"),
-            "account_type": obj.get("accountType"),
-            "account_sub_type": obj.get("accountSubType"),
-            "account_name": obj.get("accountName"),
-            "account_number": obj.get("accountNumber"),
-            "account_routing": obj.get("accountRouting"),
-            "bank_name": obj.get("bankName")
+            "accessToken": obj.get("accessToken"),
+            "itemId": obj.get("itemId"),
+            "accountType": obj.get("accountType"),
+            "accountSubType": obj.get("accountSubType"),
+            "accountName": obj.get("accountName"),
+            "accountNumber": obj.get("accountNumber"),
+            "accountRouting": obj.get("accountRouting"),
+            "bankName": obj.get("bankName")
         })
         return _obj
 

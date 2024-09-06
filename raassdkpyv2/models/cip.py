@@ -18,50 +18,68 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from typing import List, Optional
-from pydantic import BaseModel, Field, StrictBool, StrictStr, conlist
+from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, StrictBool, StrictStr
+from pydantic import Field
 from raassdkpyv2.models.cip_document import CIPDocument
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 class CIP(BaseModel):
     """
     CIP
-    """
+    """ # noqa: E501
     sent: Optional[StrictBool] = None
     touched: Optional[StrictBool] = None
     rejected: Optional[StrictBool] = None
     manual_required: Optional[StrictBool] = None
     message: Optional[StrictStr] = None
-    documents: Optional[conlist(CIPDocument)] = None
-    updated_at: Optional[datetime] = Field(None, alias="updatedAt")
+    documents: Optional[List[CIPDocument]] = None
+    updated_at: Optional[datetime] = Field(default=None, alias="updatedAt")
     facematch_sent: Optional[StrictBool] = None
     facematch_ok: Optional[StrictBool] = None
     facematch_msg: Optional[StrictStr] = None
-    __properties = ["sent", "touched", "rejected", "manual_required", "message", "documents", "updatedAt", "facematch_sent", "facematch_ok", "facematch_msg"]
+    __properties: ClassVar[List[str]] = ["sent", "touched", "rejected", "manual_required", "message", "documents", "updatedAt", "facematch_sent", "facematch_ok", "facematch_msg"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "protected_namespaces": (),
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> CIP:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of CIP from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude={
+            },
+            exclude_none=True,
+        )
         # override the default output from pydantic by calling `to_dict()` of each item in documents (list)
         _items = []
         if self.documents:
@@ -72,22 +90,22 @@ class CIP(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> CIP:
+    def from_dict(cls, obj: Dict) -> Self:
         """Create an instance of CIP from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return CIP.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = CIP.parse_obj({
+        _obj = cls.model_validate({
             "sent": obj.get("sent"),
             "touched": obj.get("touched"),
             "rejected": obj.get("rejected"),
             "manual_required": obj.get("manual_required"),
             "message": obj.get("message"),
             "documents": [CIPDocument.from_dict(_item) for _item in obj.get("documents")] if obj.get("documents") is not None else None,
-            "updated_at": obj.get("updatedAt"),
+            "updatedAt": obj.get("updatedAt"),
             "facematch_sent": obj.get("facematch_sent"),
             "facematch_ok": obj.get("facematch_ok"),
             "facematch_msg": obj.get("facematch_msg")

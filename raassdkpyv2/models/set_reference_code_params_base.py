@@ -18,63 +18,81 @@ import re  # noqa: F401
 import json
 
 
-
-from pydantic import BaseModel, Field, StrictStr
+from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, StrictStr
+from pydantic import Field
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 class SetReferenceCodeParamsBase(BaseModel):
     """
     SetReferenceCodeParamsBase
-    """
-    operation_id: StrictStr = Field(..., alias="operationId", description="plat Id of operation")
-    sender_name: StrictStr = Field(..., alias="senderName", description="sender full name")
-    receiver_name: StrictStr = Field(..., alias="receiverName", description="receiver full name")
-    network_id: StrictStr = Field(..., alias="networkId", description="ID of cash operator. This can be obtained from Cash Operator")
-    operation_type: StrictStr = Field(..., alias="operationType")
-    cash_provider: StrictStr = Field(..., alias="cashProvider", description="can be (Numi, Greendot, Inpamex, NumiCashDelivery, Incomm) and it's obtained from Cash Network.")
-    __properties = ["operationId", "senderName", "receiverName", "networkId", "operationType", "cashProvider"]
+    """ # noqa: E501
+    operation_id: StrictStr = Field(description="plat Id of operation", alias="operationId")
+    sender_name: StrictStr = Field(description="sender full name", alias="senderName")
+    receiver_name: StrictStr = Field(description="receiver full name", alias="receiverName")
+    network_id: StrictStr = Field(description="ID of cash operator. This can be obtained from Cash Operator", alias="networkId")
+    operation_type: StrictStr = Field(alias="operationType")
+    cash_provider: StrictStr = Field(description="can be (Numi, Greendot, Inpamex, NumiCashDelivery, Incomm) and it's obtained from Cash Network.", alias="cashProvider")
+    __properties: ClassVar[List[str]] = ["operationId", "senderName", "receiverName", "networkId", "operationType", "cashProvider"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "protected_namespaces": (),
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> SetReferenceCodeParamsBase:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of SetReferenceCodeParamsBase from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude={
+            },
+            exclude_none=True,
+        )
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> SetReferenceCodeParamsBase:
+    def from_dict(cls, obj: Dict) -> Self:
         """Create an instance of SetReferenceCodeParamsBase from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return SetReferenceCodeParamsBase.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = SetReferenceCodeParamsBase.parse_obj({
-            "operation_id": obj.get("operationId"),
-            "sender_name": obj.get("senderName"),
-            "receiver_name": obj.get("receiverName"),
-            "network_id": obj.get("networkId"),
-            "operation_type": obj.get("operationType"),
-            "cash_provider": obj.get("cashProvider")
+        _obj = cls.model_validate({
+            "operationId": obj.get("operationId"),
+            "senderName": obj.get("senderName"),
+            "receiverName": obj.get("receiverName"),
+            "networkId": obj.get("networkId"),
+            "operationType": obj.get("operationType"),
+            "cashProvider": obj.get("cashProvider")
         })
         return _obj
 
