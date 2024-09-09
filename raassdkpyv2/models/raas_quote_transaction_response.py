@@ -33,8 +33,8 @@ class RaasQuoteTransactionResponse(BaseModel):
     id: Optional[StrictStr] = None
     source_currency: StrictStr = Field(alias="sourceCurrency")
     destination_currency: StrictStr = Field(alias="destinationCurrency")
-    reason: Dict[str, Any]
-    reason_detail: Dict[str, Any] = Field(alias="reasonDetail")
+    reason: StrictStr = Field(...)
+    reason_detail: Optional[StrictStr] = Field(..., alias="reasonDetail")
     source_amount: Union[StrictFloat, StrictInt] = Field(alias="sourceAmount")
     amount: Union[StrictFloat, StrictInt]
     destination_amount: Union[StrictFloat, StrictInt] = Field(alias="destinationAmount")
@@ -48,7 +48,7 @@ class RaasQuoteTransactionResponse(BaseModel):
     recipient_charge_back: Union[StrictFloat, StrictInt] = Field(alias="recipientChargeBack")
     is_executable: StrictBool = Field(alias="isExecutable")
     valid_time_in_minutes: Union[StrictFloat, StrictInt] = Field(alias="validTimeInMinutes")
-    operation_type: Dict[str, Any] = Field(alias="operationType")
+    operation_type: Optional[StrictStr] = Field(alias="operationType")
     tenant_fee: Union[StrictFloat, StrictInt] = Field(alias="tenantFee")
     sender_user_id: Optional[StrictStr] = Field(default=None, alias="senderUserId")
     total_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="totalAmount")
