@@ -41,6 +41,7 @@ from raassdkpyv2.models.add_bank_account_params_base import AddBankAccountParams
 from raassdkpyv2.models.add_card_partner_params import AddCardPartnerParams
 from raassdkpyv2.models.add_card_session_params import AddCardSessionParams
 from raassdkpyv2.models.add_payment_method_response import AddPaymentMethodResponse
+from raassdkpyv2.models.add_ubn_account_request import AddUBNAccountRequest
 from raassdkpyv2.models.alternate_flow import AlternateFlow
 from raassdkpyv2.models.attachment_responses import AttachmentResponses
 from raassdkpyv2.models.auth_by_token_link500_response import AuthByTokenLink500Response
