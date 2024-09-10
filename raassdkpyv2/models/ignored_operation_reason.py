@@ -12,13 +12,18 @@
 """  # noqa: E501
 
 
+from __future__ import annotations
 import json
 import pprint
 import re  # noqa: F401
-from aenum import Enum, no_arg
+from enum import Enum
 
 
 
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 
 class IgnoredOperationReason(str, Enum):
@@ -37,8 +42,8 @@ class IgnoredOperationReason(str, Enum):
     I_REQUESTED_A_DIFFERENT_AMOUNT = 'I_REQUESTED_A_DIFFERENT_AMOUNT'
 
     @classmethod
-    def from_json(cls, json_str: str) -> IgnoredOperationReason:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of IgnoredOperationReason from a JSON string"""
-        return IgnoredOperationReason(json.loads(json_str))
+        return cls(json.loads(json_str))
 
 

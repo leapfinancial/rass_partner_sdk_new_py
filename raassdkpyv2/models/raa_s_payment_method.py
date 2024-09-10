@@ -18,55 +18,62 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from typing import Optional, Union
-from pydantic import BaseModel, Field, StrictBool, StrictFloat, StrictInt, StrictStr, validator
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import Field
 from raassdkpyv2.models.available_payment_methods import AvailablePaymentMethods
 from raassdkpyv2.models.payment_method_status import PaymentMethodStatus
 from raassdkpyv2.models.payment_token import PaymentToken
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 class RaaSPaymentMethod(BaseModel):
     """
     RaaSPaymentMethod
-    """
-    payment_token: Optional[PaymentToken] = Field(None, alias="paymentToken")
+    """ # noqa: E501
+    account_prefix: Optional[StrictStr] = Field(default=None, alias="accountPrefix")
+    bin: Optional[StrictStr] = None
+    payment_token: Optional[PaymentToken] = Field(default=None, alias="paymentToken")
     status: Optional[PaymentMethodStatus] = None
     application: Optional[StrictStr] = None
-    account_id: Optional[StrictStr] = Field(None, alias="accountId")
+    account_id: Optional[StrictStr] = Field(default=None, alias="accountId")
     longitude: Optional[Union[StrictFloat, StrictInt]] = None
     latitude: Optional[Union[StrictFloat, StrictInt]] = None
-    phone_number: Optional[StrictStr] = Field(None, alias="phoneNumber")
-    country: StrictStr = Field(...)
-    zip_code: Optional[StrictStr] = Field(None, alias="zipCode")
+    phone_number: Optional[StrictStr] = Field(default=None, alias="phoneNumber")
+    country: StrictStr
+    zip_code: Optional[StrictStr] = Field(default=None, alias="zipCode")
     state: Optional[StrictStr] = None
     city: Optional[StrictStr] = None
     address2: Optional[StrictStr] = None
     address1: Optional[StrictStr] = None
     currency: Optional[StrictStr] = None
-    external_id: Optional[StrictStr] = Field(None, alias="externalId")
-    card_network: Optional[StrictStr] = Field(None, alias="cardNetwork")
+    external_id: Optional[StrictStr] = Field(default=None, alias="externalId")
+    card_network: Optional[StrictStr] = Field(default=None, alias="cardNetwork")
     cardtype: Optional[StrictStr] = None
-    security_code: Optional[StrictStr] = Field(None, alias="securityCode")
-    expiration_month: Optional[StrictStr] = Field(None, alias="expirationMonth")
-    expiration_year: Optional[StrictStr] = Field(None, alias="expirationYear")
-    expiration_date: Optional[StrictStr] = Field(None, alias="expirationDate")
-    name_on_card: Optional[StrictStr] = Field(None, alias="nameOnCard")
+    security_code: Optional[StrictStr] = Field(default=None, alias="securityCode")
+    expiration_month: Optional[StrictStr] = Field(default=None, alias="expirationMonth")
+    expiration_year: Optional[StrictStr] = Field(default=None, alias="expirationYear")
+    expiration_date: Optional[StrictStr] = Field(default=None, alias="expirationDate")
+    name_on_card: Optional[StrictStr] = Field(default=None, alias="nameOnCard")
     number: Optional[StrictStr] = None
-    beneficiary_account_id: Optional[StrictStr] = Field(None, alias="beneficiaryAccountId")
-    token_data: Optional[StrictStr] = Field(None, alias="tokenData")
-    card_type: Optional[StrictStr] = Field(None, alias="cardType")
-    account_number: Optional[StrictStr] = Field(None, alias="accountNumber")
-    bank_entity_number: Optional[StrictStr] = Field(None, alias="bankEntityNumber")
-    bank_name: Optional[StrictStr] = Field(None, alias="bankName")
-    bank_account_type: Optional[StrictStr] = Field(None, alias="bankAccountType")
-    updated_at: Optional[datetime] = Field(None, alias="updatedAt")
-    created_at: Optional[datetime] = Field(None, alias="createdAt")
-    is_primary: Optional[StrictBool] = Field(None, alias="isPrimary")
-    type: AvailablePaymentMethods = Field(...)
+    beneficiary_account_id: Optional[StrictStr] = Field(default=None, alias="beneficiaryAccountId")
+    token_data: Optional[StrictStr] = Field(default=None, alias="tokenData")
+    card_type: Optional[StrictStr] = Field(default=None, alias="cardType")
+    account_number: Optional[StrictStr] = Field(default=None, alias="accountNumber")
+    bank_entity_number: Optional[StrictStr] = Field(default=None, alias="bankEntityNumber")
+    bank_name: Optional[StrictStr] = Field(default=None, alias="bankName")
+    bank_account_type: Optional[StrictStr] = Field(default=None, alias="bankAccountType")
+    updated_at: Optional[datetime] = Field(default=None, alias="updatedAt")
+    created_at: Optional[datetime] = Field(default=None, alias="createdAt")
+    is_primary: Optional[StrictBool] = Field(default=None, alias="isPrimary")
+    type: AvailablePaymentMethods
     name: Optional[StrictStr] = None
     id: Optional[StrictStr] = None
-    __properties = ["paymentToken", "status", "application", "accountId", "longitude", "latitude", "phoneNumber", "country", "zipCode", "state", "city", "address2", "address1", "currency", "externalId", "cardNetwork", "cardtype", "securityCode", "expirationMonth", "expirationYear", "expirationDate", "nameOnCard", "number", "beneficiaryAccountId", "tokenData", "cardType", "accountNumber", "bankEntityNumber", "bankName", "bankAccountType", "updatedAt", "createdAt", "isPrimary", "type", "name", "id"]
+    __properties: ClassVar[List[str]] = ["accountPrefix", "bin", "paymentToken", "status", "application", "accountId", "longitude", "latitude", "phoneNumber", "country", "zipCode", "state", "city", "address2", "address1", "currency", "externalId", "cardNetwork", "cardtype", "securityCode", "expirationMonth", "expirationYear", "expirationDate", "nameOnCard", "number", "beneficiaryAccountId", "tokenData", "cardType", "accountNumber", "bankEntityNumber", "bankName", "bankAccountType", "updatedAt", "createdAt", "isPrimary", "type", "name", "id"]
 
-    @validator('cardtype')
+    @field_validator('cardtype')
     def cardtype_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
@@ -76,7 +83,7 @@ class RaaSPaymentMethod(BaseModel):
             raise ValueError("must be one of enum values ('DebitCard', 'CreditCard')")
         return value
 
-    @validator('card_type')
+    @field_validator('card_type')
     def card_type_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
@@ -86,7 +93,7 @@ class RaaSPaymentMethod(BaseModel):
             raise ValueError("must be one of enum values ('DebitCard', 'CreditCard')")
         return value
 
-    @validator('bank_account_type')
+    @field_validator('bank_account_type')
     def bank_account_type_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
@@ -96,78 +103,93 @@ class RaaSPaymentMethod(BaseModel):
             raise ValueError("must be one of enum values ('CheckingAccount', 'SavingsAccount', 'OtherAccount')")
         return value
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "protected_namespaces": (),
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> RaaSPaymentMethod:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of RaaSPaymentMethod from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude={
+            },
+            exclude_none=True,
+        )
         # override the default output from pydantic by calling `to_dict()` of payment_token
         if self.payment_token:
             _dict['paymentToken'] = self.payment_token.to_dict()
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> RaaSPaymentMethod:
+    def from_dict(cls, obj: Dict) -> Self:
         """Create an instance of RaaSPaymentMethod from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return RaaSPaymentMethod.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = RaaSPaymentMethod.parse_obj({
-            "payment_token": PaymentToken.from_dict(obj.get("paymentToken")) if obj.get("paymentToken") is not None else None,
+        _obj = cls.model_validate({
+            "accountPrefix": obj.get("accountPrefix"),
+            "bin": obj.get("bin"),
+            "paymentToken": PaymentToken.from_dict(obj.get("paymentToken")) if obj.get("paymentToken") is not None else None,
             "status": obj.get("status"),
             "application": obj.get("application"),
-            "account_id": obj.get("accountId"),
+            "accountId": obj.get("accountId"),
             "longitude": obj.get("longitude"),
             "latitude": obj.get("latitude"),
-            "phone_number": obj.get("phoneNumber"),
+            "phoneNumber": obj.get("phoneNumber"),
             "country": obj.get("country"),
-            "zip_code": obj.get("zipCode"),
+            "zipCode": obj.get("zipCode"),
             "state": obj.get("state"),
             "city": obj.get("city"),
             "address2": obj.get("address2"),
             "address1": obj.get("address1"),
             "currency": obj.get("currency"),
-            "external_id": obj.get("externalId"),
-            "card_network": obj.get("cardNetwork"),
+            "externalId": obj.get("externalId"),
+            "cardNetwork": obj.get("cardNetwork"),
             "cardtype": obj.get("cardtype"),
-            "security_code": obj.get("securityCode"),
-            "expiration_month": obj.get("expirationMonth"),
-            "expiration_year": obj.get("expirationYear"),
-            "expiration_date": obj.get("expirationDate"),
-            "name_on_card": obj.get("nameOnCard"),
+            "securityCode": obj.get("securityCode"),
+            "expirationMonth": obj.get("expirationMonth"),
+            "expirationYear": obj.get("expirationYear"),
+            "expirationDate": obj.get("expirationDate"),
+            "nameOnCard": obj.get("nameOnCard"),
             "number": obj.get("number"),
-            "beneficiary_account_id": obj.get("beneficiaryAccountId"),
-            "token_data": obj.get("tokenData"),
-            "card_type": obj.get("cardType"),
-            "account_number": obj.get("accountNumber"),
-            "bank_entity_number": obj.get("bankEntityNumber"),
-            "bank_name": obj.get("bankName"),
-            "bank_account_type": obj.get("bankAccountType"),
-            "updated_at": obj.get("updatedAt"),
-            "created_at": obj.get("createdAt"),
-            "is_primary": obj.get("isPrimary"),
+            "beneficiaryAccountId": obj.get("beneficiaryAccountId"),
+            "tokenData": obj.get("tokenData"),
+            "cardType": obj.get("cardType"),
+            "accountNumber": obj.get("accountNumber"),
+            "bankEntityNumber": obj.get("bankEntityNumber"),
+            "bankName": obj.get("bankName"),
+            "bankAccountType": obj.get("bankAccountType"),
+            "updatedAt": obj.get("updatedAt"),
+            "createdAt": obj.get("createdAt"),
+            "isPrimary": obj.get("isPrimary"),
             "type": obj.get("type"),
             "name": obj.get("name"),
             "id": obj.get("id")

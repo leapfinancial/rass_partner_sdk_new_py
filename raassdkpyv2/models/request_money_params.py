@@ -18,85 +18,103 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional, Union
-from pydantic import BaseModel, Field, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, StrictFloat, StrictInt, StrictStr
+from pydantic import Field
 from raassdkpyv2.models.raa_s_payment_method import RaaSPaymentMethod
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 class RequestMoneyParams(BaseModel):
     """
     RequestMoneyParams
-    """
-    correlation_id: StrictStr = Field(..., alias="correlationId")
-    destination_payment_method: RaaSPaymentMethod = Field(..., alias="destinationPaymentMethod")
-    reason: StrictStr = Field(...)
+    """ # noqa: E501
+    correlation_id: StrictStr = Field(alias="correlationId")
+    destination_payment_method: RaaSPaymentMethod = Field(alias="destinationPaymentMethod")
+    reason: StrictStr
     amount: Optional[Union[StrictFloat, StrictInt]] = None
     currency: Optional[StrictStr] = None
-    sender_currency: Optional[StrictStr] = Field(None, alias="senderCurrency")
-    sender_amount: Optional[Union[StrictFloat, StrictInt]] = Field(None, alias="senderAmount")
-    recipient_amount: Union[StrictFloat, StrictInt] = Field(..., alias="recipientAmount")
-    recipient_currency: StrictStr = Field(..., alias="recipientCurrency")
-    bonus_amount: Optional[Union[StrictFloat, StrictInt]] = Field(None, alias="bonusAmount")
-    tenant_id: Optional[StrictStr] = Field(None, alias="tenantId")
-    user_tenant_id: Optional[StrictStr] = Field(None, alias="userTenantId")
+    sender_currency: Optional[StrictStr] = Field(default=None, alias="senderCurrency")
+    sender_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="senderAmount")
+    recipient_amount: Union[StrictFloat, StrictInt] = Field(alias="recipientAmount")
+    recipient_currency: StrictStr = Field(alias="recipientCurrency")
+    bonus_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="bonusAmount")
+    tenant_id: Optional[StrictStr] = Field(default=None, alias="tenantId")
+    user_tenant_id: Optional[StrictStr] = Field(default=None, alias="userTenantId")
     application: Optional[StrictStr] = None
-    exchange_rate: Optional[Union[StrictFloat, StrictInt]] = Field(None, alias="exchangeRate")
-    request_to: StrictStr = Field(..., alias="requestTo")
-    __properties = ["correlationId", "destinationPaymentMethod", "reason", "amount", "currency", "senderCurrency", "senderAmount", "recipientAmount", "recipientCurrency", "bonusAmount", "tenantId", "userTenantId", "application", "exchangeRate", "requestTo"]
+    exchange_rate: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="exchangeRate")
+    request_to: StrictStr = Field(alias="requestTo")
+    __properties: ClassVar[List[str]] = ["correlationId", "destinationPaymentMethod", "reason", "amount", "currency", "senderCurrency", "senderAmount", "recipientAmount", "recipientCurrency", "bonusAmount", "tenantId", "userTenantId", "application", "exchangeRate", "requestTo"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "protected_namespaces": (),
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> RequestMoneyParams:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of RequestMoneyParams from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude={
+            },
+            exclude_none=True,
+        )
         # override the default output from pydantic by calling `to_dict()` of destination_payment_method
         if self.destination_payment_method:
             _dict['destinationPaymentMethod'] = self.destination_payment_method.to_dict()
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> RequestMoneyParams:
+    def from_dict(cls, obj: Dict) -> Self:
         """Create an instance of RequestMoneyParams from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return RequestMoneyParams.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = RequestMoneyParams.parse_obj({
-            "correlation_id": obj.get("correlationId"),
-            "destination_payment_method": RaaSPaymentMethod.from_dict(obj.get("destinationPaymentMethod")) if obj.get("destinationPaymentMethod") is not None else None,
+        _obj = cls.model_validate({
+            "correlationId": obj.get("correlationId"),
+            "destinationPaymentMethod": RaaSPaymentMethod.from_dict(obj.get("destinationPaymentMethod")) if obj.get("destinationPaymentMethod") is not None else None,
             "reason": obj.get("reason"),
             "amount": obj.get("amount"),
             "currency": obj.get("currency"),
-            "sender_currency": obj.get("senderCurrency"),
-            "sender_amount": obj.get("senderAmount"),
-            "recipient_amount": obj.get("recipientAmount"),
-            "recipient_currency": obj.get("recipientCurrency"),
-            "bonus_amount": obj.get("bonusAmount"),
-            "tenant_id": obj.get("tenantId"),
-            "user_tenant_id": obj.get("userTenantId"),
+            "senderCurrency": obj.get("senderCurrency"),
+            "senderAmount": obj.get("senderAmount"),
+            "recipientAmount": obj.get("recipientAmount"),
+            "recipientCurrency": obj.get("recipientCurrency"),
+            "bonusAmount": obj.get("bonusAmount"),
+            "tenantId": obj.get("tenantId"),
+            "userTenantId": obj.get("userTenantId"),
             "application": obj.get("application"),
-            "exchange_rate": obj.get("exchangeRate"),
-            "request_to": obj.get("requestTo")
+            "exchangeRate": obj.get("exchangeRate"),
+            "requestTo": obj.get("requestTo")
         })
         return _obj
 

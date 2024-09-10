@@ -18,36 +18,41 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from typing import Optional, Union
-from pydantic import BaseModel, Field, StrictFloat, StrictInt, StrictStr, validator
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import Field
 from raassdkpyv2.models.language import Language
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 class PerformLevelOneParams(BaseModel):
     """
     PerformLevelOneParams
-    """
+    """ # noqa: E501
     lang: Optional[Language] = None
-    address_description: Optional[StrictStr] = Field(None, alias="addressDescription")
-    country_code: Optional[StrictStr] = Field(None, alias="countryCode")
-    call_location_longitude: Union[StrictFloat, StrictInt] = Field(..., alias="callLocationLongitude")
-    call_location_latitude: Union[StrictFloat, StrictInt] = Field(..., alias="callLocationLatitude")
-    city: StrictStr = Field(...)
-    birth_state: Optional[StrictStr] = Field(None, alias="birthState")
-    state: StrictStr = Field(...)
-    zip_code: StrictStr = Field(..., alias="zipCode")
+    address_description: Optional[StrictStr] = Field(default=None, alias="addressDescription")
+    country_code: Optional[StrictStr] = Field(default=None, alias="countryCode")
+    call_location_longitude: Union[StrictFloat, StrictInt] = Field(alias="callLocationLongitude")
+    call_location_latitude: Union[StrictFloat, StrictInt] = Field(alias="callLocationLatitude")
+    city: StrictStr
+    birth_state: Optional[StrictStr] = Field(default=None, alias="birthState")
+    state: StrictStr
+    zip_code: StrictStr = Field(alias="zipCode")
     gender: Optional[StrictStr] = None
-    place_detail: Optional[StrictStr] = Field(None, alias="placeDetail")
+    place_detail: Optional[StrictStr] = Field(default=None, alias="placeDetail")
     address2: Optional[StrictStr] = None
-    address1: StrictStr = Field(...)
-    date_of_birth: Optional[datetime] = Field(None, alias="dateOfBirth")
+    address1: StrictStr
+    date_of_birth: Optional[datetime] = Field(default=None, alias="dateOfBirth")
     email: Optional[StrictStr] = None
-    second_last_name: Optional[StrictStr] = Field(None, alias="secondLastName")
-    middle_name: Optional[StrictStr] = Field(None, alias="middleName")
-    last_name: StrictStr = Field(..., alias="lastName")
-    first_name: StrictStr = Field(..., alias="firstName")
-    __properties = ["lang", "addressDescription", "countryCode", "callLocationLongitude", "callLocationLatitude", "city", "birthState", "state", "zipCode", "gender", "placeDetail", "address2", "address1", "dateOfBirth", "email", "secondLastName", "middleName", "lastName", "firstName"]
+    second_last_name: Optional[StrictStr] = Field(default=None, alias="secondLastName")
+    middle_name: Optional[StrictStr] = Field(default=None, alias="middleName")
+    last_name: StrictStr = Field(alias="lastName")
+    first_name: StrictStr = Field(alias="firstName")
+    __properties: ClassVar[List[str]] = ["lang", "addressDescription", "countryCode", "callLocationLongitude", "callLocationLatitude", "city", "birthState", "state", "zipCode", "gender", "placeDetail", "address2", "address1", "dateOfBirth", "email", "secondLastName", "middleName", "lastName", "firstName"]
 
-    @validator('gender')
+    @field_validator('gender')
     def gender_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
@@ -57,61 +62,74 @@ class PerformLevelOneParams(BaseModel):
             raise ValueError("must be one of enum values ('Male', 'Female')")
         return value
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "protected_namespaces": (),
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> PerformLevelOneParams:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of PerformLevelOneParams from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude={
+            },
+            exclude_none=True,
+        )
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> PerformLevelOneParams:
+    def from_dict(cls, obj: Dict) -> Self:
         """Create an instance of PerformLevelOneParams from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return PerformLevelOneParams.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = PerformLevelOneParams.parse_obj({
+        _obj = cls.model_validate({
             "lang": obj.get("lang"),
-            "address_description": obj.get("addressDescription"),
-            "country_code": obj.get("countryCode"),
-            "call_location_longitude": obj.get("callLocationLongitude"),
-            "call_location_latitude": obj.get("callLocationLatitude"),
+            "addressDescription": obj.get("addressDescription"),
+            "countryCode": obj.get("countryCode"),
+            "callLocationLongitude": obj.get("callLocationLongitude"),
+            "callLocationLatitude": obj.get("callLocationLatitude"),
             "city": obj.get("city"),
-            "birth_state": obj.get("birthState"),
+            "birthState": obj.get("birthState"),
             "state": obj.get("state"),
-            "zip_code": obj.get("zipCode"),
+            "zipCode": obj.get("zipCode"),
             "gender": obj.get("gender"),
-            "place_detail": obj.get("placeDetail"),
+            "placeDetail": obj.get("placeDetail"),
             "address2": obj.get("address2"),
             "address1": obj.get("address1"),
-            "date_of_birth": obj.get("dateOfBirth"),
+            "dateOfBirth": obj.get("dateOfBirth"),
             "email": obj.get("email"),
-            "second_last_name": obj.get("secondLastName"),
-            "middle_name": obj.get("middleName"),
-            "last_name": obj.get("lastName"),
-            "first_name": obj.get("firstName")
+            "secondLastName": obj.get("secondLastName"),
+            "middleName": obj.get("middleName"),
+            "lastName": obj.get("lastName"),
+            "firstName": obj.get("firstName")
         })
         return _obj
 

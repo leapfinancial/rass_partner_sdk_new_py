@@ -18,75 +18,86 @@ import re  # noqa: F401
 import json
 
 
-
-from pydantic import BaseModel, Field, StrictStr
+from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, StrictStr
+from pydantic import Field
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
 
 class OperationContactData(BaseModel):
     """
     OperationContactData
-    """
-    id: StrictStr = Field(...)
-    contact_id: StrictStr = Field(..., alias="contactId")
-    country_code: StrictStr = Field(..., alias="countryCode")
-    mobile_phone: StrictStr = Field(..., alias="mobilePhone")
-    first_name: StrictStr = Field(..., alias="firstName")
-    middle_name: StrictStr = Field(..., alias="middleName")
-    last_name: StrictStr = Field(..., alias="lastName")
-    last_name2: StrictStr = Field(..., alias="lastName2")
-    email: StrictStr = Field(...)
-    relationship: StrictStr = Field(...)
-    __properties = ["id", "contactId", "countryCode", "mobilePhone", "firstName", "middleName", "lastName", "lastName2", "email", "relationship"]
+    """ # noqa: E501
+    id: StrictStr
+    contact_id: StrictStr = Field(alias="contactId")
+    country_code: StrictStr = Field(alias="countryCode")
+    mobile_phone: StrictStr = Field(alias="mobilePhone")
+    first_name: StrictStr = Field(alias="firstName")
+    middle_name: StrictStr = Field(alias="middleName")
+    last_name: StrictStr = Field(alias="lastName")
+    last_name2: StrictStr = Field(alias="lastName2")
+    email: StrictStr
+    relationship: StrictStr
+    __properties: ClassVar[List[str]] = ["id", "contactId", "countryCode", "mobilePhone", "firstName", "middleName", "lastName", "lastName2", "email", "relationship"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "protected_namespaces": (),
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> OperationContactData:
+    def from_json(cls, json_str: str) -> Self:
         """Create an instance of OperationContactData from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self):
-        """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
-                          exclude={
-                          },
-                          exclude_none=True)
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude={
+            },
+            exclude_none=True,
+        )
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> OperationContactData:
+    def from_dict(cls, obj: Dict) -> Self:
         """Create an instance of OperationContactData from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return OperationContactData.parse_obj(obj)
+            return cls.model_validate(obj)
 
-        _obj = OperationContactData.parse_obj({
+        _obj = cls.model_validate({
             "id": obj.get("id"),
-            "contact_id": obj.get("contactId"),
             "contactId": obj.get("contactId"),
-            "country_code": obj.get("countryCode"),
             "countryCode": obj.get("countryCode"),
-            "mobile_phone": obj.get("mobilePhone"),
             "mobilePhone": obj.get("mobilePhone"),
-            "first_name": obj.get("firstName"),
             "firstName": obj.get("firstName"),
-            "middle_name": obj.get("middleName"),
             "middleName": obj.get("middleName"),
-            "last_name": obj.get("lastName"),
             "lastName": obj.get("lastName"),
-            "last_name2": obj.get("lastName2"),
             "lastName2": obj.get("lastName2"),
             "email": obj.get("email"),
             "relationship": obj.get("relationship")
