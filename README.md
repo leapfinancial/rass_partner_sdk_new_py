@@ -326,6 +326,8 @@ parse_obj is deprecated and will be removed in the future, use model_validate in
     _obj = ExchangeRateDTO.model_validate(obj)
             
 
+test commit
+
 
 
 
